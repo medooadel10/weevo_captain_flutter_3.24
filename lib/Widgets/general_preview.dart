@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:weevo_captain_app/core/widgets/custom_shimmer.dart';
 
 import '../Providers/auth_provider.dart';
 import '../Providers/wallet_provider.dart';
@@ -45,9 +46,8 @@ class _GeneralPreviewState extends State<GeneralPreview> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Visibility(
-            visible: authProvider.groupBannersState != NetworkState.waiting,
-            child: SizedBox(
+          if (authProvider.groupBannersState != NetworkState.waiting)
+            SizedBox(
               height: 120.h,
               width: double.infinity,
               child: CarouselSlider(
@@ -84,8 +84,20 @@ class _GeneralPreviewState extends State<GeneralPreview> {
                     onPageChanged:
                         (int i, CarouselPageChangedReason reason) {}),
               ),
+            )
+          else
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+              ),
+              child: CustomShimmer(
+                height: 120.h,
+                width: double.infinity,
+                shapeBorder: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+              ),
             ),
-          ),
           Padding(
             padding: const EdgeInsetsDirectional.only(
               start: 10,

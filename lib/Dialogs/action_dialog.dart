@@ -45,19 +45,21 @@ class ActionDialog extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
-                                title!,
-                                style: const TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w700,
+                              if (title != null) ...[
+                                Text(
+                                  title!,
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.start,
                                 ),
-                                textAlign: TextAlign.start,
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                              ],
                               Text(
-                                content!,
+                                content ?? '',
                                 style: const TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w600,
