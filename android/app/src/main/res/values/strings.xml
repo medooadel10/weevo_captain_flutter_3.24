@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weevo Courier</string>
+    <string name="facebook_app_id">984568526404756</string>
+    <string name="fb_login_protocol_scheme">fb984568526404756</string>
+    <string name="freshchat_file_provider_authority">org.emarketingo.courier.provider</string>
+    <string name="facebook_client_token">9d4d37d934ad10e675f4d43cf4f1ea67</string>
+</resources>

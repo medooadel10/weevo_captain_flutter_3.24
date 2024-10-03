@@ -1,0 +1,262 @@
+{
+  "project_info": {
+    "project_number": "183711190435",
+    "project_id": "weevo-bfa67",
+    "storage_bucket": "weevo-bfa67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183711190435:android:d8ee508c14f28951f2de16",
+        "android_client_info": {
+          "package_name": "com.end_customer.weevo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183711190435-1knklga7phtmte8oask7ri24pl0rrj23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTdtjPztYGOEWJxdnF6NZod1pER67fces"
+        },
+        {
+          "current_key": "AIzaSyA8xxp3dqxDmmlKcP9Isr6617DcYmvwW-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183711190435-1knklga7phtmte8oask7ri24pl0rrj23.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "183711190435-74c84u5dq2cur88hbkpo4an91de5e3g3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.weevoCaptain"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183711190435:android:248e3fa7acaa4bebf2de16",
+        "android_client_info": {
+          "package_name": "org.emarketing.weevo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183711190435-1knklga7phtmte8oask7ri24pl0rrj23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTdtjPztYGOEWJxdnF6NZod1pER67fces"
+        },
+        {
+          "current_key": "AIzaSyA8xxp3dqxDmmlKcP9Isr6617DcYmvwW-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183711190435-1knklga7phtmte8oask7ri24pl0rrj23.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "183711190435-74c84u5dq2cur88hbkpo4an91de5e3g3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.weevoCaptain"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183711190435:android:4470d48bc28a607ff2de16",
+        "android_client_info": {
+          "package_name": "org.emarketingo.courier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183711190435-2kodenssv355a57vmgfnce2crh0pdvgb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.courier",
+            "certificate_hash": "2d8e49d94ceff69b4ee978c4202a08a4f306483c"
+          }
+        },
+        {
+          "client_id": "183711190435-2ojjru90l5md7580rolkr6f37rpb1pnm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.courier",
+            "certificate_hash": "cc1202ed09c0f6fa0f924b0521fad943aab00948"
+          }
+        },
+        {
+          "client_id": "183711190435-2vs594fod7pikk6g049v746qci29mcn1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.courier",
+            "certificate_hash": "3b271e858c2ce3c65e217cd4ec90272376e30141"
+          }
+        },
+        {
+          "client_id": "183711190435-3tc1bhnmkhcg8dvem7u21gbj20rqjes2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.courier",
+            "certificate_hash": "64c41404da9c94be0114634c0f8ac250c6752ae6"
+          }
+        },
+        {
+          "client_id": "183711190435-kon7f23drk9ij067eq73o3s7l41g672t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.courier",
+            "certificate_hash": "946ca789a8dc401b9619d00be5a2cc53bbb674ac"
+          }
+        },
+        {
+          "client_id": "183711190435-oh86mh0epb372dbfe4prrmsdnqhak3tq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.courier",
+            "certificate_hash": "c636b7a2a766746efd47d8d9559c13cd3971ed1a"
+          }
+        },
+        {
+          "client_id": "183711190435-1knklga7phtmte8oask7ri24pl0rrj23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTdtjPztYGOEWJxdnF6NZod1pER67fces"
+        },
+        {
+          "current_key": "AIzaSyA8xxp3dqxDmmlKcP9Isr6617DcYmvwW-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183711190435-1knklga7phtmte8oask7ri24pl0rrj23.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "183711190435-74c84u5dq2cur88hbkpo4an91de5e3g3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.weevoCaptain"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183711190435:android:1563b0c12dcddfbaf2de16",
+        "android_client_info": {
+          "package_name": "org.emarketingo.weevo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183711190435-55mhm56484gerrmbhdugbluqjhid3gjj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.weevo",
+            "certificate_hash": "0d8d4a10d77b4716d19ba16e12cf2bbf32a05e52"
+          }
+        },
+        {
+          "client_id": "183711190435-7e5srvqc3h1p9qnq3qcbku57juv6frj7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.weevo",
+            "certificate_hash": "c636b7a2a766746efd47d8d9559c13cd3971ed1a"
+          }
+        },
+        {
+          "client_id": "183711190435-cuiuikepfkvvbbqkc86kfoiifv75mvrm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.weevo",
+            "certificate_hash": "3b271e858c2ce3c65e217cd4ec90272376e30141"
+          }
+        },
+        {
+          "client_id": "183711190435-hpm1qrdqgvge40aq2f16sj81ibb8molb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.weevo",
+            "certificate_hash": "318064d6c79a0d945fcb4d69370b2585dda768c5"
+          }
+        },
+        {
+          "client_id": "183711190435-qjefru31khksbh55g4r8mjcfhhlueefm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.weevo",
+            "certificate_hash": "64c41404da9c94be0114634c0f8ac250c6752ae6"
+          }
+        },
+        {
+          "client_id": "183711190435-t87umf4n6j66j4oosrc69t9fs7tnav39.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.emarketingo.weevo",
+            "certificate_hash": "2d8e49d94ceff69b4ee978c4202a08a4f306483c"
+          }
+        },
+        {
+          "client_id": "183711190435-1knklga7phtmte8oask7ri24pl0rrj23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTdtjPztYGOEWJxdnF6NZod1pER67fces"
+        },
+        {
+          "current_key": "AIzaSyA8xxp3dqxDmmlKcP9Isr6617DcYmvwW-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183711190435-1knklga7phtmte8oask7ri24pl0rrj23.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "183711190435-74c84u5dq2cur88hbkpo4an91de5e3g3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.weevoCaptain"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

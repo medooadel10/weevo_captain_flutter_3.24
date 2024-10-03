@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+		<true/>
+		<key>CFBundleDevelopmentRegion</key>
+		<string>$(DEVELOPMENT_LANGUAGE)</string>
+		<key>CFBundleDisplayName</key>
+		<string>Weevo captain | ويفو كابتن</string>
+		<key>CFBundleExecutable</key>
+		<string>$(EXECUTABLE_NAME)</string>
+		<key>CFBundleIdentifier</key>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+		<key>CFBundleInfoDictionaryVersion</key>
+		<string>6.0</string>
+		<key>CFBundleName</key>
+		<string>Weevo captain | ويفو كابتن</string>
+		<key>CFBundlePackageType</key>
+		<string>APPL</string>
+		<key>CFBundleShortVersionString</key>
+		<string>$(MARKETING_VERSION)</string>
+		<key>CFBundleSignature</key>
+		<string>????</string>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>fb688655212432261</string>
+				</array>
+			</dict>
+		</array>
+		<key>CFBundleVersion</key>
+		<string>$(CURRENT_PROJECT_VERSION)</string>
+		<key>FacebookAppID</key>
+		<string>984568526404756</string>
+		<key>FacebookClientToken</key>
+		<string>9d4d37d934ad10e675f4d43cf4f1ea67</string>
+		<key>FacebookDisplayName</key>
+		<string>Weevo Captain</string>
+		<key>FirebaseAppDelegateProxyEnabled</key>
+		<false/>
+		<key>LSApplicationCategoryType</key>
+		<string></string>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>https</string>
+			<string>http</string>
+		</array>
+		<key>LSRequiresIPhoneOS</key>
+		<true/>
+		<key>NSCameraUsageDescription</key>
+		<string>This app needs camera access to scan QR codes</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>This app needs photos access to get QR code from photo library</string>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Weevo Captain need this permission to be able to open your wallet</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>Weevo Captain needs access to location when open and in the background so merchant can track his shipment</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>Weevo Captain needs access to location when in the background so merchant can track his shipment</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Weevo Captain needs access to location when open so merchant can track his shipment</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Allow Weevo Captain to access your microphone to can record a voice note in chat</string>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+		<true/>
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>fetch</string>
+			<string>remote-notification</string>
+		</array>
+		<key>UILaunchStoryboardName</key>
+		<string>LaunchScreen</string>
+		<key>UIMainStoryboardFile</key>
+		<string>Main</string>
+		<key>UISupportedInterfaceOrientations</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+		</array>
+		<key>UISupportedInterfaceOrientations~ipad</key>
+		<array>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+			<string>UIInterfaceOrientationPortrait</string>
+		</array>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<false/>
+		<key>io.flutter.embedded_views_preview</key>
+		<true/>
+		<key>UIStatusBarHidden</key>
+		<false/>
+	</dict>
+</plist>
