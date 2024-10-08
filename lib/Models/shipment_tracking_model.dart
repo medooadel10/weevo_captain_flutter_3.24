@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../features/wasully_details/data/models/wasully_model.dart';
 
 class ShipmentTrackingModel {
@@ -110,37 +112,40 @@ class ShipmentTrackingModel {
         courierImage: map['courier_image'],
       );
 
-  Map<String, dynamic> toJson() => {
-        'shipment_id': shipmentId,
-        'delivery_state': deliveringState,
-        'delivery_city': deliveringCity,
-        'receiving_state': receivingState,
-        'receiving_city': receivingCity,
-        'receiving_street': receivingStreet,
-        'receiving_landmark': receivingLandmark,
-        'receiving_building_number': receivingBuildingNumber,
-        'receiving_floor': receivingFloor,
-        'receiving_apartment': receivingApartment,
-        'receiving_lat': receivingLat,
-        'receiving_lng': receivingLng,
-        'delivery_lat': deliveringLat,
-        'delivering_lng': deliveringLng,
-        'from_lat': fromLat,
-        'client_phone': clientPhone,
-        'merchant_national_id': merchantNationalId,
-        'courier_national_id': courierNationalId,
-        'from_lng': fromLng,
-        'merchant_id': merchantId,
-        'courier_id': courierId,
-        'status': status,
-        'payment_method': paymentMethod,
-        'has_children': hasChildren,
-        'merchant_image': merchantImage,
-        'merchant_name': merchantName,
-        'merchant_phone': merchantPhone,
-        'courier_phone': courierPhone,
-        'courier_name': courierName,
-        'location_id_Status': locationIdStatus,
-        'courier_image': courierImage,
-      };
+  Map<String, dynamic> toJson() {
+    log('Name : $courierName');
+    return {
+      'shipment_id': shipmentId,
+      'delivery_state': deliveringState,
+      'delivery_city': deliveringCity,
+      'receiving_state': receivingState,
+      'receiving_city': receivingCity,
+      'receiving_street': receivingStreet,
+      'receiving_landmark': receivingLandmark,
+      'receiving_building_number': receivingBuildingNumber,
+      'receiving_floor': receivingFloor,
+      'receiving_apartment': receivingApartment,
+      'receiving_lat': receivingLat,
+      'receiving_lng': receivingLng,
+      'delivery_lat': deliveringLat,
+      'delivering_lng': deliveringLng,
+      'from_lat': fromLat,
+      'client_phone': clientPhone,
+      'merchant_national_id': merchantNationalId,
+      'courier_national_id': courierNationalId,
+      'from_lng': fromLng,
+      'merchant_id': merchantId,
+      'courier_id': courierId,
+      'status': status,
+      'payment_method': paymentMethod,
+      'has_children': hasChildren,
+      'merchant_image': merchantImage,
+      'merchant_name': merchantName,
+      'merchant_phone': merchantPhone,
+      'courier_phone': courierPhone,
+      'courier_name': courierName,
+      'location_id_Status': locationIdStatus,
+      'courier_image': courierImage,
+    };
+  }
 }

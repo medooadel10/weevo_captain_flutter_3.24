@@ -63,6 +63,7 @@ class _HomeState extends State<Home> {
     _authProvider.getUserLocation();
     getData();
     log('My token ${Preferences.instance.getAccessToken}');
+    log('My Name ${_authProvider.name}');
   }
 
   void initChatBadge() async {

@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../../Models/refresh_qr_code.dart';
 import '../../../../Models/shipment_tracking_model.dart';
@@ -130,59 +128,6 @@ class WasullyDetailsRepo {
       });
       return DataResult.success(token);
     } on FirebaseException {
-      return DataResult.failure('حدث خطأ ما, الرجاء المحاولة مرة اخرى');
-    }
-  }
-
-  Future<DataResult<void>> sendNotification(
-      {required Map<String, dynamic> data,
-      required String toToken,
-      required String screenTo,
-      required String title,
-      required String body,
-      required String image,
-      required String type}) async {
-    try {
-      const String firebaseProjectName = 'weevo-bfa67';
-      log('SEND');
-      http.Response r = await http.post(
-        Uri.parse(
-            'https://fcm.googleapis.com/v1/projects/$firebaseProjectName/messages:send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${Preferences.instance.getFCMAccessToken}',
-        },
-        body: jsonEncode(
-          {
-            "message": {
-              "token": toToken,
-              "notification": {
-                "title": title,
-                "body": body,
-                "image": image,
-              },
-              'data': {
-                "data": data.toString(),
-                "type": type,
-                "screen_to": screenTo
-              },
-              "android": {
-                "notification": {
-                  "click_action": "FLUTTER_NOTIFICATION_CLICK",
-                  "sound": "default"
-                },
-                "priority": "high"
-              }
-            }
-          },
-        ),
-      );
-      log('body -> ${r.body}');
-      log('url -> ${r.request?.url}');
-      log('status code -> ${r.statusCode}');
-      return DataResult.success(null);
-    } on http.ClientException catch (e) {
-      log('ERROR: ${e.toString()}');
       return DataResult.failure('حدث خطأ ما, الرجاء المحاولة مرة اخرى');
     }
   }

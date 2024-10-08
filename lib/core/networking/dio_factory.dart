@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 
 class DioFactory {
-  static Dio? dio;
+  static late Dio dio;
 
   static void init() {
-    if (dio != null) return;
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
-      connectTimeout: const Duration(seconds: 60),
-      receiveTimeout: const Duration(seconds: 60),
+      connectTimeout: const Duration(seconds: 120),
+      receiveTimeout: const Duration(seconds: 120),
+      sendTimeout: const Duration(seconds: 120),
     );
     dio = Dio(options);
   }
@@ -18,11 +18,11 @@ class DioFactory {
     Map<String, dynamic>? query,
     String? token,
   }) async {
-    dio?.options.headers = {
+    dio.options.headers = {
       'Authorization': 'Bearer $token',
       'Accept': 'application/json',
     };
-    return await dio!.get(
+    return await dio.get(
       url,
       queryParameters: query,
     );
@@ -32,15 +32,17 @@ class DioFactory {
     required String url,
     required Map<String, dynamic> data,
     String? token,
+    Map<String, dynamic>? headers,
   }) async {
-    return await dio!.post(
+    return await dio.post(
       url,
       data: data,
       options: Options(
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
+        headers: headers ??
+            {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
       ),
     );
   }
@@ -50,7 +52,7 @@ class DioFactory {
     required FormData form,
     String? token,
   }) async {
-    return await dio!.post(
+    return await dio.post(
       url,
       data: form,
       options: Options(
@@ -67,7 +69,7 @@ class DioFactory {
     required Map<String, dynamic> data,
     String? token,
   }) async {
-    return await dio!.put(
+    return await dio.put(
       url,
       data: data,
       options: Options(
@@ -84,7 +86,7 @@ class DioFactory {
     required Map<String, dynamic> data,
     String? token,
   }) async {
-    return await dio!.delete(
+    return await dio.delete(
       url,
       data: data,
       options: Options(

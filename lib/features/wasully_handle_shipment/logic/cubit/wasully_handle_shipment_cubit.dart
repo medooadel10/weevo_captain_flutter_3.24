@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -73,6 +75,7 @@ class WasullyHandleShipmentCubit extends Cubit<WasullyHandleShipmentState> {
         emit(WasullyHandleShipmentValidateQrCodeError(result.error!));
       }
     } else {
+      log('message: ${result.error!}');
       emit(WasullyHandleShipmentValidateQrCodeError(result.error!));
     }
   }

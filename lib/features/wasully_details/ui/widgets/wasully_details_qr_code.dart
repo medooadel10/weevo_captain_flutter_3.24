@@ -132,7 +132,7 @@ class WasullyDetailsQrCode extends StatelessWidget {
                         merchantImage: cubit.wasullyModel!.merchant.photo,
                         merchantName: cubit.wasullyModel!.merchant.name,
                         merchantPhone: cubit.wasullyModel!.merchant.phone,
-                        courierName: authProvider.name,
+                        courierName: Preferences.instance.getUserName,
                         courierImage: authProvider.photo,
                         courierPhone: authProvider.phone,
                         wasullyModel: cubit.wasullyModel,

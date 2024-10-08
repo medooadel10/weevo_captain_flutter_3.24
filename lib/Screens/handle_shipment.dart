@@ -1087,6 +1087,9 @@ class _HandleShipmentState extends State<HandleShipment> {
                                                 .toString())
                                             .get();
                                     String token = userToken['fcmToken'];
+                                    log('CourierName ${Preferences.instance.getUserName}');
+                                    log('CourierName2 ${authProvider.name}');
+
                                     _authProvider.sendNotification(
                                         title: 'تهانينا شحنتك اتسلمت',
                                         body:
@@ -1139,8 +1142,8 @@ class _HandleShipmentState extends State<HandleShipment> {
                                                     widget.model.courierImage,
                                                 merchantName:
                                                     widget.model.merchantName,
-                                                courierName:
-                                                    widget.model.courierName,
+                                                courierName: Preferences
+                                                    .instance.getUserName,
                                                 merchantPhone:
                                                     widget.model.merchantPhone,
                                                 clientPhone:

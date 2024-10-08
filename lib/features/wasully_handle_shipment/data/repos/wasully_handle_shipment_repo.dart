@@ -68,6 +68,7 @@ class WasullyHandleShipmentRepo {
 
       return DataResult.success(null);
     } on DioException catch (e) {
+      log('message: ${e.response?.data}');
       if (e.response?.statusCode == 401) {
         return DataResult.failure('حدث خطأ ما, الرجاء المحاولة مرة اخرى');
       } else {

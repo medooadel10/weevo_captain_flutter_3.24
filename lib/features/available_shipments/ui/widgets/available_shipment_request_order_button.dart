@@ -175,7 +175,10 @@ class AvailableShipmentRequestOrderButton extends StatelessWidget {
                                 width: double.infinity,
                                 child: WeevoButton(
                                   onTap: () {
-                                    cubit.applyShipment(model: model);
+                                    cubit.applyShipment(
+                                        model: model,
+                                        auth: Provider.of<AuthProvider>(context,
+                                            listen: false));
                                   },
                                   color: weevoPrimaryOrangeColor,
                                   isStable: true,

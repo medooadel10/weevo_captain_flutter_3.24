@@ -65,7 +65,8 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
     }
   }
 
-  void applyShipment({AvailableShipmentModel? model}) async {
+  void applyShipment(
+      {AvailableShipmentModel? model, required AuthProvider auth}) async {
     if (state is WasullyDetailsApplyShipmentLoadingState) return;
     emit(WasullyDetailsApplyShipmentLoadingState());
     final result = await _wasullyDetailsRepo.applyShipment(
@@ -80,17 +81,18 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
             : num.parse(wasullyModel!.amount).toDouble(),
         currency: 'EGP',
       );
-      sentNotifications(result.data!);
+      sentNotifications(result.data!, auth);
       emit(WasullyDetailsApplyShipmentSuccessState());
     } else {
       emit(WasullyDetailsApplyShipmentErrorState(result.error!));
     }
   }
 
-  Future<void> sentNotifications(WasullyApplyShipmentResponse data) async {
+  Future<void> sentNotifications(
+      WasullyApplyShipmentResponse data, AuthProvider authProvider) async {
     final result = await _wasullyDetailsRepo.sentNotificationData(data);
     if (result.success!) {
-      await _wasullyDetailsRepo.sendNotification(
+      await authProvider.sendNotification(
           title: 'ويفو وفرلك كابتن',
           body:
               'الكابتن ${data.captainModel.name} قبل طلب الشحن وتم خصم مقدم الطلب',

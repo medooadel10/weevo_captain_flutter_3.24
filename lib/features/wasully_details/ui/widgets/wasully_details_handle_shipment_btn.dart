@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +35,7 @@ class WasullyDetailsHandleShipmentBtn extends StatelessWidget {
                   BlocConsumer<WasullyDetailsCubit, WasullyDetailsState>(
                     listener: (context, state) {
                       if (state is WasullyDetailshandleShipmentSuccessState) {
+                        log('Preferences.instance.getUserName: ${Preferences.instance.getUserName}');
                         MagicRouter.pop();
                         MagicRouter.navigateTo(
                           WasullyHandleShipmentScreen(
@@ -76,7 +79,7 @@ class WasullyDetailsHandleShipmentBtn extends StatelessWidget {
                               merchantImage: cubit.wasullyModel!.merchant.photo,
                               merchantName: cubit.wasullyModel!.merchant.name,
                               merchantPhone: cubit.wasullyModel!.merchant.phone,
-                              courierName: authProvider.name,
+                              courierName: Preferences.instance.getUserName,
                               courierImage: authProvider.photo,
                               courierPhone: authProvider.phone,
                               wasullyModel: cubit.wasullyModel,
@@ -136,7 +139,7 @@ class WasullyDetailsHandleShipmentBtn extends StatelessWidget {
                   merchantImage: cubit.wasullyModel!.merchant.photo,
                   merchantName: cubit.wasullyModel!.merchant.name,
                   merchantPhone: cubit.wasullyModel!.merchant.phone,
-                  courierName: authProvider.name,
+                  courierName: Preferences.instance.getUserName,
                   courierImage: authProvider.photo,
                   courierPhone: authProvider.phone,
                   wasullyModel: cubit.wasullyModel,

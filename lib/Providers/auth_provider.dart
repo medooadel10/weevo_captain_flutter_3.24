@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +18,6 @@ import 'package:freshchat_sdk/freshchat_sdk.dart' as fresh_chat;
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
@@ -77,6 +77,7 @@ import '../Utilits/constants.dart';
 import '../Utilits/notification_const.dart';
 import '../core/httpHelper/http_helper.dart';
 import '../core/networking/api_constants.dart';
+import '../core/networking/dio_factory.dart';
 import '../features/wasully_handle_shipment/ui/widgets/wasully_rating_dialog.dart';
 import '../router/router.dart';
 
@@ -1385,7 +1386,7 @@ class AuthProvider with ChangeNotifier {
   Future<void> setCurrentCaptainLocation() async {
     await getUserLocation();
     try {
-      Response r = await HttpHelper.instance.httpPost(
+      http.Response r = await HttpHelper.instance.httpPost(
         'set-current-location',
         true,
         body: {
@@ -2261,7 +2262,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> authLogin() async {
     try {
-      Response r = await HttpHelper.instance.httpPost(
+      http.Response r = await HttpHelper.instance.httpPost(
         'login',
         false,
         body: {
@@ -2472,9 +2473,8 @@ class AuthProvider with ChangeNotifier {
           }
         } else if (m.data['type'] == 'rating') {
           MagicRouter.navigateAndPopAll(RatingDialog(
-              model: ShipmentTrackingModel.fromJson(json.decode(
-            m.data['data'],
-          ))));
+              model: ShipmentTrackingModel.fromJson(
+                  jsonDecode((m.data['data'] as String)))));
         } else {
           configLocalNotification((NotificationResponse? payload) {
             switch (m.data['screen_to']) {
@@ -3086,15 +3086,11 @@ class AuthProvider with ChangeNotifier {
     const String firebaseProjectName = 'weevo-bfa67';
     log('SEND');
     log('Notification data:  ${data.toString()}');
-    http.Response r = await post(
-      Uri.parse(
-          'https://fcm.googleapis.com/v1/projects/$firebaseProjectName/messages:send'),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${Preferences.instance.getFCMAccessToken}',
-      },
-      body: jsonEncode(
-        {
+    try {
+      final r = await DioFactory.postData(
+        url:
+            'https://fcm.googleapis.com/v1/projects/$firebaseProjectName/messages:send',
+        data: {
           "message": {
             "token": toToken,
             "notification": {
@@ -3107,7 +3103,7 @@ class AuthProvider with ChangeNotifier {
                 data.toString(),
               ),
               "type": type,
-              "screen_to": screenTo
+              "screen_to": screenTo,
             },
             "android": {
               "notification": {
@@ -3118,11 +3114,51 @@ class AuthProvider with ChangeNotifier {
             }
           }
         },
-      ),
-    );
-    log('body -> ${r.body}');
-    log('url -> ${r.request?.url}');
-    log('status code -> ${r.statusCode}');
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${Preferences.instance.getFCMAccessToken}',
+        },
+      );
+
+      log('body -> ${r.data}');
+      log('status code -> ${r.statusCode}');
+    } on DioException catch (e) {
+      log('Notification error -> ${e.requestOptions.path}');
+      log('Notification error -> ${e.response}');
+    } // http.Response r = await post(
+    //   Uri.parse(
+    //       'https://fcm.googleapis.com/v1/projects/$firebaseProjectName/messages:send'),
+    //   headers: <String, String>{
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Bearer ${Preferences.instance.getFCMAccessToken}',
+    //   },
+    //   body: jsonEncode(
+    //     {
+    //       "message": {
+    //         "token": toToken,
+    //         "notification": {
+    //           "title": title,
+    //           "body": body,
+    //           "image": image,
+    //         },
+    //         'data': {
+    //           "data": json.encode(
+    //             data.toString(),
+    //           ),
+    //           "type": type,
+    //           "screen_to": screenTo
+    //         },
+    //         "android": {
+    //           "notification": {
+    //             "click_action": "FLUTTER_NOTIFICATION_CLICK",
+    //             "sound": "default"
+    //           },
+    //           "priority": "high"
+    //         }
+    //       }
+    //     },
+    //   ),
+    // );
   }
 
   NetworkState? get networkState => _networkState;

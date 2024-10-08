@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:weevo_captain_app/core/helpers/extensions.dart';
 
+import '../../../../Providers/auth_provider.dart';
 import '../../../../Utilits/colors.dart';
 import '../../../../Widgets/edit_text.dart';
 import '../../../../Widgets/weevo_button.dart';
@@ -85,7 +86,9 @@ class WasullyOfferDialog extends StatelessWidget {
                 width: double.infinity,
                 child: WeevoButton(
                   onTap: () {
-                    cubit.applyShipment();
+                    cubit.applyShipment(
+                      auth: Provider.of<AuthProvider>(context, listen: false),
+                    );
                   },
                   color: weevoPrimaryOrangeColor,
                   isStable: true,

@@ -118,7 +118,7 @@ class CourierToCustomerQrCodeScanner extends StatelessWidget {
                         authProvider.sendNotification(
                             title: 'تم تسليم شحنتك بنجاح',
                             body:
-                                'تم تسليم شحنتك بنجاح برجاء تقييم شحنتك مع الكابتن ${authProvider.name}',
+                                'تم تسليم شحنتك بنجاح برجاء تقييم شحنتك مع الكابتن ${Preferences.instance.getUserName}',
                             toToken: token,
                             image: authProvider.photo!.isNotEmpty
                                 ? authProvider.photo!
