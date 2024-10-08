@@ -115,7 +115,7 @@ class DisplayShipmentDetails {
       this.products,
       this.merchant});
 
-  DisplayShipmentDetails.fromJson(Map<String?, dynamic> json) {
+  DisplayShipmentDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     parentId = json['parent_id'];
     receivingState = json['receiving_state'];
@@ -192,8 +192,8 @@ class DisplayShipmentDetails {
         : null;
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['parent_id'] = parentId;
     data['receiving_state'] = receivingState;
@@ -285,7 +285,7 @@ class ReceivingStateModel {
       this.updatedAt,
       this.deletedAt});
 
-  ReceivingStateModel.fromJson(Map<String?, dynamic> json) {
+  ReceivingStateModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     countryId = json['country_id'];
@@ -294,8 +294,8 @@ class ReceivingStateModel {
     deletedAt = json['deleted_at'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['country_id'] = countryId;
@@ -322,7 +322,7 @@ class ReceivingCityModel {
       this.updatedAt,
       this.deletedAt});
 
-  ReceivingCityModel.fromJson(Map<String?, dynamic> json) {
+  ReceivingCityModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     stateId = json['state_id'];
@@ -331,8 +331,8 @@ class ReceivingCityModel {
     deletedAt = json['deleted_at'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['state_id'] = stateId;

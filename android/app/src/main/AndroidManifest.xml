@@ -14,7 +14,9 @@
         android:label="Weevo Captain | ويفو كابتن"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-            <service
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+   	    <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+        <service
             android:name="com.google.firebase.messaging.FirebaseMessagingService"
             android:exported="false">
             <intent-filter>

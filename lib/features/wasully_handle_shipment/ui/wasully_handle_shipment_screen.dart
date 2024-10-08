@@ -1301,13 +1301,23 @@ class _WasullyHandleShipmentScreenState
                                                         courierPhone: widget.model.courierPhone,
                                                         locationIdStatus: _currentStatus)
                                                     .toJson());
-                                            await FirebaseFirestore.instance
+                                             FirebaseFirestore.instance
                                                 .collection('locations')
                                                 .doc(_locationId)
                                                 .set({
                                               'status':
                                                   'handingOverShipmentToCustomer',
                                             });
+                                            showDialog(
+                                                    context: navigator.currentContext!,
+                                                    barrierDismissible: false,
+                                                    builder: (ctx) =>
+                                                        WasullyCourierToCustomerQrCodeScanner(
+                                                            parentContext:
+                                                                context,
+                                                            model: widget.model,
+                                                            locationId:
+                                                                _locationId));
                                           },
                                           approveAction: 'نعم',
                                           onCancelClick: () {

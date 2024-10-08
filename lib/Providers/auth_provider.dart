@@ -1314,7 +1314,7 @@ class AuthProvider with ChangeNotifier {
         createUserPassword = user.password;
         _createNewUserState = NetworkState.success;
       } else {
-        Map<String?, dynamic> map = jsonDecode(r.body)['errors'];
+        Map<String, dynamic> map = jsonDecode(r.body)['errors'];
         if (map.containsKey('email')) {
           _createNewUserMessage = 'الأيميل موجود بالفعل';
         } else if (map.containsKey('phone')) {
@@ -2854,8 +2854,8 @@ class AuthProvider with ChangeNotifier {
     final DocumentReference convoDoc =
         FirebaseFirestore.instance.collection('messages').doc(conversionId);
     QuerySnapshot map = await convoDoc.collection(conversionId ?? '').get();
-    await convoDoc.set(<String?, dynamic>{
-      'lastMessage': <String?, dynamic>{
+    await convoDoc.set(<String, dynamic>{
+      'lastMessage': <String, dynamic>{
         'currentUserId': chatData.currentUserId,
         'currentUserImage': chatData.currentUserImageUrl,
         'currentUsername': chatData.currentUserName,
@@ -3043,6 +3043,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> getServerKey() async {
+    log('getting server key');
     final scopes = ['https://www.googleapis.com/auth/firebase.messaging'];
     try {
       final client = await clientViaServiceAccount(
@@ -3051,7 +3052,7 @@ class AuthProvider with ChangeNotifier {
             "project_id": "weevo-bfa67",
             "private_key_id": "a869e38765348eced08b59f61f98b0cd812b6cba",
             "private_key":
-                "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5smjWiNMFjhQ6\nHGPZGc1/WoiaNYBEEtJNYNxW26kxRsAzP2wbECChUd+s77mFgiL2PDqcx1yb8VRe\nXlx2BPZUcCOdPaEcAIJ3/+MVD40MGWzmxNaQztG45/1BELhQqYT9w1tVjXdqTZ2f\nkXe/XfOeqGKzm0shHYkeWaUZDcRLGr6vkPJTFuBU/2mvpfOWaQhl4yMz/XULpwtk\nM0htBh0d6syi5mkd/GlRys9aum2BZu1vX9nXDVnZ7mZ/bjYs0sI9SJSiEtU2s94u\nWReTjFpGt5xms26I0KBfQUjr5pIkSTb48AzupXBFCuyryPnlWYzGG01EqE9CXQHm\n8JXrJCgzAgMBAAECggEAVZctCU0xbosJOauiPgvNkxiog+OLBlVih3XQuVwvxN2m\ncziVXHf3gkOZhD1OVoIgGTyzi1W8ksgOKhz2IxOwckTptW0VmDGH8UWJZkivq1cA\nwfESMNaTBdYv/dB2E/++o7Rqoak91EqID2deOV9Vjdhw/fXjEBVsAQgyt7SHuFGH\nG81j2Edz8w9Ovsxnl05E3HtKUGAz/or24Fii6SRD+Q2m8oWGEc8YjmqvQ3P6rrC5\nY/iY/43mCo1MG6JWWJs3Yom5JkSlqShq2Ms2J+Ol6bSNB3NHSF5m26+lsuKTkPAU\nsmk0oAyGCvVkiXhnPhifEx3eX8cPp593PO8VxjFM+QKBgQDnrDYrVIQXuQBmuS2d\nPJxGayUVkyfLyUGsTRhH5lsVWmgBVdEhRUVhr55WVco4Zyo5cJlUY3EFUFlBvswY\n32rHTAXrLIZIiCoGYuiS3L0SxdEC/W9p9iRDOL+t1NHEXZTraYD3RytZgLFFm2W5\npgAGtFG7+ixcZXuim6UNdzAY3QKBgQDNMki8wnVsvvyUuI9aCjAu7zCcDz2cUgYi\nzChw5WPbhbLQC6lmMTMU6MRppQ09u5HMZ8dv1LmUk/7Nb8VYOFU5t7/FOzoOTm7T\nN2rMXj/EjAqRnUPKkvJ5dKg49I1n2mt3IBeSqidZHvwwC1ZSHeALLYSAdFRO4IPa\ndtyOp3isTwKBgDIdlcY/zSdYlNaj3lMyRlgRW39USvqRecxtDQCYu0FeQjtvtgKt\nennMRMNGYa1b2817JyATNuLAY96OCJak1fNw5aLfCdls4zJoeQk0CQ6jjjhIXK6e\nWW/VOdm/vPTujYVzWDulwKHm7fIx0Iqdd0n7/eZdEvWV2m3tn4HPM69dAoGAUQ/G\nUFt5zAX+/jmS1/0iX8g6KcyTiEeXCPQiHcdhFX3R0AJrX2WcSmxR+3IqsvKAfIGa\n9gDRd3KnvDyld155vJ1sctwc6T3u5h4EYMvy4RB5tGCuQT6f7384XZeurRJKVfsl\nlNkHRlvJQKmZ5kLLGV9X8u8Bx09Gh21hYDGkqF0CgYBg/arcsY2Ixv9AffdvuO4q\nN1eE0iw9ZCh7NwSd7YbLygrUNrjcSWIvEl7c8erC9X6s/JUqIqsxOg7Q3YIgDQeq\n1utOq1dOPUGIJKpEzqU6lSWa2jauOAOF+ryeyCKUCUcEO8brrjqu74Bgdv3/1jgL\nCTvOEaua5uw5+AGHdpRpRQ==\n-----END PRIVATE KEY-----\n",
+                "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCsbvg2TjvyfwwG\ncNmCbYb1nnUDCs8NUGBS5A6Sq+i8+Wpvh00QwkUvu3wczYrRytWRkBMP4hINueDI\ngbxI06LU6FQclv7T9Pv9FM0SXFZwe1IoM034FSsESBm+VJgzB7ab4eFbsDDgiiU0\nKl2gCHbVV4kAq06yNdPqWiQhInSORiDpvZSjJ6jfQFleGOloHUhGelGDrgYi64qq\nb1TcfDjUX8ssgjrOt+y41KbGjAKoY1LGe3ppopgpGbilPd/daHWwH+Y3CjgN3yFl\nwFIaTlxG9cs+l1vbh0+WcnhAPyi0i5A0yaqAQDlPXmLS9zApLyNSz1rzZbEA6CfE\ne871CumBAgMBAAECggEAAR1rkfBSD2iWY5FFusPqCDsIzyb5/UBMiySp2nVtmRE0\nyLlTfH0BFQStkgMbN22MEXegw+zGiJuv0iQSm1bw+dbxukiYp7axDWsdw1VhArOt\nbZCdW7IJV+r+bZ5e6I+PdPUSL7VVL5J9GJgAiHkdiZYaDuzMorbZ4q1ICAXQwp27\nOihEKiqP4bNrvW/Tax1Vr61Gy3vm0FOIThd/ki5b/sJnEIdxTFNUf8u4UTd9l5Zs\n1yR/T+C9/L5mvtxq6kXEA3CDGGhELq6hRceNmE+vMMlnfDCRDrCs7BXOONTXAUGj\nWvjdyq0z2cOU93IpodLu7fGloGThOQNU9SN+XgSS9QKBgQDuVzg1OzMI1Y7BCVtt\nu20rEsq1751p4yvW/Gt/BIeDbXlCZhXUSisiN0JACwlxpecDDNb6tNqzyV+esBnJ\n9qvr3SHRmMmg4rqePmjTFK4+HvrHZ1W/XYoX7CkdfJkBbNxdlE57b8LSQ7I8MzZ7\nvIlv1c6HxqEbjNoIjsG9NZTpLQKBgQC5NaPWdd1WU4RSL9k1oakiyHm0y2AGSYIA\nVET7pPLw1kXxLgcC00+6klrnc0gU0FUWJBFFB6o4W0Nld2Ik48H0LZi3etfe8KfJ\ncD6m01BfHhsr9W54PYI1i1acYXDJbkMkXPycPCRG5VnZlKY6GKI5reQ8uMVrYUtO\nzYs+5k/OJQKBgAnUgRX49hbkL/oYN7Qj6dG/+apdUqG+Y91/FbPsbOZnynuJmFbk\nJDlKDCp2ChKs5AVFL0yxzt9ha9cwri+dQ+P7f9yUL6S6FTZXnp0uGi2nu3Ij+e5l\nnj90VxHHRMxBQCl/52jB6Egh0KUY+6NI2GZLbDQ/Zf+r5IY71RPHtPeVAoGAHq3r\n/dJ4X5xmBtc2O9QTmFdtEa2+skvq5PMQmj6wn4RfAZyGPMmUI2uq8zv9bLU14v0G\nf1DNuZgkieJEt6eisTf8XChVKfDjWlLljezjG155UcbODczijMwQBMd/T16ccKGW\nlqq/t562S3x8LJN4C+XqMMTKrwbm2p7hugGcpqECgYEAm0Umy0pJyLKXGKdeQcM5\nuP6JAIz0neQvCy3Hf4M2kDPLN/jnUQBUQAso7LjkqoZZgO1P7JiclLEP6uJuVcga\n0L1d6K7gGS7C2A6KKVvEL4FH3681uglSfC6dTprMVzvp1cl+4X0uoHoYMaq1U1sF\n5CtJNZqlZE6dbCZmpLeXDQM=\n-----END PRIVATE KEY-----\n",
             "client_email":
                 "firebase-adminsdk-r4y79@weevo-bfa67.iam.gserviceaccount.com",
             "client_id": "107215847941644970026",
@@ -3064,16 +3065,18 @@ class AuthProvider with ChangeNotifier {
             "universe_domain": "googleapis.com"
           }),
           scopes);
+
       final serverKey = client.credentials.accessToken.data;
       Preferences.instance.setFcmAccessToken(serverKey);
-      log('firebase project accessToken -> $serverKey');
+      log('Server key -> $serverKey');
     } catch (e) {
+      log('fcm error -> ${e.toString()}');
       log(e.toString());
     }
   }
 
   Future<void> sendNotification(
-      {required Map<String?, dynamic> data,
+      {required Map<String, dynamic> data,
       required String? toToken,
       required String? screenTo,
       required String? title,
@@ -3082,6 +3085,7 @@ class AuthProvider with ChangeNotifier {
       required String? type}) async {
     const String firebaseProjectName = 'weevo-bfa67';
     log('SEND');
+    log('Notification data:  ${data.toString()}');
     http.Response r = await post(
       Uri.parse(
           'https://fcm.googleapis.com/v1/projects/$firebaseProjectName/messages:send'),
@@ -3099,7 +3103,9 @@ class AuthProvider with ChangeNotifier {
               "image": image,
             },
             'data': {
-              "data": data.toString(),
+              "data": json.encode(
+                data.toString(),
+              ),
               "type": type,
               "screen_to": screenTo
             },
@@ -3136,7 +3142,7 @@ class AuthProvider with ChangeNotifier {
       );
       if (r.statusCode >= 200 && r.statusCode < 300) {
         _networkState = NetworkState.success;
-        Map<String?, dynamic> map = json.decode(r.body);
+        Map<String, dynamic> map = json.decode(r.body);
         if (map.containsKey('alreadyExist')) {
           _offerId = map['entity']['id'];
           _updateOffer = true;

@@ -69,6 +69,7 @@ class NoCreditInWalletDialog extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15.0.sp,
+                        color: Colors.white,
                       ),
                     ),
                   )

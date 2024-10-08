@@ -112,7 +112,7 @@ class WasullyCourierToCustomerQrCodeScanner extends StatelessWidget {
                                                 ? authProvider.photo
                                                 : '${ApiConstants.baseUrl}${authProvider.photo}'
                                             : '',
-                                        type: 'rating',
+                                        type: 'wasully_rating',
                                         screenTo: '',
                                         data: model.toJson());
                                     MagicRouter.pop();

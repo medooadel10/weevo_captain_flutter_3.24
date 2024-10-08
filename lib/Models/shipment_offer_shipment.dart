@@ -96,7 +96,7 @@ class ShipmentOfferShipment {
       this.childrenCount,
       this.products});
 
-  ShipmentOfferShipment.fromJson(Map<String?, dynamic> json) {
+  ShipmentOfferShipment.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     parentId = json['parent_id'];
     receivingState = json['receiving_state'];
@@ -153,8 +153,8 @@ class ShipmentOfferShipment {
     }
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['parent_id'] = parentId;
     data['receiving_state'] = receivingState;

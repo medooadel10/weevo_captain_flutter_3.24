@@ -33,7 +33,7 @@ class ListOfAvailablePaymentGateways {
   String? depositionBankChargeMessage;
   String? depositionBankChargeSecondMessage;
 
-  factory ListOfAvailablePaymentGateways.fromJson(Map<String?, dynamic> json) =>
+  factory ListOfAvailablePaymentGateways.fromJson(Map<String, dynamic> json) =>
       ListOfAvailablePaymentGateways(
         paymentMethod: json["payment_method"],
         paymentGatewayHandler: json["payment_gateway_handler"],
@@ -49,7 +49,7 @@ class ListOfAvailablePaymentGateways {
             json["deposition_bank_charge_second_message"],
       );
 
-  Map<String?, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "payment_method": paymentMethod,
         "payment_gateway_handler": paymentGatewayHandler,
         "deposition_bank_charge_percentage_or_fixed_flag":

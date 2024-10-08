@@ -28,7 +28,7 @@ class MeezaTransaction {
       this.updatedAt,
       this.details});
 
-  MeezaTransaction.fromJson(Map<String?, dynamic> json) {
+  MeezaTransaction.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     amount = json['amount'];
     netAmount = json['net_amount'];
@@ -44,8 +44,8 @@ class MeezaTransaction {
         json['details'] != null ? MeezaDetails.fromJson(json['details']) : null;
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['amount'] = amount;
     data['net_amount'] = netAmount;

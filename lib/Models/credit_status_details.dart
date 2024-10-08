@@ -30,7 +30,7 @@ class CreditStatusDetails {
       this.createdAt,
       this.updatedAt});
 
-  CreditStatusDetails.fromJson(Map<String?, dynamic> json) {
+  CreditStatusDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     transactionId = json['transaction_id'];
     method = json['method'];
@@ -47,8 +47,8 @@ class CreditStatusDetails {
     updatedAt = json['updated_at'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['transaction_id'] = transactionId;
     data['method'] = method;

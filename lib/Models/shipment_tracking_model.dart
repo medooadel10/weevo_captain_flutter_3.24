@@ -75,7 +75,7 @@ class ShipmentTrackingModel {
     this.merchantRating,
   });
 
-  factory ShipmentTrackingModel.fromJson(Map<String?, dynamic> map) =>
+  factory ShipmentTrackingModel.fromJson(Map<String, dynamic> map) =>
       ShipmentTrackingModel(
         shipmentId: map['shipment_id'],
         deliveringState: map['delivery_state'],

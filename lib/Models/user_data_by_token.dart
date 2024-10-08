@@ -60,7 +60,7 @@ class UserDataByToken {
       this.name,
       this.deliveryAreas});
 
-  UserDataByToken.fromJson(Map<String?, dynamic> json) {
+  UserDataByToken.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
@@ -97,8 +97,8 @@ class UserDataByToken {
     }
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['first_name'] = firstName;
     data['last_name'] = lastName;
@@ -149,7 +149,7 @@ class DeliveryAreas {
   DeliveryAreas(
       {this.id, this.driverId, this.cityId, this.createdAt, this.updatedAt});
 
-  DeliveryAreas.fromJson(Map<String?, dynamic> json) {
+  DeliveryAreas.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     driverId = json['driver_id'];
     cityId = json['city_id'];
@@ -157,8 +157,8 @@ class DeliveryAreas {
     updatedAt = json['updated_at'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['driver_id'] = driverId;
     data['city_id'] = cityId;

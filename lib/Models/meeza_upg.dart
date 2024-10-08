@@ -84,7 +84,7 @@ class MeezaUpgResponse {
       this.n3dHostCardinalJSUrl,
       this.authenticationTransactionId});
 
-  MeezaUpgResponse.fromJson(Map<String?, dynamic> json) {
+  MeezaUpgResponse.fromJson(Map<String, dynamic> json) {
     message = json['Message'];
     success = json['Success'];
     acsUrl = json['AcsUrl'];
@@ -129,8 +129,8 @@ class MeezaUpgResponse {
     authenticationTransactionId = json['authenticationTransactionId'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['Message'] = message;
     data['Success'] = success;
     data['AcsUrl'] = acsUrl;

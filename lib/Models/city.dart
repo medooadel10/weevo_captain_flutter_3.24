@@ -16,7 +16,7 @@ class Cities {
     this.deletedAt,
   });
 
-  Cities.fromJson(Map<String?, dynamic> json) {
+  Cities.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     stateId = json['state_id'];
@@ -25,8 +25,8 @@ class Cities {
     deletedAt = json['deleted_at'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['state_id'] = stateId;

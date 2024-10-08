@@ -28,7 +28,7 @@ class ShipmentResponse {
       this.to,
       this.total});
 
-  ShipmentResponse.fromJson(Map<String?, dynamic> json) {
+  ShipmentResponse.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
       data = [];
@@ -48,8 +48,8 @@ class ShipmentResponse {
     total = json['total'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['current_page'] = currentPage;
     data['data'] = this.data?.map((v) => v.toJson()).toList();
     data['first_page_url'] = firstPageUrl;

@@ -36,7 +36,12 @@ class ContentDialog extends StatelessWidget {
                 backgroundColor:
                     WidgetStateProperty.all<Color>(weevoPrimaryOrangeColor),
               ),
-              child: const Text('حسناً'),
+              child: const Text(
+                'حسناً',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             )
           ],
         ),

@@ -26,7 +26,7 @@ class DeductionModel {
       this.to,
       this.total});
 
-  DeductionModel.fromJson(Map<String?, dynamic> json) {
+  DeductionModel.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
       data = <Data>[];
@@ -46,8 +46,8 @@ class DeductionModel {
     total = json['total'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['current_page'] = currentPage;
     if (this.data != null) {
       data['data'] = this.data?.map((v) => v.toJson()).toList();
@@ -94,7 +94,7 @@ class Data {
       this.updatedAt,
       this.details});
 
-  Data.fromJson(Map<String?, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     amount = json['amount'];
     netAmount = json['net_amount'];
@@ -110,8 +110,8 @@ class Data {
         json['details'] != null ? Details.fromJson(json['details']) : null;
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['amount'] = amount;
     data['net_amount'] = netAmount;
@@ -158,7 +158,7 @@ class Details {
       this.createdAt,
       this.updatedAt});
 
-  Details.fromJson(Map<String?, dynamic> json) {
+  Details.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     transactionId = json['transaction_id'];
     status = json['status'];
@@ -173,8 +173,8 @@ class Details {
     updatedAt = json['updated_at'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['transaction_id'] = transactionId;
     data['status'] = status;

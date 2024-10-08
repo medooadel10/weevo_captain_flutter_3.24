@@ -24,7 +24,7 @@ class ProductInfo {
       this.productCategory,
       this.weight});
 
-  ProductInfo.fromJson(Map<String?, dynamic> json) {
+  ProductInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     defaultPrice = json['default_price'];
@@ -40,8 +40,8 @@ class ProductInfo {
         : null;
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['default_price'] = defaultPrice;
@@ -63,14 +63,14 @@ class ProductCategory {
 
   ProductCategory({this.id, this.name, this.image});
 
-  ProductCategory.fromJson(Map<String?, dynamic> json) {
+  ProductCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     image = json['image'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['image'] = image;

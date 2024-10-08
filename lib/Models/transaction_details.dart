@@ -24,7 +24,7 @@ class TransactionDetails {
       this.updatedAt,
       this.payout});
 
-  TransactionDetails.fromJson(Map<String?, dynamic> json) {
+  TransactionDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     transactionId = json['transaction_id'];
     method = json['method'];
@@ -38,8 +38,8 @@ class TransactionDetails {
     payout = json['payout'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['transaction_id'] = transactionId;
     data['method'] = method;

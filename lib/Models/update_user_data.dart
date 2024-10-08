@@ -23,7 +23,7 @@ class UpdateUserData {
     this.gender,
   });
 
-  factory UpdateUserData.fromJson(Map<String?, dynamic> map) {
+  factory UpdateUserData.fromJson(Map<String, dynamic> map) {
     return UpdateUserData(
       id: map['id'],
       firstName: map['first_name'],
@@ -38,7 +38,7 @@ class UpdateUserData {
     );
   }
 
-  Map<String?, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'first_name': firstName,

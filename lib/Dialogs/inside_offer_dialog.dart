@@ -358,6 +358,7 @@ class _InsideOfferDialogState extends State<InsideOfferDialog> {
                                           'ارسال عرض التوصيل الخاص بك',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w500,
+                                              color: Colors.white,
                                               fontSize: 12.0.sp),
                                         ),
                                       ),

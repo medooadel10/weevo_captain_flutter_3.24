@@ -26,7 +26,9 @@ import 'firebase_options.dart';
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message,
     {BuildContext? context}) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   log("Entered background handler");
   if (await Freshchat.isFreshchatNotification(message.data)) {
     log("Handling a freshchat message: ${message.data}");

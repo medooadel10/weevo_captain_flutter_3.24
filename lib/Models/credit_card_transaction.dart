@@ -28,7 +28,7 @@ class CreditCardTransaction {
       this.updatedAt,
       this.details});
 
-  CreditCardTransaction.fromJson(Map<String?, dynamic> json) {
+  CreditCardTransaction.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     amount = json['amount'];
     netAmount = json['net_amount'];
@@ -45,8 +45,8 @@ class CreditCardTransaction {
         : null;
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['amount'] = amount;
     data['net_amount'] = netAmount;

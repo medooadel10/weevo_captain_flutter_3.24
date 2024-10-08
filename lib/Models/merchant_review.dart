@@ -40,7 +40,7 @@ class MerchantReview {
       this.createdAt,
       this.updatedAt});
 
-  MerchantReview.fromJson(Map<String?, dynamic> json) {
+  MerchantReview.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     rating = json['rating'];
     customerServiceRating = json['customer_service_rating'];
@@ -62,8 +62,8 @@ class MerchantReview {
     updatedAt = json['updated_at'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['rating'] = rating;
     data['customer_service_rating'] = customerServiceRating;

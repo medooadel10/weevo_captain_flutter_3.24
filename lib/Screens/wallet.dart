@@ -12,6 +12,7 @@ import '../Utilits/colors.dart';
 import '../Utilits/constants.dart';
 import '../Widgets/connectivity_widget.dart';
 import '../Widgets/wallet_tab.dart';
+import '../core/router/router.dart';
 
 class Wallet extends StatefulWidget {
   static String id = 'Wallet';
@@ -63,13 +64,13 @@ class _WalletState extends State<Wallet> {
           onPopInvokedWithResult: (value, result) async {
             switch (walletProvider.mainIndex) {
               case 0:
-                Navigator.pop(context);
+                MagicRouter.pop();
                 walletProvider.setMainIndex(0);
                 break;
               case 1:
                 switch (walletProvider.depositIndex) {
                   case 0:
-                    Navigator.pop(context);
+                    MagicRouter.pop();
                     walletProvider.setMainIndex(0);
                     break;
                   case 1:
@@ -93,7 +94,7 @@ class _WalletState extends State<Wallet> {
               case 2:
                 switch (walletProvider.withdrawalIndex) {
                   case 0:
-                    Navigator.pop(context);
+                    MagicRouter.pop();
                     walletProvider.setMainIndex(0);
                     break;
                   case 1:
@@ -115,11 +116,11 @@ class _WalletState extends State<Wallet> {
                 }
                 break;
               case 3:
-                Navigator.pop(context);
+                MagicRouter.pop();
                 walletProvider.setMainIndex(0);
                 break;
               case 4:
-                Navigator.pop(context);
+                MagicRouter.pop();
                 walletProvider.setMainIndex(0);
                 break;
             }
@@ -164,13 +165,13 @@ class _WalletState extends State<Wallet> {
                 onPressed: () {
                   switch (walletProvider.mainIndex) {
                     case 0:
-                      Navigator.pop(context);
+                      MagicRouter.pop();
                       walletProvider.setMainIndex(0);
                       break;
                     case 1:
                       switch (walletProvider.depositIndex) {
                         case 0:
-                          Navigator.pop(context);
+                          MagicRouter.pop();
                           walletProvider.setMainIndex(0);
                           break;
                         case 1:
@@ -194,7 +195,7 @@ class _WalletState extends State<Wallet> {
                     case 2:
                       switch (walletProvider.withdrawalIndex) {
                         case 0:
-                          Navigator.pop(context);
+                          MagicRouter.pop();
                           walletProvider.setMainIndex(0);
                           break;
                         case 1:
@@ -216,11 +217,11 @@ class _WalletState extends State<Wallet> {
                       }
                       break;
                     case 3:
-                      Navigator.pop(context);
+                      MagicRouter.pop();
                       walletProvider.setMainIndex(0);
                       break;
                     case 4:
-                      Navigator.pop(context);
+                      MagicRouter.pop();
                       walletProvider.setMainIndex(0);
                       break;
                   }

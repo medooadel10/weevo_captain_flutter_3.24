@@ -201,7 +201,10 @@ class _OfferDialogState extends State<OfferDialog> {
                       child: Text(
                         'قبول التوصيل ب ${num.parse(widget.shipmentNotification.shippingCost!).toInt()} جنية',
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 12.0.sp),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12.0.sp,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -209,7 +212,9 @@ class _OfferDialogState extends State<OfferDialog> {
                     ),
                     Text(
                       'او قدم عرض التوصيل الخاص بك',
-                      style: TextStyle(fontSize: 12.sp),
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(

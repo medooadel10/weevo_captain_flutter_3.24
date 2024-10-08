@@ -28,7 +28,7 @@ class ShipmentOffer {
       this.to,
       this.total});
 
-  ShipmentOffer.fromJson(Map<String?, dynamic> json) {
+  ShipmentOffer.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
       data = [];
@@ -48,8 +48,8 @@ class ShipmentOffer {
     total = json['total'];
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['current_page'] = currentPage;
     if (this.data != null) {
       data['data'] = this.data?.map((v) => v.toJson()).toList();

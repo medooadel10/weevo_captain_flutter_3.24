@@ -17,7 +17,7 @@ class Countries {
     this.states,
   });
 
-  Countries.fromJson(Map<String?, dynamic> json) {
+  Countries.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     createdAt = json['created_at'];
@@ -31,8 +31,8 @@ class Countries {
     }
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['created_at'] = createdAt;

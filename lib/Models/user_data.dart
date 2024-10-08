@@ -70,7 +70,7 @@ class UserData {
       this.name,
       this.deliveryAreas});
 
-  UserData.fromJson(Map<String?, dynamic> json) {
+  UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
@@ -112,8 +112,8 @@ class UserData {
     }
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['first_name'] = firstName;
     data['last_name'] = lastName;

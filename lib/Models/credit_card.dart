@@ -8,7 +8,7 @@ class CreditCard {
 
   CreditCard({this.message, this.status, this.checkoutUrl, this.transaction});
 
-  CreditCard.fromJson(Map<String?, dynamic> json) {
+  CreditCard.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     status = json['status'];
     checkoutUrl = json['checkout_url'];
@@ -17,8 +17,8 @@ class CreditCard {
         : null;
   }
 
-  Map<String?, dynamic> toJson() {
-    final Map<String?, dynamic> data = <String?, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['message'] = message;
     data['status'] = status;
     data['checkout_url'] = checkoutUrl;
