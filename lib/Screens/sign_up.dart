@@ -86,7 +86,7 @@ class _SignUpState extends State<SignUp> {
             }
           }
         },
-        canPop: false,
+        canPop: true,
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: ConnectivityWidget(

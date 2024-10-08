@@ -10,7 +10,7 @@ class LoadingDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       child: Dialog(
         insetPadding: const EdgeInsets.symmetric(horizontal: 120),
         shape:

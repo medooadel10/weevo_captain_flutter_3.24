@@ -55,7 +55,7 @@ class _SignUpPhoneVerificationState extends State<SignUpPhoneVerification> {
         onPopInvokedWithResult: (value, result) async {
           Navigator.pop(navigator.currentContext!);
         },
-        canPop: false,
+        canPop: true,
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: ConnectivityWidget(

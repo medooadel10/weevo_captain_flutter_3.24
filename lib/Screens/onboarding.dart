@@ -66,7 +66,7 @@ class _OnBoardingState extends State<OnBoarding> {
             );
         }
       },
-      canPop: false,
+      canPop: true,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(

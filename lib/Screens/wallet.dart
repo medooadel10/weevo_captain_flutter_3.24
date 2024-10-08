@@ -124,7 +124,7 @@ class _WalletState extends State<Wallet> {
                 break;
             }
           },
-          canPop: false,
+          canPop: true,
           child: Scaffold(
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,

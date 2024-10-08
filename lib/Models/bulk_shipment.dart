@@ -57,14 +57,6 @@ class BulkShipment {
   dynamic distanceFromLocationPickup;
   dynamic distanceFromPickupToDeliver;
 
-  /*
-    "handover_code_courier_to_merchant": null,
-    "handover_qrcode_courier_to_merchant": null,
-    "handover_code_merchant_to_courier": null,
-    "handover_qrcode_merchant_to_courier": null,
-    "handover_code_courier_to_customer": null,
-    "handover_qrcode_courier_to_customer": null,*/
-
   BulkShipment({
     this.id,
     this.parentId,

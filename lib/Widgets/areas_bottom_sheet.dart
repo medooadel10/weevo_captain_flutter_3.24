@@ -77,7 +77,7 @@ class _CityBottomSheetState extends State<CityBottomSheet> {
           Navigator.pop(context);
         }
       },
-      canPop: false,
+      canPop: true,
       child: Stack(children: [
         Directionality(
           textDirection: TextDirection.rtl,

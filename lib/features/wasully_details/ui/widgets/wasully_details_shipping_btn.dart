@@ -29,7 +29,7 @@ class WasullyDetailsShippingBtn extends StatelessWidget {
             builder: (_) => BlocProvider.value(
               value: cubit,
               child: PopScope(
-                canPop: false,
+                canPop: true,
                 child: BlocConsumer<WasullyDetailsCubit, WasullyDetailsState>(
                   listener: (context, state) {
                     if (state is WasullyDetailsSendOfferSuccessState ||

@@ -44,7 +44,7 @@ class _AfterRegistrationState extends State<AfterRegistration> {
           ),
         );
       },
-      canPop: false,
+      canPop: true,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: ConnectivityWidget(

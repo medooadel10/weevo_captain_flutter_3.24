@@ -34,7 +34,7 @@ class ResetPassword extends StatelessWidget {
           ),
         );
       },
-      canPop: false,
+      canPop: true,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: ConnectivityWidget(

@@ -45,7 +45,7 @@ class _ChangeYourPhoneState extends State<ChangeYourPhone> {
                   break;
               }
             },
-            canPop: false,
+            canPop: true,
             child: Scaffold(
               appBar: AppBar(
                 leading: IconButton(

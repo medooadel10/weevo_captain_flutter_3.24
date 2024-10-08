@@ -91,7 +91,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
           Navigator.pop(context);
         }
       },
-      canPop: false,
+      canPop: true,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: ConnectivityWidget(
@@ -327,7 +327,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                                   style: TextStyle(
                                                     fontSize: 16.0,
                                                     fontWeight: FontWeight.w600,
-                                                            color: Colors.white,
+                                                    color: Colors.white,
                                                   ),
                                                   strutStyle: StrutStyle(
                                                     forceStrutHeight: true,
@@ -864,7 +864,9 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                                             HandleShipment(
                                                               model:
                                                                   ShipmentTrackingModel(
-                                                                    status:  data.bulkShipmentById?.status,
+                                                                status: data
+                                                                    .bulkShipmentById
+                                                                    ?.status,
                                                                 merchantRating: data
                                                                     .bulkShipmentById!
                                                                     .merchant!

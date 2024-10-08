@@ -34,7 +34,7 @@ class _ToggleDialogState extends State<ToggleDialog> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Dialog(

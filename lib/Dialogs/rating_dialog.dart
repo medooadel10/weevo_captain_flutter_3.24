@@ -219,7 +219,9 @@ class _RatingDialogState extends State<RatingDialog> {
                     await trackingProvider.reviewMerchant(
                         shipmentId: widget.model.shipmentId,
                         rating: _ratePoint?.toInt(),
-                        body: _ratingController.text,
+                        body: _ratingController.text.isEmpty
+                            ? '.'
+                            : _ratingController.text,
                         recommend: _value ? 'Yes' : 'No',
                         title: _ratePoint == 1.0
                             ? 'very bad'

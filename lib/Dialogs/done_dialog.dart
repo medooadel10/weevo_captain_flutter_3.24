@@ -15,7 +15,7 @@ class DoneDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       child: Dialog(
           insetPadding: const EdgeInsets.all(20.0),
           shape: RoundedRectangleBorder(

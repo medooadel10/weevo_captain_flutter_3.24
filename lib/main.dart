@@ -23,7 +23,11 @@ import 'features/wasully_details/logic/cubit/wasully_details_cubit.dart';
 import 'features/wasully_handle_shipment/logic/cubit/wasully_handle_shipment_cubit.dart';
 import 'firebase_options.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message,
+    {BuildContext? context}) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  log("Entered background handler");
   if (await Freshchat.isFreshchatNotification(message.data)) {
     log("Handling a freshchat message: ${message.data}");
     Freshchat.handlePushNotification(message.data);
@@ -40,6 +44,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   Freshchat.init(
     '2540a172-9d87-4e8d-a28d-05b2fcef08fb',
     '90f02877-838c-42d2-876a-ef1b94346565',
@@ -52,7 +57,6 @@ void main() async {
   );
   log('The abns token device is ${await FirebaseMessaging.instance.getAPNSToken()}');
   log('The token device is ${await FirebaseMessaging.instance.getToken()}');
-
   Freshchat.setPushRegistrationToken(Platform.isIOS
       ? await FirebaseMessaging.instance.getToken() ?? ''
       : await FirebaseMessaging.instance.getToken() ?? '');

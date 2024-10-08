@@ -1141,7 +1141,11 @@ class _WasullyHandleShipmentScreenState
                                                       model: widget.model,
                                                       locationId: _locationId));
                                         }
-                                      : () {},
+                                      : () {
+                                        showToast(
+                            'يجب عليك الضغط على الزر وصلت أولاً',
+                          );
+                                      },
                               onMerchantLocation: () async {
                                 openGoogleMap(widget.model.receivingLat!,
                                     widget.model.receivingLng!);

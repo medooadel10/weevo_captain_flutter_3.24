@@ -107,7 +107,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Navigator.pop(context);
         }
       },
-      canPop: false,
+      canPop: true,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: ConnectivityWidget(

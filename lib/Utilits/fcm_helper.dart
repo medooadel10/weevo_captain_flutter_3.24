@@ -4,10 +4,6 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  log("Handling a background message: ${message.data}");
-}
-
 class FirebaseNotifications {
   FirebaseMessaging? _firebaseMessaging;
 
@@ -16,8 +12,6 @@ class FirebaseNotifications {
   Map<String, dynamic>? _not;
 
   Future<void> setUpFirebase() async {
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
     _firebaseMessaging = FirebaseMessaging.instance;
     _firebaseMessaging?.setAutoInitEnabled(true);
     FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(

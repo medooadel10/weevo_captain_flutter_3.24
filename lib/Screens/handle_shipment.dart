@@ -28,6 +28,7 @@ import '../Storage/shared_preference.dart';
 import '../Utilits/colors.dart';
 import '../Utilits/constants.dart';
 import '../Widgets/connectivity_widget.dart';
+import '../core/helpers/toasts.dart';
 import '../core/networking/api_constants.dart';
 import '../core/router/router.dart';
 import '../main.dart';
@@ -259,7 +260,7 @@ class _HandleShipmentState extends State<HandleShipment> {
           Navigator.pop(context);
         }
       },
-      canPop: false,
+      canPop: true,
       child: ConnectivityWidget(
         callback: () {},
         child: Scaffold(
@@ -891,7 +892,11 @@ class _HandleShipmentState extends State<HandleShipment> {
                                   model: widget.model,
                                   locationId: _locationId!));
                         }
-                      : () {},
+                      : () {
+                          showToast(
+                            'يجب عليك الضغط على الزر وصلت أولاً',
+                          );
+                        },
                   onMerchantLocation: () async {
                     log('Location callback -> ${widget.model.deliveringLat},${widget.model.deliveringLng}');
                     String url =
@@ -1177,14 +1182,14 @@ class _HandleShipmentState extends State<HandleShipment> {
                                     );
                                   }
                                 } else {
-                                   showDialog(
-                                    context: navigator.currentContext!,
-                                    barrierDismissible: false,
-                                    builder: (ctx) =>
-                                        CourierToCustomerQrCodeScanner(
-                                            parentContext: context,
-                                            model: widget.model,
-                                            locationId: _locationId!));
+                                  showDialog(
+                                      context: navigator.currentContext!,
+                                      barrierDismissible: false,
+                                      builder: (ctx) =>
+                                          CourierToCustomerQrCodeScanner(
+                                              parentContext: context,
+                                              model: widget.model,
+                                              locationId: _locationId!));
                                 }
                               },
                               approveAction: 'نعم',

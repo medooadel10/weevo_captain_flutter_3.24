@@ -303,8 +303,8 @@ class _HomeState extends State<Home> {
           floatingActionButton: Stack(
             children: [
               SizedBox(
-                height: 60,
-                width: 60,
+                height: 50,
+                width: 50,
                 child: FloatingActionButton(
                   elevation: 0.0,
                   onPressed: () async {

@@ -9,7 +9,7 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       child: Dialog(
         child: Container(
           height: 80.0,
