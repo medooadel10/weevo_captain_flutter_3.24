@@ -32,8 +32,8 @@ class _OnBoardingState extends State<OnBoarding> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      onPopInvokedWithResult: (value, result) async {
+    return WillPopScope(
+      onWillPop: () async {
         switch (_currentPage) {
           case 0:
             showDialog(
@@ -65,8 +65,8 @@ class _OnBoardingState extends State<OnBoarding> {
               curve: Curves.easeOut,
             );
         }
+        return false;
       },
-      canPop: true,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(

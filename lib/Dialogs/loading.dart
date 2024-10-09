@@ -8,8 +8,8 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: true,
+    return WillPopScope(
+      onWillPop: () async => false,
       child: Dialog(
         child: Container(
           height: 80.0,

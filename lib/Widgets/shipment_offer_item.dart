@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../Models/shipment_offer_data.dart';
 import '../Providers/auth_provider.dart';
+import '../Storage/shared_preference.dart';
 import '../Utilits/colors.dart';
 import '../core/widgets/custom_image.dart';
 
@@ -248,32 +249,35 @@ class _ShipmentOfferItemState extends State<ShipmentOfferItem> {
                           Expanded(
                             child: Row(
                               children: [
-                                Image.asset(
-                                  'assets/images/van_icon.png',
-                                  fit: BoxFit.contain,
-                                  color: const Color(0xff091147),
-                                  height: 20.h,
-                                  width: 20.w,
-                                ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                                Text(
-                                  '${double.parse(widget.shipmentOfferData.shipment!.agreedShippingCost ?? widget.shipmentOfferData.shipment!.expectedShippingCost ?? '0').toInt()}',
-                                  style: TextStyle(
-                                    fontSize: 12.0.sp,
-                                    fontWeight: FontWeight.w600,
+                                if (Preferences.instance.getUserFlags ==
+                                    'freelance') ...[
+                                  Image.asset(
+                                    'assets/images/van_icon.png',
+                                    fit: BoxFit.contain,
+                                    color: const Color(0xff091147),
+                                    height: 20.h,
+                                    width: 20.w,
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 2.w,
-                                ),
-                                Text(
-                                  'جنية',
-                                  style: TextStyle(
-                                    fontSize: 10.0.sp,
+                                  SizedBox(
+                                    width: 5.w,
                                   ),
-                                ),
+                                  Text(
+                                    '${double.parse(widget.shipmentOfferData.shipment!.agreedShippingCost ?? widget.shipmentOfferData.shipment!.expectedShippingCost ?? '0').toInt()}',
+                                    style: TextStyle(
+                                      fontSize: 12.0.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 2.w,
+                                  ),
+                                  Text(
+                                    'جنية',
+                                    style: TextStyle(
+                                      fontSize: 10.0.sp,
+                                    ),
+                                  ),
+                                ],
                               ],
                             ),
                           ),

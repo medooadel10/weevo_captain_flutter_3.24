@@ -1565,39 +1565,43 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Image.asset(
-                                              'assets/images/van_icon.png',
-                                              fit: BoxFit.contain,
-                                              color: const Color(0xff091147),
-                                              height: 20.h,
-                                              width: 20.w,
-                                            ),
-                                            SizedBox(
-                                              width: 5.w,
-                                            ),
-                                            Expanded(
-                                              child: Row(
-                                                children: [
-                                                  Text(
-                                                    '${double.parse(widget.bulkShipment.children![i].agreedShippingCostAfterDiscount ?? widget.bulkShipment.children![i].agreedShippingCost ?? widget.bulkShipment.children![i].shippingCost ?? '0').toInt()}',
-                                                    style: TextStyle(
-                                                      fontSize: 12.0.sp,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 5.w,
-                                                  ),
-                                                  Text(
-                                                    'جنية',
-                                                    style: TextStyle(
-                                                      fontSize: 10.0.sp,
-                                                    ),
-                                                  ),
-                                                ],
+                                            if (Preferences
+                                                    .instance.getUserFlags ==
+                                                'freelance') ...[
+                                              Image.asset(
+                                                'assets/images/van_icon.png',
+                                                fit: BoxFit.contain,
+                                                color: const Color(0xff091147),
+                                                height: 20.h,
+                                                width: 20.w,
                                               ),
-                                            )
+                                              SizedBox(
+                                                width: 5.w,
+                                              ),
+                                              Expanded(
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      '${double.parse(widget.bulkShipment.children![i].agreedShippingCostAfterDiscount ?? widget.bulkShipment.children![i].agreedShippingCost ?? widget.bulkShipment.children![i].shippingCost ?? '0').toInt()}',
+                                                      style: TextStyle(
+                                                        fontSize: 12.0.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5.w,
+                                                    ),
+                                                    Text(
+                                                      'جنية',
+                                                      style: TextStyle(
+                                                        fontSize: 10.0.sp,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
                                           ],
                                         ),
                                       ),
@@ -3150,32 +3154,36 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                     Expanded(
                                       child: Row(
                                         children: [
-                                          Image.asset(
-                                            'assets/images/van_icon.png',
-                                            fit: BoxFit.contain,
-                                            color: const Color(0xff091147),
-                                            height: 20.h,
-                                            width: 20.w,
-                                          ),
-                                          SizedBox(
-                                            width: 3.w,
-                                          ),
-                                          Text(
-                                            '${double.parse(widget.bulkShipment.agreedShippingCostAfterDiscount ?? widget.bulkShipment.agreedShippingCost ?? widget.bulkShipment.expectedShippingCost ?? '0').toInt()}',
-                                            style: TextStyle(
-                                              fontSize: 11.0.sp,
-                                              fontWeight: FontWeight.w600,
+                                          if (Preferences
+                                                  .instance.getUserFlags ==
+                                              'freelance') ...[
+                                            Image.asset(
+                                              'assets/images/van_icon.png',
+                                              fit: BoxFit.contain,
+                                              color: const Color(0xff091147),
+                                              height: 20.h,
+                                              width: 20.w,
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.w,
-                                          ),
-                                          Text(
-                                            'جنية',
-                                            style: TextStyle(
-                                              fontSize: 10.0.sp,
+                                            SizedBox(
+                                              width: 3.w,
                                             ),
-                                          ),
+                                            Text(
+                                              '${double.parse(widget.bulkShipment.agreedShippingCostAfterDiscount ?? widget.bulkShipment.agreedShippingCost ?? widget.bulkShipment.expectedShippingCost ?? '0').toInt()}',
+                                              style: TextStyle(
+                                                fontSize: 11.0.sp,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
+                                            Text(
+                                              'جنية',
+                                              style: TextStyle(
+                                                fontSize: 10.0.sp,
+                                              ),
+                                            ),
+                                          ],
                                         ],
                                       ),
                                     ),

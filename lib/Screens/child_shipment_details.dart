@@ -77,8 +77,8 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
     WalletProvider walletProvider = Provider.of<WalletProvider>(context);
     AuthProvider authProvider =
         Provider.of<AuthProvider>(context, listen: false);
-    return PopScope(
-      onPopInvokedWithResult: (value, result) async {
+    return WillPopScope(
+      onWillPop: () async {
         if (shipmentProvider.fromNewShipment) {
           shipmentProvider.setFromNewShipment(false);
           shipmentProvider.setAvailableShipmentIndex(
@@ -90,8 +90,9 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
         } else {
           Navigator.pop(context);
         }
+        return false;
+
       },
-      canPop: true,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: ConnectivityWidget(

@@ -34,41 +34,44 @@ class UserData {
   String? deletedAt;
   String? name;
   List<DriverArea>? deliveryAreas;
+  String? flags;
 
-  UserData(
-      {this.id,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.emailVerifiedAt,
-      this.photo,
-      this.phone,
-      this.gender,
-      this.stateId,
-      this.cityId,
-      this.street,
-      this.buildingNumber,
-      this.floor,
-      this.apartment,
-      this.vehicleNumber,
-      this.vehicleColor,
-      this.vehicleModel,
-      this.deliveryMethod,
-      this.nationalIdPhotoBack,
-      this.nationalIdPhotoFront,
-      this.nationalIdNumber,
-      this.firebaseNotificationToken,
-      this.active,
-      this.lastSeen,
-      this.online,
-      this.receiveNotifications,
-      this.appVersion,
-      this.cachedAverageRating,
-      this.createdAt,
-      this.updatedAt,
-      this.deletedAt,
-      this.name,
-      this.deliveryAreas});
+  UserData({
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.emailVerifiedAt,
+    this.photo,
+    this.phone,
+    this.gender,
+    this.stateId,
+    this.cityId,
+    this.street,
+    this.buildingNumber,
+    this.floor,
+    this.apartment,
+    this.vehicleNumber,
+    this.vehicleColor,
+    this.vehicleModel,
+    this.deliveryMethod,
+    this.nationalIdPhotoBack,
+    this.nationalIdPhotoFront,
+    this.nationalIdNumber,
+    this.firebaseNotificationToken,
+    this.active,
+    this.lastSeen,
+    this.online,
+    this.receiveNotifications,
+    this.appVersion,
+    this.cachedAverageRating,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    this.name,
+    this.deliveryAreas,
+    this.flags,
+  });
 
   UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -104,6 +107,7 @@ class UserData {
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
     name = json['name'];
+    flags = json['flags'];
     if (json['delivery_areas'] != null) {
       deliveryAreas = [];
       json['delivery_areas'].forEach((v) {
@@ -127,7 +131,6 @@ class UserData {
     data['street'] = street;
     data['building_number'] = buildingNumber;
     data['cached_average_rating'] = cachedAverageRating;
-
     data['floor'] = floor;
     data['apartment'] = apartment;
     data['vehicle_number'] = vehicleNumber;

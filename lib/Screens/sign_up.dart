@@ -39,8 +39,8 @@ class _SignUpState extends State<SignUp> {
     final authProvider = Provider.of<AuthProvider>(context);
     return LoadingWidget(
       isLoading: authProvider.isLoading,
-      child: PopScope(
-        onPopInvokedWithResult: (value, result) async {
+      child: WillPopScope(
+        onWillPop: () async {
           if (!authProvider.isLoading) {
             switch (authProvider.screenIndex) {
               case 0:
@@ -85,8 +85,8 @@ class _SignUpState extends State<SignUp> {
               //   break;
             }
           }
+          return false;
         },
-        canPop: true,
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: ConnectivityWidget(

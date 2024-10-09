@@ -22,8 +22,8 @@ class BeforeRegistration extends StatefulWidget {
 class _BeforeRegistrationState extends State<BeforeRegistration> {
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      onPopInvokedWithResult: (value, result) async {
+    return WillPopScope(
+      onWillPop: () async {
         showDialog(
           context: context,
           builder: (context) => ActionDialog(
@@ -40,8 +40,8 @@ class _BeforeRegistrationState extends State<BeforeRegistration> {
             },
           ),
         );
+        return false;
       },
-      canPop: true,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: ConnectivityWidget(

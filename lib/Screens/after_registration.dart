@@ -25,8 +25,8 @@ class _AfterRegistrationState extends State<AfterRegistration> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      onPopInvokedWithResult: (value, result) async {
+    return WillPopScope(
+      onWillPop: () async {
         showDialog(
           context: context,
           builder: (context) => ActionDialog(
@@ -43,8 +43,8 @@ class _AfterRegistrationState extends State<AfterRegistration> {
             },
           ),
         );
+        return false;
       },
-      canPop: true,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: ConnectivityWidget(

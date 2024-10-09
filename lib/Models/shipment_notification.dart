@@ -13,7 +13,7 @@ class ShipmentNotification {
   String? merchantId;
   String? flags;
   int? offerId;
-  bool? isWasully;
+  int? isWasully;
 
   ShipmentNotification({
     this.receivingState,
@@ -30,7 +30,7 @@ class ShipmentNotification {
     this.merchantFcmToken,
     this.merchantImage,
     this.offerId,
-    this.isWasully = false,
+    this.isWasully = 0,
   });
 
   factory ShipmentNotification.fromMap(Map<String, dynamic> map) =>
@@ -45,10 +45,11 @@ class ShipmentNotification {
         flags: map['flags'],
         totalShipmentCost: map['total_shipment_cost'],
         shippingCost: map['expected_shipping_cost'],
-        childrenShipment: map['children_shipment'],
-        shipmentId: map['shipment_id'],
+        childrenShipment: int.tryParse(map['children_shipment']),
+        shipmentId: int.tryParse(map['shipment_id']),
         merchantId: map['merchant_id'],
-        offerId: map['offer_id'],
+        offerId: int.tryParse(map['offer_id']),
+        isWasully: int.tryParse(map['is_wasully']),
       );
 
   Map<String, dynamic> toMap() => {
@@ -62,10 +63,11 @@ class ShipmentNotification {
         'flags': flags,
         'total_shipment_cost': totalShipmentCost,
         'expected_shipping_cost': shippingCost,
-        'children_shipment': childrenShipment,
-        'shipment_id': shipmentId,
+        'children_shipment': childrenShipment?.toString(),
+        'shipment_id': shipmentId?.toString(),
         'merchant_id': merchantId,
-        'offer_id': offerId,
+        'offer_id': offerId?.toString(),
+        'is_wasully': isWasully?.toString(),
       };
 
   @override

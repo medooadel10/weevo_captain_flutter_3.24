@@ -533,27 +533,31 @@ class _ShipmentDetailsWithOneProductState
                               SizedBox(
                                 width: 5.w,
                               ),
-                              Image.asset(
+                              
+                              if (Preferences.instance.getUserFlags ==
+                                  'freelance') ...[
+                                    Image.asset(
                                 'assets/images/van_icon.png',
                                 height: 20.h,
                                 width: 20.w,
                                 fit: BoxFit.contain,
                               ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                '${double.parse(data.shipmentById!.agreedShippingCostAfterDiscount ?? data.shipmentById!.agreedShippingCost ?? data.shipmentById!.expectedShippingCost ?? '0').toInt()}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 12.0.sp,
-                                  fontWeight: FontWeight.bold,
+                                SizedBox(
+                                  width: 5.w,
                                 ),
-                                strutStyle: const StrutStyle(
-                                  forceStrutHeight: true,
+                                Text(
+                                  '${double.parse(data.shipmentById!.agreedShippingCostAfterDiscount ?? data.shipmentById!.agreedShippingCost ?? data.shipmentById!.expectedShippingCost ?? '0').toInt()}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 12.0.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  strutStyle: const StrutStyle(
+                                    forceStrutHeight: true,
+                                  ),
                                 ),
-                              ),
+                              ],
                               SizedBox(
                                 width: 5.w,
                               ),

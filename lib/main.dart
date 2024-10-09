@@ -85,6 +85,7 @@ void main() async {
   await Preferences.instance.initPref();
   setupGetIt();
   DioFactory.init();
+  log('Flags ${Preferences.instance.getUserFlags}');
   runApp(const WeevoCaptain());
 }
 

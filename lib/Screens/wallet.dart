@@ -60,8 +60,8 @@ class _WalletState extends State<Wallet> {
             _firstTime = false;
           }
         },
-        child: PopScope(
-          onPopInvokedWithResult: (value, result) async {
+        child: WillPopScope(
+          onWillPop: () async {
             switch (walletProvider.mainIndex) {
               case 0:
                 MagicRouter.pop();
@@ -124,8 +124,8 @@ class _WalletState extends State<Wallet> {
                 walletProvider.setMainIndex(0);
                 break;
             }
+            return false;
           },
-          canPop: true,
           child: Scaffold(
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,

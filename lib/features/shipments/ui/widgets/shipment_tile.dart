@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:weevo_captain_app/Storage/shared_preference.dart';
 
 import '../../../../Providers/auth_provider.dart';
 import '../../../../Screens/child_shipment_details.dart';
@@ -394,31 +395,33 @@ class _ShipmentTileState extends State<ShipmentTile> {
                               ),
                             ),
                             horizontalSpace(5),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/van_icon.png',
-                                    fit: BoxFit.contain,
-                                    color: const Color(0xff091147),
-                                    height: 20.h,
-                                    width: 20.w,
-                                  ),
-                                  horizontalSpace(5),
-                                  Expanded(
-                                    child: Text(
-                                      '${double.parse(shipment.children![i].agreedShippingCostAfterDiscount ?? shipment.children![i].agreedShippingCost ?? shipment.children![i].expectedShippingCost ?? '0').toInt()} ',
-                                      style: TextStyle(
-                                        fontSize: 12.0.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                            if (Preferences.instance.getUserFlags ==
+                                'freelance')
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/van_icon.png',
+                                      fit: BoxFit.contain,
+                                      color: const Color(0xff091147),
+                                      height: 20.h,
+                                      width: 20.w,
                                     ),
-                                  ),
-                                ],
+                                    horizontalSpace(5),
+                                    Expanded(
+                                      child: Text(
+                                        '${double.parse(shipment.children![i].agreedShippingCostAfterDiscount ?? shipment.children![i].agreedShippingCost ?? shipment.children![i].expectedShippingCost ?? '0').toInt()} ',
+                                        style: TextStyle(
+                                          fontSize: 12.0.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
                             if (shipment.tip != null && shipment.tip! > 0) ...[
                               horizontalSpace(5),
                               Expanded(

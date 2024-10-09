@@ -51,11 +51,11 @@ class _SignUpPhoneVerificationState extends State<SignUpPhoneVerification> {
     final size = MediaQuery.of(context).size;
     return LoadingWidget(
       isLoading: authProvider.isLoading,
-      child: PopScope(
-        onPopInvokedWithResult: (value, result) async {
+      child: WillPopScope(
+        onWillPop: () async {
           Navigator.pop(navigator.currentContext!);
+          return false;
         },
-        canPop: true,
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: ConnectivityWidget(

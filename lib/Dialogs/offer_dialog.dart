@@ -409,7 +409,7 @@ class _OfferDialogState extends State<OfferDialog> {
                                     ? 'من فضلك أدخل عرض التوصيل الخاص بك'
                                     : num.parse(output) <= 0
                                         ? 'من فضلك أدخل عرض توصيل صحيح'
-                                        : '',
+                                        : null,
                             labelText: 'عرض التوصيل الخاص بك',
                           ),
                           SizedBox(

@@ -61,7 +61,7 @@ class CouponInfoDialog extends StatelessWidget {
                   },
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all<Color>(
-                      const Color(0xffFFF3EE),
+                      weevoPrimaryOrangeColor,
                     ),
                     padding: WidgetStateProperty.all<EdgeInsets>(
                         const EdgeInsets.symmetric(
@@ -75,7 +75,7 @@ class CouponInfoDialog extends StatelessWidget {
                   child: Text(
                     'حسناً',
                     style: TextStyle(
-                        color: weevoPrimaryOrangeColor,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 11.0.sp),
                   ),

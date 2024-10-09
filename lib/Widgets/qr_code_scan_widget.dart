@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -12,7 +14,7 @@ class QrCodeScanWidget extends StatefulWidget {
 
 class _QrCodeScanWidgetState extends State<QrCodeScanWidget> {
   final GlobalKey _qrKey = GlobalKey(debugLabel: 'QR');
-
+  late QRViewController _controller;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -21,7 +23,11 @@ class _QrCodeScanWidgetState extends State<QrCodeScanWidget> {
       child: QRView(
         key: _qrKey,
         onQRViewCreated: (QRViewController controller) async {
-          controller.scannedDataStream.listen((Barcode barCode) async {
+          setState(() {
+            _controller = controller;
+          });
+          _controller.scannedDataStream.listen((Barcode barCode) async {
+            log('barCode: ${barCode.code}');
             if (barCode.code != null || barCode.code?.isNotEmpty == true) {
               widget.onDataCallback(barCode.code!);
               await controller.stopCamera();

@@ -27,6 +27,7 @@ class UserDataByToken {
   String? updatedAt;
   String? deletedAt;
   String? name;
+  String? flags;
   List<DeliveryAreas>? deliveryAreas;
 
   UserDataByToken(
@@ -89,6 +90,7 @@ class UserDataByToken {
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
     name = json['name'];
+    flags = json['flags'];
     if (json['delivery_areas'] != null) {
       deliveryAreas = [];
       json['delivery_areas'].forEach((v) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:weevo_captain_app/Storage/shared_preference.dart';
 
 import '../../../../Utilits/colors.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -95,11 +96,12 @@ class WasullyDetailsInfo extends StatelessWidget {
                   runSpacing: 5,
                   direction: Axis.horizontal,
                   children: [
-                    WasullyDetailsPriceInfo(
-                      priceImage: 'van_icon',
-                      price: wasullyModel.price,
-                      title: 'رسوم التوصيل',
-                    ),
+                    if (Preferences.instance.getUserFlags == 'freelance')
+                      WasullyDetailsPriceInfo(
+                        priceImage: 'van_icon',
+                        price: wasullyModel.price,
+                        title: 'رسوم التوصيل',
+                      ),
                     if (wasullyModel.tip != null && wasullyModel.tip! > 0) ...[
                       Text(
                         '|',

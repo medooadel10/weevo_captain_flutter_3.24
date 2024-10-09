@@ -43,8 +43,8 @@ class _CityBottomSheetState extends State<CityBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    return PopScope(
-      onPopInvokedWithResult: (value, result) async {
+    return WillPopScope(
+      onWillPop: () async {
         if (authProvider.chosenCities.length >
             authProvider.getChosenStatesCities(_state)) {
           showDialog(
@@ -76,8 +76,8 @@ class _CityBottomSheetState extends State<CityBottomSheet> {
           }
           Navigator.pop(context);
         }
+        return false;
       },
-      canPop: true,
       child: Stack(children: [
         Directionality(
           textDirection: TextDirection.rtl,

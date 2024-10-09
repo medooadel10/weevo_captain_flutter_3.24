@@ -24,8 +24,8 @@ class ActionDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: true,
+    return WillPopScope(
+      onWillPop: () async => false,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Dialog(

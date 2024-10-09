@@ -34,8 +34,8 @@ class _ChangeYourPhoneState extends State<ChangeYourPhone> {
         callback: () {},
         child: LoadingWidget(
           isLoading: authProvider.updatePhoneState == NetworkState.waiting,
-          child: PopScope(
-            onPopInvokedWithResult: (value, result) async {
+          child: WillPopScope(
+            onWillPop: () async {
               switch (profileProvider.currentIndex) {
                 case 0:
                   Navigator.pop(context);
@@ -44,8 +44,8 @@ class _ChangeYourPhoneState extends State<ChangeYourPhone> {
                   profileProvider.setCurrentIndex(0);
                   break;
               }
+              return false;
             },
-            canPop: true,
             child: Scaffold(
               appBar: AppBar(
                 leading: IconButton(

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../Providers/auth_provider.dart';
 import '../../../../Screens/child_shipment_details.dart';
 import '../../../../Screens/shipment_details_display.dart';
+import '../../../../Storage/shared_preference.dart';
 import '../../../../Utilits/colors.dart';
 import '../../../../Widgets/slide_dotes.dart';
 import '../../../../core/helpers/extensions.dart';
@@ -408,31 +409,33 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
                               ),
                             ),
                             horizontalSpace(5),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/van_icon.png',
-                                    fit: BoxFit.contain,
-                                    color: const Color(0xff091147),
-                                    height: 20.h,
-                                    width: 20.w,
-                                  ),
-                                  horizontalSpace(5),
-                                  Expanded(
-                                    child: Text(
-                                      '${double.parse(shipment.children![i].agreedShippingCostAfterDiscount ?? shipment.children![i].agreedShippingCost ?? shipment.children![i].expectedShippingCost ?? '0').toInt()} جنيه',
-                                      style: TextStyle(
-                                        fontSize: 12.0.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                            if (Preferences.instance.getUserFlags ==
+                                'freelance')
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/van_icon.png',
+                                      fit: BoxFit.contain,
+                                      color: const Color(0xff091147),
+                                      height: 20.h,
+                                      width: 20.w,
                                     ),
-                                  ),
-                                ],
+                                    horizontalSpace(5),
+                                    Expanded(
+                                      child: Text(
+                                        '${double.parse(shipment.children![i].agreedShippingCostAfterDiscount ?? shipment.children![i].agreedShippingCost ?? shipment.children![i].expectedShippingCost ?? '0').toInt()} جنيه',
+                                        style: TextStyle(
+                                          fontSize: 12.0.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
                             if (shipment.tip != null && shipment.tip != 0) ...[
                               horizontalSpace(5),
                               Expanded(

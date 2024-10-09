@@ -66,8 +66,8 @@ class _ShipmentDetailsDisplayState extends State<ShipmentDetailsDisplay> {
   @override
   Widget build(BuildContext context) {
     ShipmentProvider shipmentProvider = Provider.of<ShipmentProvider>(context);
-    return PopScope(
-      onPopInvokedWithResult: (value, result) async {
+    return WillPopScope(
+      onWillPop: () async {
         if (_shipmentProvider.fromNewShipment &&
             _shipmentProvider.shipmentById!.parentId == 0) {
           _shipmentProvider.setFromNewShipment(false);
@@ -85,6 +85,7 @@ class _ShipmentDetailsDisplayState extends State<ShipmentDetailsDisplay> {
           }
           MagicRouter.pop();
         }
+        return false;
       },
       child: Scaffold(
         body: ConnectivityWidget(

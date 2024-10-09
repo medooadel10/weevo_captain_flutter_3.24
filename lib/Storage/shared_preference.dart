@@ -12,6 +12,7 @@ class Preferences {
   static const String id = 'WEEVO_COURIER_ID';
   static const String password = 'WEEVO_COURIER_PASSWORD';
   static const String email = 'WEEVO_COURIER_EMAIL';
+  static const String flags = 'WEEVO_COURIER_Flags';
   static const String phoneNumber = 'WEEVO_COURIER_PHONE_NUMBER';
   static const String photoUrl = 'WEEVO_COURIER_PHOTO_URL';
   static const String nationalId = 'WEEVO_COURIER_NATIONAL_ID';
@@ -68,6 +69,11 @@ class Preferences {
 
   Future<bool> setUserEmail(String value) async {
     bool isSet = await _preferences.setString(email, value);
+    return isSet;
+  }
+
+  Future<bool> setUserFlags(String value) async {
+    bool isSet = await _preferences.setString(flags, value);
     return isSet;
   }
 
@@ -206,6 +212,8 @@ class Preferences {
       _preferences.getInt(receiveNotification) ?? -1;
 
   String get getUserEmail => _preferences.getString(email) ?? '';
+
+  String get getUserFlags => _preferences.getString(flags) ?? '';
 
   String get getNationalId => _preferences.getString(nationalId) ?? '';
 

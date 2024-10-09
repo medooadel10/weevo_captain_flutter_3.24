@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../Storage/shared_preference.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../products/data/models/shipment_product_model.dart';
@@ -54,31 +55,32 @@ class AvailableShipmentPriceContainer extends StatelessWidget {
             ),
           ),
           horizontalSpace(5),
-          Expanded(
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/images/van_icon.png',
-                  fit: BoxFit.contain,
-                  color: const Color(0xff091147),
-                  height: 20.h,
-                  width: 20.w,
-                ),
-                horizontalSpace(5),
-                Expanded(
-                  child: Text(
-                    '${shipment.slug != null ? shipment.price?.toStringAsFixed0() : '${double.parse(shipment.agreedShippingCost ?? shipment.expectedShippingCost ?? '0').toInt()}'} جنية',
-                    style: TextStyle(
-                      fontSize: 12.0.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+          if (Preferences.instance.getUserFlags == 'freelance')
+            Expanded(
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/images/van_icon.png',
+                    fit: BoxFit.contain,
+                    color: const Color(0xff091147),
+                    height: 20.h,
+                    width: 20.w,
                   ),
-                ),
-              ],
+                  horizontalSpace(5),
+                  Expanded(
+                    child: Text(
+                      '${shipment.slug != null ? shipment.price?.toStringAsFixed0() : '${double.parse(shipment.agreedShippingCost ?? shipment.expectedShippingCost ?? '0').toInt()}'} جنية',
+                      style: TextStyle(
+                        fontSize: 12.0.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
           if (shipment.tip != null && shipment.tip != 0) ...[
             horizontalSpace(5),
             Expanded(

@@ -15,8 +15,8 @@ class ResetPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     final forget = Provider.of<ForgetPasswordProvider>(context);
     final size = MediaQuery.of(context).size;
-    return PopScope(
-      onPopInvokedWithResult: (value, result) async {
+    return WillPopScope(
+      onWillPop: () async {
         showDialog(
           context: context,
           builder: (context) => ActionDialog(
@@ -33,8 +33,8 @@ class ResetPassword extends StatelessWidget {
             },
           ),
         );
+        return false;
       },
-      canPop: true,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: ConnectivityWidget(

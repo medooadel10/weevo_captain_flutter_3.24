@@ -248,8 +248,8 @@ class _HandleShipmentState extends State<HandleShipment> {
         Provider.of<ShipmentTrackingProvider>(context);
     final ShipmentProvider shipmentProvider =
         Provider.of<ShipmentProvider>(context);
-    return PopScope(
-      onPopInvokedWithResult: (value, result) async {
+    return WillPopScope(
+      onWillPop: () async {
         if (authProvider.fromOutsideNotification) {
           authProvider.setFromOutsideNotification(false);
           Navigator.pushReplacementNamed(
@@ -259,8 +259,9 @@ class _HandleShipmentState extends State<HandleShipment> {
         } else {
           Navigator.pop(context);
         }
+        return false;
+
       },
-      canPop: true,
       child: ConnectivityWidget(
         callback: () {},
         child: Scaffold(

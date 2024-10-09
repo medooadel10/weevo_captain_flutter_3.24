@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../features/wasully_details/data/models/wasully_model.dart';
 
 class ShipmentTrackingModel {
@@ -77,45 +75,40 @@ class ShipmentTrackingModel {
     this.merchantRating,
   });
 
-  factory ShipmentTrackingModel.fromJson(Map<String, dynamic> map) =>
-      ShipmentTrackingModel(
-        shipmentId: map['shipment_id'],
-        deliveringState: map['delivery_state'],
-        deliveringCity: map['delivery_city'],
-        receivingState: map['receiving_state'],
-        receivingCity: map['receiving_city'],
-        receivingStreet: map['receiving_street'],
-        receivingLandmark: map['receiving_landmark'],
-        receivingBuildingNumber: map['receiving_building_number'],
-        receivingFloor: map['receiving_floor'],
-        receivingApartment: map['receiving_apartment'],
-        receivingLat: map['receiving_lat'],
-        receivingLng: map['receiving_lng'],
-        deliveringLat: map['delivery_lat'],
-        deliveringLng: map['delivering_lng'],
-        fromLat: map['from_lat'],
-        fromLng: map['from_lng'],
-        status: map['status'],
-        paymentMethod: map['payment_method'],
-        merchantNationalId: map['merchant_national_id'],
-        courierNationalId: map['courier_national_id'],
-        hasChildren: map['has_children'],
-        clientPhone: map['client_phone'],
-        merchantId: map['merchant_id'],
-        courierId: map['courier_id'],
-        merchantImage: map['merchant_image'],
-        merchantName: map['merchant_name'],
-        merchantPhone: map['merchant_phone'],
-        courierPhone: map['courier_phone'],
-        courierName: map['courier_name'],
-        locationIdStatus: map['location_id_status'],
-        courierImage: map['courier_image'],
-      );
+  factory ShipmentTrackingModel.fromJson(Map<String, dynamic> map) {
+    return ShipmentTrackingModel(
+      shipmentId: int.tryParse(map['shipment_id']),
+      deliveringState: map['delivery_state'],
+      deliveringCity: map['delivery_city'],
+      receivingState: map['receiving_state'],
+      receivingCity: map['receiving_city'],
+      deliveringLat: map['delivery_lat'],
+      deliveringLng: map['delivering_lng'],
+      receivingLat: map['receiving_lat'],
+      receivingLng: map['receiving_lng'],
+      fromLat: double.tryParse(map['from_lat']),
+      fromLng: double.tryParse(map['from_lng']),
+      status: map['status'],
+      paymentMethod: map['payment_method'],
+      merchantNationalId: map['merchant_national_id'],
+      courierNationalId: map['courier_national_id'],
+      hasChildren: int.tryParse(map['has_children']),
+      clientPhone: map['client_phone'],
+      merchantId: int.tryParse(map['merchant_id']),
+      courierId: int.tryParse(map['courier_id']),
+      merchantImage: map['merchant_image'],
+      merchantName: map['merchant_name'],
+      merchantPhone: map['merchant_phone'],
+      courierPhone: map['courier_phone'],
+      courierName: map['courier_name'],
+      locationIdStatus: map['location_id_status'],
+      courierImage: map['courier_image'],
+    );
+  }
 
   Map<String, dynamic> toJson() {
-    log('Name : $courierName');
     return {
-      'shipment_id': shipmentId,
+      'shipment_id': shipmentId?.toString(),
       'delivery_state': deliveringState,
       'delivery_city': deliveringCity,
       'receiving_state': receivingState,
@@ -129,16 +122,16 @@ class ShipmentTrackingModel {
       'receiving_lng': receivingLng,
       'delivery_lat': deliveringLat,
       'delivering_lng': deliveringLng,
-      'from_lat': fromLat,
+      'from_lat': fromLat?.toString(),
       'client_phone': clientPhone,
       'merchant_national_id': merchantNationalId,
       'courier_national_id': courierNationalId,
-      'from_lng': fromLng,
-      'merchant_id': merchantId,
-      'courier_id': courierId,
+      'from_lng': fromLng?.toString(),
+      'merchant_id': merchantId?.toString(),
+      'courier_id': courierId?.toString(),
       'status': status,
       'payment_method': paymentMethod,
-      'has_children': hasChildren,
+      'has_children': hasChildren?.toString(),
       'merchant_image': merchantImage,
       'merchant_name': merchantName,
       'merchant_phone': merchantPhone,

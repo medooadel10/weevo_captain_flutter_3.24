@@ -842,6 +842,7 @@ class AuthProvider with ChangeNotifier {
       await _preferences.setGender(data.user!.gender!);
       await _preferences.setPhoneNumber(data.user!.phone!);
       await _preferences.setUserEmail(data.user!.email!);
+      await _preferences.setUserFlags(data.user!.flags!);
       await _preferences.setNationalId(data.user!.nationalIdNumber!);
       if (data.user?.vehicleModel != null) {
         await _preferences.setVehicleModel(data.user!.vehicleModel!);
@@ -1122,6 +1123,7 @@ class AuthProvider with ChangeNotifier {
       );
       if (r.statusCode >= 200 && r.statusCode < 300) {
         _userDataByToken = UserDataByToken.fromJson(jsonDecode(r.body));
+        await _preferences.setUserFlags(_userDataByToken!.flags!);
         getMyAreas(
             _userDataByToken!.deliveryAreas!.map((e) => e.cityId!).toList());
         _updateAreasState = NetworkState.success;
@@ -1872,8 +1874,7 @@ class AuthProvider with ChangeNotifier {
             context: navigator.currentContext!,
             barrierDismissible: false,
             builder: (context) => ShipmentDialog(
-              shipmentNotification:
-                  ShipmentNotification.fromMap(json.decode(m.data['data'])),
+              shipmentNotification: ShipmentNotification.fromMap(m.data),
               betterOffer: false,
               onDetailsCallback: () {
                 _dialogOpen = false;
@@ -1887,9 +1888,8 @@ class AuthProvider with ChangeNotifier {
                 sendNotification(
                     title: 'ويفو وفرلك كابتن',
                     body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
-                    toToken: ShipmentNotification.fromMap(
-                            json.decode(m.data['data']))
-                        .merchantFcmToken,
+                    toToken:
+                        ShipmentNotification.fromMap(m.data).merchantFcmToken,
                     image: photo != null
                         ? photo!.contains(ApiConstants.baseUrl)
                             ? photo
@@ -1897,9 +1897,7 @@ class AuthProvider with ChangeNotifier {
                         : '',
                     type: '',
                     screenTo: 'shipment_offers',
-                    data: ShipmentNotification.fromMap(
-                            json.decode(m.data['data']))
-                        .toMap());
+                    data: ShipmentNotification.fromMap(m.data).toMap());
               },
               onOfferOkPressed: () {
                 _dialogOpen = false;
@@ -1916,9 +1914,7 @@ class AuthProvider with ChangeNotifier {
                         : '',
                     type: '',
                     screenTo: 'shipment_offers',
-                    data: ShipmentNotification.fromMap(
-                            json.decode(m.data['data']))
-                        .toMap());
+                    data: ShipmentNotification.fromMap(m.data).toMap());
               },
               onRefuseShipment: () {
                 _dialogOpen = false;
@@ -1938,8 +1934,7 @@ class AuthProvider with ChangeNotifier {
             context: navigator.currentContext!,
             barrierDismissible: false,
             builder: (context) => ShipmentDialog(
-              shipmentNotification:
-                  ShipmentNotification.fromMap(json.decode(m.data['data'])),
+              shipmentNotification: ShipmentNotification.fromMap(m.data),
               betterOffer: true,
               onDetailsCallback: () {
                 _dialogOpen = false;
@@ -1953,9 +1948,8 @@ class AuthProvider with ChangeNotifier {
                 sendNotification(
                     title: 'ويفو وفرلك مندوب',
                     body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
-                    toToken: ShipmentNotification.fromMap(
-                            json.decode(m.data['data']))
-                        .merchantFcmToken,
+                    toToken:
+                        ShipmentNotification.fromMap(m.data).merchantFcmToken,
                     image: photo != null
                         ? photo!.contains(ApiConstants.baseUrl)
                             ? photo
@@ -1963,9 +1957,7 @@ class AuthProvider with ChangeNotifier {
                         : '',
                     type: '',
                     screenTo: 'shipment_offers',
-                    data: ShipmentNotification.fromMap(
-                            json.decode(m.data['data']))
-                        .toMap());
+                    data: ShipmentNotification.fromMap(m.data).toMap());
               },
               onOfferOkPressed: () async {
                 _dialogOpen = false;
@@ -1974,9 +1966,8 @@ class AuthProvider with ChangeNotifier {
                 sendNotification(
                     title: 'عرض أفضل',
                     body: 'تم تقديم عرض أفضل من الكابتن $name',
-                    toToken: ShipmentNotification.fromMap(
-                            json.decode(m.data['data']))
-                        .merchantFcmToken,
+                    toToken:
+                        ShipmentNotification.fromMap(m.data).merchantFcmToken,
                     image: photo != null
                         ? photo!.contains(ApiConstants.baseUrl)
                             ? photo
@@ -1984,9 +1975,7 @@ class AuthProvider with ChangeNotifier {
                         : '',
                     type: '',
                     screenTo: 'shipment_offers',
-                    data: ShipmentNotification.fromMap(
-                            json.decode(m.data['data']))
-                        .toMap());
+                    data: ShipmentNotification.fromMap(m.data).toMap());
               },
               onRefuseShipment: () {
                 _dialogOpen = false;
@@ -1999,14 +1988,14 @@ class AuthProvider with ChangeNotifier {
         }
       } else if (m.data['type'] == 'rating') {
         MagicRouter.navigateAndPopAll(RatingDialog(
-            model: ShipmentTrackingModel.fromJson(json.decode(
-          m.data['data'],
-        ))));
+            model: ShipmentTrackingModel.fromJson(
+          m.data,
+        )));
       } else if (m.data['type'] == 'wasully_rating') {
         MagicRouter.navigateAndPopAll(WasullyRatingDialog(
-            model: ShipmentTrackingModel.fromJson(json.decode(
-          m.data['data'],
-        ))));
+            model: ShipmentTrackingModel.fromJson(
+          m.data,
+        )));
       } else {
         _fromOutsideNotification = true;
         switch (m.data['screen_to']) {
@@ -2018,38 +2007,31 @@ class AuthProvider with ChangeNotifier {
                 navigator.currentContext!, Wallet.id);
             break;
           case shipmentScreen:
-            if (m.data['data']['has_children']) {
+            if (m.data['has_children']) {
               Navigator.pushReplacementNamed(
                   navigator.currentContext!, ShipmentDetailsDisplay.id,
-                  arguments: m.data['data']['shipment_id']);
+                  arguments: m.data['shipment_id']);
             } else {
               Navigator.pushReplacementNamed(
                   navigator.currentContext!, ChildShipmentDetails.id,
-                  arguments: m.data['data']['shipment_id']);
+                  arguments: m.data['shipment_id']);
             }
             break;
           case shipmentDetailsScreen:
-            if (AcceptMerchantOffer.fromMap(json.decode(m.data['data']))
-                    .childrenShipment ==
-                0) {
+            if (AcceptMerchantOffer.fromMap(m.data).childrenShipment == 0) {
               Navigator.pushNamed(
                   navigator.currentContext!, ShipmentDetailsDisplay.id,
-                  arguments:
-                      AcceptMerchantOffer.fromMap(json.decode(m.data['data']))
-                          .shipmentId);
+                  arguments: AcceptMerchantOffer.fromMap(m.data).shipmentId);
             } else {
               Navigator.pushNamed(
                   navigator.currentContext!, ChildShipmentDetails.id,
-                  arguments:
-                      AcceptMerchantOffer.fromMap(json.decode(m.data['data']))
-                          .shipmentId);
+                  arguments: AcceptMerchantOffer.fromMap(m.data).shipmentId);
             }
             break;
           case handleShipmentScreen:
             Navigator.pushReplacementNamed(
                 navigator.currentContext!, HandleShipment.id,
-                arguments: ShipmentTrackingModel.fromJson(
-                    json.decode(m.data['data'])));
+                arguments: ShipmentTrackingModel.fromJson(m.data));
             break;
           case noScreen:
             showDialog(
@@ -2068,7 +2050,7 @@ class AuthProvider with ChangeNotifier {
                 navigator.currentContext!, Wallet.id);
             break;
           case chatScreen:
-            ChatData chatData = ChatData.fromJson(json.decode(m.data['data']));
+            ChatData chatData = ChatData.fromJson(m.data);
             ChatData chatData0;
             if (chatData.currentUserNationalId == getNationalId) {
               chatData0 = ChatData(
@@ -2341,7 +2323,7 @@ class AuthProvider with ChangeNotifier {
                 builder: (context) {
                   return ShipmentDialog(
                     shipmentNotification: ShipmentNotification.fromMap(
-                      jsonDecode(m.data['data']),
+                      m.data,
                     ),
                     betterOffer: false,
                     onDetailsCallback: () {
@@ -2357,8 +2339,7 @@ class AuthProvider with ChangeNotifier {
                           title: 'ويفو وفرلك كابتن',
                           body:
                               'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
-                          toToken: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
+                          toToken: ShipmentNotification.fromMap(m.data)
                               .merchantFcmToken,
                           image: photo != null
                               ? photo!.contains(ApiConstants.baseUrl)
@@ -2367,9 +2348,7 @@ class AuthProvider with ChangeNotifier {
                               : '',
                           type: '',
                           screenTo: 'shipment_offers',
-                          data: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
-                              .toMap());
+                          data: ShipmentNotification.fromMap(m.data).toMap());
                     },
                     onOfferOkPressed: () {
                       _notificationsNo--;
@@ -2386,9 +2365,7 @@ class AuthProvider with ChangeNotifier {
                               : '',
                           type: '',
                           screenTo: 'shipment_offers',
-                          data: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
-                              .toMap());
+                          data: ShipmentNotification.fromMap(m.data).toMap());
                     },
                     onRefuseShipment: () {
                       _notificationsNo--;
@@ -2403,6 +2380,7 @@ class AuthProvider with ChangeNotifier {
             m.data['better_offer'] == '1') {
           log('shipment notification data from better offer ->> ${m.data}');
           _notificationsNo++;
+          log('Dialog open -> $_dialogOpen');
           if (!_dialogOpen) {
             _dialogOpen = true;
             showDialog(
@@ -2410,8 +2388,7 @@ class AuthProvider with ChangeNotifier {
                 barrierDismissible: false,
                 builder: (context) {
                   return ShipmentDialog(
-                    shipmentNotification: ShipmentNotification.fromMap(
-                        json.decode(m.data['data'])),
+                    shipmentNotification: ShipmentNotification.fromMap(m.data),
                     betterOffer: true,
                     onDetailsCallback: () {
                       _dialogOpen = false;
@@ -2425,8 +2402,7 @@ class AuthProvider with ChangeNotifier {
                       sendNotification(
                           title: 'عرض أفضل',
                           body: 'تم تقديم عرض أفضل من الكابتن $name',
-                          toToken: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
+                          toToken: ShipmentNotification.fromMap(m.data)
                               .merchantFcmToken,
                           image: photo != null
                               ? photo!.contains(ApiConstants.baseUrl)
@@ -2435,9 +2411,7 @@ class AuthProvider with ChangeNotifier {
                               : '',
                           type: '',
                           screenTo: 'shipment_offers',
-                          data: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
-                              .toMap());
+                          data: ShipmentNotification.fromMap(m.data).toMap());
                     },
                     onAvailableOkPressed: () {
                       _notificationsNo--;
@@ -2447,8 +2421,7 @@ class AuthProvider with ChangeNotifier {
                           title: 'ويفو وفرلك كابتن',
                           body:
                               'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
-                          toToken: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
+                          toToken: ShipmentNotification.fromMap(m.data)
                               .merchantFcmToken,
                           image: photo != null
                               ? photo!.contains(ApiConstants.baseUrl)
@@ -2457,9 +2430,7 @@ class AuthProvider with ChangeNotifier {
                               : '',
                           type: '',
                           screenTo: 'shipment_offers',
-                          data: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
-                              .toMap());
+                          data: ShipmentNotification.fromMap(m.data).toMap());
                     },
                     onRefuseShipment: () {
                       _notificationsNo--;
@@ -2472,9 +2443,8 @@ class AuthProvider with ChangeNotifier {
                 });
           }
         } else if (m.data['type'] == 'rating') {
-          MagicRouter.navigateAndPopAll(RatingDialog(
-              model: ShipmentTrackingModel.fromJson(
-                  jsonDecode((m.data['data'] as String)))));
+          MagicRouter.navigateAndPopAll(
+              RatingDialog(model: ShipmentTrackingModel.fromJson(m.data)));
         } else {
           configLocalNotification((NotificationResponse? payload) {
             switch (m.data['screen_to']) {
@@ -2485,40 +2455,34 @@ class AuthProvider with ChangeNotifier {
                 Navigator.pushNamed(context, Wallet.id);
                 break;
               case shipmentScreen:
-                if (m.data['data']['has_children']) {
+                if (m.data['has_children']) {
                   Navigator.pushNamed(context, ShipmentDetailsDisplay.id,
-                      arguments: m.data['data']['shipment_id']);
+                      arguments: m.data['shipment_id']);
                 } else {
                   Navigator.pushNamed(context, ChildShipmentDetails.id,
-                      arguments: m.data['data']['shipment_id']);
+                      arguments: m.data['shipment_id']);
                 }
                 break;
               case shipmentDetailsScreen:
-                if (AcceptMerchantOffer.fromMap(json.decode(m.data['data']))
-                        .childrenShipment ==
-                    0) {
+                if (AcceptMerchantOffer.fromMap(m.data).childrenShipment == 0) {
                   Navigator.pushNamed(context, ShipmentDetailsDisplay.id,
-                      arguments: AcceptMerchantOffer.fromMap(
-                              json.decode(m.data['data']))
-                          .shipmentId);
+                      arguments:
+                          AcceptMerchantOffer.fromMap(m.data).shipmentId);
                 } else {
                   Navigator.pushNamed(context, ChildShipmentDetails.id,
-                      arguments: AcceptMerchantOffer.fromMap(
-                              json.decode(m.data['data']))
-                          .shipmentId);
+                      arguments:
+                          AcceptMerchantOffer.fromMap(m.data).shipmentId);
                 }
                 break;
               case handleShipmentScreen:
                 Navigator.pushNamed(context, HandleShipment.id,
-                    arguments: ShipmentTrackingModel.fromJson(
-                        json.decode(m.data['data'])));
+                    arguments: ShipmentTrackingModel.fromJson(m.data));
                 break;
               case walletScreen:
                 Navigator.pushNamed(context, Wallet.id);
                 break;
               case chatScreen:
-                ChatData chatData =
-                    ChatData.fromJson(json.decode(m.data['data']));
+                ChatData chatData = ChatData.fromJson(m.data);
                 ChatData chatData0;
                 if (chatData.currentUserNationalId == getNationalId) {
                   chatData0 = ChatData(
@@ -2600,7 +2564,7 @@ class AuthProvider with ChangeNotifier {
                 builder: (context) {
                   return ShipmentDialog(
                     shipmentNotification: ShipmentNotification.fromMap(
-                      jsonDecode(m.data['data']),
+                      m.data,
                     ),
                     betterOffer: false,
                     onDetailsCallback: () {
@@ -2616,8 +2580,7 @@ class AuthProvider with ChangeNotifier {
                           title: 'ويفو وفرلك كابتن',
                           body:
                               'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
-                          toToken: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
+                          toToken: ShipmentNotification.fromMap(m.data)
                               .merchantFcmToken,
                           image: photo != null
                               ? photo!.contains(ApiConstants.baseUrl)
@@ -2626,9 +2589,7 @@ class AuthProvider with ChangeNotifier {
                               : '',
                           type: '',
                           screenTo: 'shipment_offers',
-                          data: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
-                              .toMap());
+                          data: ShipmentNotification.fromMap(m.data).toMap());
                     },
                     onOfferOkPressed: () {
                       _notificationsNo--;
@@ -2645,9 +2606,7 @@ class AuthProvider with ChangeNotifier {
                               : '',
                           type: '',
                           screenTo: 'shipment_offers',
-                          data: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
-                              .toMap());
+                          data: ShipmentNotification.fromMap(m.data).toMap());
                     },
                     onRefuseShipment: () {
                       _notificationsNo--;
@@ -2669,8 +2628,7 @@ class AuthProvider with ChangeNotifier {
                 barrierDismissible: false,
                 builder: (context) {
                   return ShipmentDialog(
-                    shipmentNotification: ShipmentNotification.fromMap(
-                        json.decode(m.data['data'])),
+                    shipmentNotification: ShipmentNotification.fromMap(m.data),
                     betterOffer: true,
                     onDetailsCallback: () {
                       _dialogOpen = false;
@@ -2685,8 +2643,7 @@ class AuthProvider with ChangeNotifier {
                           title: 'ويفو وفرلك كابتن',
                           body:
                               'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
-                          toToken: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
+                          toToken: ShipmentNotification.fromMap(m.data)
                               .merchantFcmToken,
                           image: photo != null
                               ? photo!.contains(ApiConstants.baseUrl)
@@ -2695,9 +2652,7 @@ class AuthProvider with ChangeNotifier {
                               : '',
                           type: '',
                           screenTo: 'shipment_offers',
-                          data: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
-                              .toMap());
+                          data: ShipmentNotification.fromMap(m.data).toMap());
                     },
                     onOfferOkPressed: () {
                       _notificationsNo--;
@@ -2706,8 +2661,7 @@ class AuthProvider with ChangeNotifier {
                       sendNotification(
                           title: 'عرض أفضل',
                           body: 'تم تقديم عرض أفضل من الكابتن $name',
-                          toToken: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
+                          toToken: ShipmentNotification.fromMap(m.data)
                               .merchantFcmToken,
                           image: photo != null
                               ? photo!.contains(ApiConstants.baseUrl)
@@ -2716,9 +2670,7 @@ class AuthProvider with ChangeNotifier {
                               : '',
                           type: '',
                           screenTo: 'shipment_offers',
-                          data: ShipmentNotification.fromMap(
-                                  json.decode(m.data['data']))
-                              .toMap());
+                          data: ShipmentNotification.fromMap(m.data).toMap());
                     },
                     onRefuseShipment: () {
                       _notificationsNo--;
@@ -2731,14 +2683,12 @@ class AuthProvider with ChangeNotifier {
           }
         } else if (m.data['type'] == 'rating') {
           MagicRouter.navigateAndPopAll(RatingDialog(
-              model: ShipmentTrackingModel.fromJson(json.decode(
-            m.data['data'],
-          ))));
+              model: ShipmentTrackingModel.fromJson(
+            m.data,
+          )));
         } else if (m.data['type'] == 'wasully_rating') {
           MagicRouter.navigateAndPopAll(WasullyRatingDialog(
-              model: ShipmentTrackingModel.fromJson(json.decode(
-            m.data['data'],
-          ))));
+              model: ShipmentTrackingModel.fromJson(m.data)));
         } else {
           configLocalNotification((NotificationResponse? payload) {
             switch (m.data['screen_to']) {
@@ -2749,27 +2699,23 @@ class AuthProvider with ChangeNotifier {
                 Navigator.pushNamed(context, Wallet.id);
                 break;
               case shipmentScreen:
-                if (m.data['data']['has_children']) {
+                if (m.data['has_children']) {
                   Navigator.pushNamed(context, ShipmentDetailsDisplay.id,
-                      arguments: m.data['data']['shipment_id']);
+                      arguments: m.data['shipment_id']);
                 } else {
                   Navigator.pushNamed(context, ChildShipmentDetails.id,
-                      arguments: m.data['data']['shipment_id']);
+                      arguments: m.data['shipment_id']);
                 }
                 break;
               case shipmentDetailsScreen:
-                if (AcceptMerchantOffer.fromMap(json.decode(m.data['data']))
-                        .childrenShipment ==
-                    0) {
+                if (AcceptMerchantOffer.fromMap(m.data).childrenShipment == 0) {
                   Navigator.pushNamed(context, ShipmentDetailsDisplay.id,
-                      arguments: AcceptMerchantOffer.fromMap(
-                              json.decode(m.data['data']))
-                          .shipmentId);
+                      arguments:
+                          AcceptMerchantOffer.fromMap(m.data).shipmentId);
                 } else {
                   Navigator.pushNamed(context, ChildShipmentDetails.id,
-                      arguments: AcceptMerchantOffer.fromMap(
-                              json.decode(m.data['data']))
-                          .shipmentId);
+                      arguments:
+                          AcceptMerchantOffer.fromMap(m.data).shipmentId);
                 }
                 break;
               case noScreen:
@@ -2786,15 +2732,13 @@ class AuthProvider with ChangeNotifier {
                 break;
               case handleShipmentScreen:
                 Navigator.pushNamed(context, HandleShipment.id,
-                    arguments: ShipmentTrackingModel.fromJson(
-                        json.decode(m.data['data'])));
+                    arguments: ShipmentTrackingModel.fromJson(m.data));
                 break;
               case walletScreen:
                 Navigator.pushNamed(context, Wallet.id);
                 break;
               case chatScreen:
-                ChatData chatData =
-                    ChatData.fromJson(json.decode(m.data['data']));
+                ChatData chatData = ChatData.fromJson(m.data);
                 ChatData chatData0;
                 if (chatData.currentUserNationalId == getNationalId) {
                   chatData0 = ChatData(
@@ -3083,6 +3027,12 @@ class AuthProvider with ChangeNotifier {
       required String? body,
       required String? image,
       required String? type}) async {
+    data.addAll(
+      {
+        'type': type,
+        'screen_to': screenTo,
+      },
+    );
     const String firebaseProjectName = 'weevo-bfa67';
     log('SEND');
     log('Notification data:  ${data.toString()}');
@@ -3098,13 +3048,7 @@ class AuthProvider with ChangeNotifier {
               "body": body,
               "image": image,
             },
-            'data': {
-              "data": json.encode(
-                data.toString(),
-              ),
-              "type": type,
-              "screen_to": screenTo,
-            },
+            'data': data,
             "android": {
               "notification": {
                 "click_action": "FLUTTER_NOTIFICATION_CLICK",
@@ -3121,44 +3065,12 @@ class AuthProvider with ChangeNotifier {
       );
 
       log('body -> ${r.data}');
-      log('status code -> ${r.statusCode}');
+      log('Headers -> ${r.requestOptions.headers}');
+      log('Body -> ${r.requestOptions.data}');
     } on DioException catch (e) {
       log('Notification error -> ${e.requestOptions.path}');
       log('Notification error -> ${e.response}');
-    } // http.Response r = await post(
-    //   Uri.parse(
-    //       'https://fcm.googleapis.com/v1/projects/$firebaseProjectName/messages:send'),
-    //   headers: <String, String>{
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Bearer ${Preferences.instance.getFCMAccessToken}',
-    //   },
-    //   body: jsonEncode(
-    //     {
-    //       "message": {
-    //         "token": toToken,
-    //         "notification": {
-    //           "title": title,
-    //           "body": body,
-    //           "image": image,
-    //         },
-    //         'data': {
-    //           "data": json.encode(
-    //             data.toString(),
-    //           ),
-    //           "type": type,
-    //           "screen_to": screenTo
-    //         },
-    //         "android": {
-    //           "notification": {
-    //             "click_action": "FLUTTER_NOTIFICATION_CLICK",
-    //             "sound": "default"
-    //           },
-    //           "priority": "high"
-    //         }
-    //       }
-    //     },
-    //   ),
-    // );
+    }
   }
 
   NetworkState? get networkState => _networkState;

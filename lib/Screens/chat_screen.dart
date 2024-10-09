@@ -98,16 +98,16 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     // final authProvider = Provider.of<AuthProvider>(context);
     // final shipmentProvider = Provider.of<ShipmentProvider>(context);
-    return PopScope(
-      onPopInvokedWithResult: (value, result) async {
+    return WillPopScope(
+      onWillPop: () async {
         if (_authProvider.fromOutsideNotification) {
           _authProvider.setFromOutsideNotification(false);
           Navigator.pushReplacementNamed(context, Home.id);
         } else {
           Navigator.pop(context);
         }
+        return false;
       },
-      canPop: true,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: ConnectivityWidget(
