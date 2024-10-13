@@ -14,13 +14,14 @@ class AvailableShipmentsCubit extends Cubit<AvailableShipmentsStates> {
   List<AvailableShipmentModel> availableShipments = [];
   int currentPage = 1;
   bool hasMoreData = true;
-  Timer? _timer;
+  Timer? timer;
   bool isFirstTime = true;
+  StreamSubscription? subscription;
 
   void streamAvailableShipments() async {
     await getAvailableShipments();
-    _timer?.cancel();
-    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    subscription = null;
+    subscription = Stream.periodic(const Duration(seconds: 10)).listen((_) {
       getAvailableShipments(isPeriodicUpdate: true);
     });
   }
@@ -59,9 +60,13 @@ class AvailableShipmentsCubit extends Cubit<AvailableShipmentsStates> {
     }
   }
 
+  void closeTimer() {
+    subscription?.cancel();
+  }
+
   @override
   Future<void> close() {
-    _timer?.cancel();
+    closeTimer();
     return super.close();
   }
 }

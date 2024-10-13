@@ -60,7 +60,7 @@ void main() async {
   log('The abns token device is ${await FirebaseMessaging.instance.getAPNSToken()}');
   log('The token device is ${await FirebaseMessaging.instance.getToken()}');
   Freshchat.setPushRegistrationToken(Platform.isIOS
-      ? await FirebaseMessaging.instance.getToken() ?? ''
+      ? await FirebaseMessaging.instance.getAPNSToken() ?? ''
       : await FirebaseMessaging.instance.getToken() ?? '');
   FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true, badge: true, sound: true);
@@ -79,13 +79,10 @@ void main() async {
   FirebaseMessaging.instance.setAutoInitEnabled(true);
   FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true, badge: true, sound: true);
-  if (Platform.isIOS) {
-    FirebaseNotification.iOSPermission();
-  }
+  FirebaseNotification.iOSPermission();
   await Preferences.instance.initPref();
   setupGetIt();
   DioFactory.init();
-  log('Flags ${Preferences.instance.getUserFlags}');
   runApp(const WeevoCaptain());
 }
 

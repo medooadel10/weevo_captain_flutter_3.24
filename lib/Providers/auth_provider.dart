@@ -468,6 +468,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> getGroupsWithBanners() async {
+    log('Get Bannners');
     _groupBannersState = NetworkState.waiting;
     try {
       http.Response r = await HttpHelper.instance.httpGet(
@@ -882,6 +883,7 @@ class AuthProvider with ChangeNotifier {
   NetworkState? get countryState => _countryState;
 
   Future<void> getCountries() async {
+    log('get countriessss');
     states = [];
     _countryState = NetworkState.waiting;
     try {
@@ -889,7 +891,6 @@ class AuthProvider with ChangeNotifier {
         'location/countries',
         false,
       );
-      log(r.body);
       if (r.statusCode >= 200 && r.statusCode < 300) {
         var data = jsonDecode(r.body) as List;
         Countries countries = Countries.fromJson(data[0]);
@@ -1140,7 +1141,6 @@ class AuthProvider with ChangeNotifier {
     List<int>? areasId,
   }) async {
     try {
-      log('areassss -> $areasId');
       _updateAreasState = NetworkState.waiting;
       notifyListeners();
       http.Response r = await HttpHelper.instance.httpPost(
@@ -1210,7 +1210,6 @@ class AuthProvider with ChangeNotifier {
           'password_verification': _preferences.getPassword,
         },
       );
-      log('${json.decode(r.body)}');
       if (r.statusCode >= 200 && r.statusCode < 300) {
         UpdateUserData updateData =
             UpdateUserData.fromJson(json.decode(r.body));

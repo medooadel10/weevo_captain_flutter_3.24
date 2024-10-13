@@ -83,7 +83,8 @@ class _AvailableShipmentsListBlocBuilderState
             .select<AvailableShipmentsCubit, List<AvailableShipmentModel>>(
           (cubit) => cubit.availableShipments,
         );
-        if (state is AvailableShipmentsLoadingState) {
+        if (state is AvailableShipmentsLoadingState ||
+            state is AvailableShipmentsErrorState) {
           return const ShipmentsLoading();
         }
         return RefreshIndicator(

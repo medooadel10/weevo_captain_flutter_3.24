@@ -43,7 +43,6 @@ class ShipmentsCubit extends Cubit<ShipmentsStates> {
       hasMoreData = true;
       emit(ShipmentsLoadingState());
     }
-
     final result = await _shipmentsRepo.getShipments(
       shipmentsCompleted
           ? BaseShipmentStatus

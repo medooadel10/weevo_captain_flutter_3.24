@@ -6,8 +6,19 @@ import '../../../../core/router/router.dart';
 import '../../logic/cubit/available_shipments_cubit.dart';
 import '../widgets/available_shipments_body.dart';
 
-class AvailableShipmentsScreen extends StatelessWidget {
+class AvailableShipmentsScreen extends StatefulWidget {
   const AvailableShipmentsScreen({super.key});
+
+  @override
+  State<AvailableShipmentsScreen> createState() =>
+      _AvailableShipmentsScreenState();
+}
+
+class _AvailableShipmentsScreenState extends State<AvailableShipmentsScreen> {
+  @override
+  dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
