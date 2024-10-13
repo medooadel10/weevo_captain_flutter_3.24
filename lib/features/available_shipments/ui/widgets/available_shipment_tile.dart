@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:weevo_captain_app/features/available_shipments/logic/cubit/available_shipments_cubit.dart';
 
 import '../../../../Providers/auth_provider.dart';
 import '../../../../Screens/child_shipment_details.dart';
@@ -73,13 +74,23 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
       GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
+          context.read<AvailableShipmentsCubit>().pauseTimer();
           if (widget.availableShipment.slug != null) {
             MagicRouter.navigateTo(
-                WasullyDetailsScreen(id: widget.availableShipment.id));
+                    WasullyDetailsScreen(id: widget.availableShipment.id))
+                .then((_) {
+              if (context.mounted) {
+                context.read<AvailableShipmentsCubit>().resumeTimer();
+              }
+            });
           } else {
             MagicRouter.navigateTo(ShipmentDetailsDisplay(
               shipmentId: widget.availableShipment.id,
-            ));
+            )).then((_) {
+              if (context.mounted) {
+                context.read<AvailableShipmentsCubit>().resumeTimer();
+              }
+            });
           }
         },
         child: Card(
@@ -180,9 +191,14 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
             itemBuilder: (context, i, realIndex) => GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
+                context.read<AvailableShipmentsCubit>().pauseTimer();
                 MagicRouter.navigateTo(ChildShipmentDetails(
                   shipmentId: widget.availableShipment.id,
-                ));
+                )).then((_) {
+                  if (context.mounted) {
+                    context.read<AvailableShipmentsCubit>().resumeTimer();
+                  }
+                });
               },
               child: Stack(
                 children: [

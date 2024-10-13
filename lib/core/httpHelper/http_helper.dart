@@ -81,6 +81,7 @@ class HttpHelper {
     if (r.statusCode >= 200 && r.statusCode < 300) {
       log('decoded response -> ${json.decode(r.body)}');
     } else if (r.statusCode == 401) {
+      log('ERRRRRRRR');
       if (Preferences.instance.getPhoneNumber.isNotEmpty &&
           Preferences.instance.getPassword.isNotEmpty) {
         await AuthProvider.listenFalse(navigator.currentContext!).authLogin();
@@ -117,17 +118,20 @@ class HttpHelper {
     return r;
   }
 
-  Future<void> getData() async => Future.wait([
-        AuthProvider.listenFalse(navigator.currentContext!)
-            .getCurrentUserdata(false),
-        // AuthProvider.listenFalse(navigator.currentContext).getToken(),
-        // AuthProvider.listenFalse(navigator.currentContext).getFirebaseToken(),
-        AuthProvider.listenFalse(navigator.currentContext!).getArticle(),
-        AuthProvider.listenFalse(navigator.currentContext!)
-            .getGroupsWithBanners(),
-        AuthProvider.listenFalse(navigator.currentContext!).getAllCategories(),
-        AuthProvider.listenFalse(navigator.currentContext!)
-            .getCourierCommission(),
-        AuthProvider.listenFalse(navigator.currentContext!).getCountries(),
-      ]);
+  Future<void> getData() async {
+    log('Get All Data');
+    Future.wait([
+      AuthProvider.listenFalse(navigator.currentContext!)
+          .getCurrentUserdata(false),
+      // AuthProvider.listenFalse(navigator.currentContext).getToken(),
+      // AuthProvider.listenFalse(navigator.currentContext).getFirebaseToken(),
+      AuthProvider.listenFalse(navigator.currentContext!).getArticle(),
+      AuthProvider.listenFalse(navigator.currentContext!)
+          .getGroupsWithBanners(),
+      AuthProvider.listenFalse(navigator.currentContext!).getAllCategories(),
+      AuthProvider.listenFalse(navigator.currentContext!)
+          .getCourierCommission(),
+      AuthProvider.listenFalse(navigator.currentContext!).getCountries(),
+    ]);
+  }
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 
 import '../../../wasully_details/data/models/shipment_status/base_shipment_status.dart';
@@ -57,7 +55,6 @@ class ShipmentsCubit extends Cubit<ShipmentsStates> {
       if ((isPaging && hasMoreData) || currentPage == 1) currentPage++;
       emit(ShipmentsSuccessState(result.data!.shipments));
     } else {
-      log('Error: ${result.error}');
       emit(ShipmentsErrorState(result.error!));
     }
   }

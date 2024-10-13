@@ -56,14 +56,20 @@ void main() async {
     gallerySelectionEnabled: true,
     responseExpectationEnabled: true,
     fileSelectionEnabled: true,
+    showNotificationBanneriOS: true,
+    errorLogsEnabled: true,
   );
   log('The abns token device is ${await FirebaseMessaging.instance.getAPNSToken()}');
   log('The token device is ${await FirebaseMessaging.instance.getToken()}');
+
   Freshchat.setPushRegistrationToken(Platform.isIOS
-      ? await FirebaseMessaging.instance.getAPNSToken() ?? ''
+      ? await FirebaseMessaging.instance.getToken() ?? ''
       : await FirebaseMessaging.instance.getToken() ?? '');
   FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: true, badge: true, sound: true);
+    alert: true,
+    badge: true,
+    sound: true,
+  );
   if (Platform.isIOS) {
     FirebaseNotification.iOSPermission();
   }

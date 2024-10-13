@@ -68,7 +68,9 @@ class WasullyOfferDialog extends StatelessWidget {
                             ),
                             horizontalSpace(5),
                             Text(
-                              double.parse(merchantRating).toStringAsFixed(1),
+                              double.tryParse(merchantRating)
+                                      ?.toStringAsFixed(1) ??
+                                  '4.5',
                               style: TextStyle(
                                 fontSize: 16.0.sp,
                                 fontWeight: FontWeight.bold,

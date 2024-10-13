@@ -21,7 +21,7 @@ class AvailableShipmentsCubit extends Cubit<AvailableShipmentsStates> {
   void streamAvailableShipments() async {
     await getAvailableShipments();
     subscription = null;
-    subscription = Stream.periodic(const Duration(seconds: 10)).listen((_) {
+    subscription = Stream.periodic(const Duration(seconds: 90)).listen((_) {
       getAvailableShipments(isPeriodicUpdate: true);
     });
   }
@@ -41,7 +41,6 @@ class AvailableShipmentsCubit extends Cubit<AvailableShipmentsStates> {
       availableShipments.clear();
       emit(AvailableShipmentsLoadingState());
     }
-
     final result =
         await _availableShipmentsRepo.getAvailableShipments(currentPage);
     if (result.success!) {
@@ -62,6 +61,14 @@ class AvailableShipmentsCubit extends Cubit<AvailableShipmentsStates> {
 
   void closeTimer() {
     subscription?.cancel();
+  }
+
+  void resumeTimer() {
+    subscription?.resume();
+  }
+
+  void pauseTimer() {
+    subscription?.pause();
   }
 
   @override

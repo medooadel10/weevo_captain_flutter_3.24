@@ -62,11 +62,12 @@ class _WalletState extends State<Wallet> {
         },
         child: WillPopScope(
           onWillPop: () async {
+            log('Main index is ${walletProvider.mainIndex}');
             switch (walletProvider.mainIndex) {
               case 0:
-                MagicRouter.pop();
+                Navigator.pop(context);
                 walletProvider.setMainIndex(0);
-                break;
+                return true;
               case 1:
                 switch (walletProvider.depositIndex) {
                   case 0:
