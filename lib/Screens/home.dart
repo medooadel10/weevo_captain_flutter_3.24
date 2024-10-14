@@ -168,11 +168,9 @@ class _HomeState extends State<Home> {
   }
 
   void getData() async {
-    log('id --------> ${_authProvider.token}');
     if (await _authProvider.checkConnection()) {
       await _authProvider.getCurrentUserdata(false);
       freshChatInit.initFreshChat();
-      await _authProvider.getToken();
       await _authProvider.getFirebaseToken();
       if (_authProvider.userDataByToken!.active == 1) {
         if (_authProvider.userDataByToken!.banned == 0) {
@@ -196,7 +194,6 @@ class _HomeState extends State<Home> {
             'fcmToken': _authProvider.fcmToken,
             'national_id': _authProvider.phone,
           });
-
           _authProvider.updateToken(value: _authProvider.fcmToken);
           initChatBadge();
           initNotificationBadge();

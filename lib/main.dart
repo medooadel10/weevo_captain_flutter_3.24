@@ -26,9 +26,6 @@ import 'firebase_options.dart';
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message,
     {BuildContext? context}) async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   log("Entered background handler");
   if (await Freshchat.isFreshchatNotification(message.data)) {
     log("Handling a freshchat message: ${message.data}");
@@ -43,10 +40,25 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message,
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+      options: Platform.isIOS
+          ? FirebaseOptions(
+              apiKey: 'AIzaSyANiqEcyoXwDcxnRwiFJT3cgFwGxL8PXvc',
+              appId: '1:183711190435:ios:3167f3abe87335b0f2de16',
+              messagingSenderId: '183711190435',
+              projectId: 'weevo-bfa67',
+              storageBucket: 'weevo-bfa67.appspot.com',
+              androidClientId:
+                  '183711190435-2kodenssv355a57vmgfnce2crh0pdvgb.apps.googleusercontent.com',
+              iosBundleId: 'com.weevo.captainApp',
+            )
+          : FirebaseOptions(
+              apiKey: 'AIzaSyBTdtjPztYGOEWJxdnF6NZod1pER67fces',
+              appId: '1:183711190435:android:4470d48bc28a607ff2de16',
+              messagingSenderId: '183711190435',
+              projectId: 'weevo-bfa67',
+              storageBucket: 'weevo-bfa67.appspot.com',
+            ));
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
   Freshchat.init(
     '2540a172-9d87-4e8d-a28d-05b2fcef08fb',
     '90f02877-838c-42d2-876a-ef1b94346565',
@@ -59,25 +71,11 @@ void main() async {
     showNotificationBanneriOS: true,
     errorLogsEnabled: true,
   );
-  log('The abns token device is ${await FirebaseMessaging.instance.getAPNSToken()}');
-  log('The token device is ${await FirebaseMessaging.instance.getToken()}');
-
-  Freshchat.setPushRegistrationToken(Platform.isIOS
-      ? await FirebaseMessaging.instance.getToken() ?? ''
-      : await FirebaseMessaging.instance.getToken() ?? '');
-  FirebaseMessaging.instance.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
   FirebaseMessaging.instance.setAutoInitEnabled(true);
+  if (Platform.isIOS) FirebaseNotification.iOSPermission();
   FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true, badge: true, sound: true);
-  FirebaseNotification.iOSPermission();
+  Freshchat.setPushRegistrationToken(await FirebaseMessaging.instance.getToken() ?? '');
   await Preferences.instance.initPref();
   setupGetIt();
   DioFactory.init();

@@ -1079,12 +1079,6 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getToken() async {
-    String? token = await fcm.getToken();
-    await _preferences.setFcmToken(token ?? '');
-    log('FCM TOKEN -> $token');
-  }
-
   Future<void> updateEmail({
     String? newEmail,
   }) async {
@@ -1760,6 +1754,7 @@ class AuthProvider with ChangeNotifier {
       notificationSoundEnabled: true,
     );
     String? token = await fcm.getToken();
+    log('FCM TOKEN -> $token');
     fresh_chat.Freshchat.setPushRegistrationToken(token!);
     fcm.subscribeToTopic('all');
     fcm.subscribeToTopic('courier');
@@ -2986,7 +2981,6 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> getServerKey() async {
-    log('getting server key');
     final scopes = ['https://www.googleapis.com/auth/firebase.messaging'];
     try {
       final client = await clientViaServiceAccount(

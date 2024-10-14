@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:weevo_captain_app/core/helpers/extensions.dart';
-
 import '../Models/shipment_notification.dart';
 import '../Providers/auth_provider.dart';
 import '../Providers/shipment_provider.dart';
