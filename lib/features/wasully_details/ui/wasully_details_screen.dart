@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weevo_captain_app/Storage/shared_preference.dart';
 
 import '../../../core/router/router.dart';
 import '../logic/cubit/wasully_details_cubit.dart';
@@ -30,11 +31,7 @@ class _WasullyDetailsScreenState extends State<WasullyDetailsScreen> {
     String locationId = '';
 
     try {
-      DocumentSnapshot courierToken = await FirebaseFirestore.instance
-          .collection('courier_users')
-          .doc(cubit.wasullyModel!.courier.id.toString())
-          .get();
-      String courierNationalId = courierToken['national_id'];
+      String courierNationalId = Preferences.instance.getPhoneNumber;
       DocumentSnapshot merchantToken = await FirebaseFirestore.instance
           .collection('merchant_users')
           .doc(cubit.wasullyModel!.merchant.id.toString())

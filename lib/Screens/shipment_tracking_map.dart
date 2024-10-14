@@ -39,11 +39,9 @@ class _ShipmentTrackingMapState extends State<ShipmentTrackingMap> {
   @override
   void initState() {
     super.initState();
-    if (widget.model.merchantId.hashCode >= widget.model.courierId.hashCode) {
-      _locationId = '${widget.model.merchantId}-${widget.model.courierId}';
-    } else {
-      _locationId = '${widget.model.courierId}-${widget.model.merchantId}';
-    }
+
+    _locationId = '${widget.model.courierId}-${widget.model.merchantId}';
+
     rootBundle.loadString('assets/images/map_style.txt').then((string) {
       _mapStyle = string;
     });

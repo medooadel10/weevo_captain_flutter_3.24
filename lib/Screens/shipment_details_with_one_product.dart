@@ -533,15 +533,14 @@ class _ShipmentDetailsWithOneProductState
                               SizedBox(
                                 width: 5.w,
                               ),
-                              
                               if (Preferences.instance.getUserFlags ==
                                   'freelance') ...[
-                                    Image.asset(
-                                'assets/images/van_icon.png',
-                                height: 20.h,
-                                width: 20.w,
-                                fit: BoxFit.contain,
-                              ),
+                                Image.asset(
+                                  'assets/images/van_icon.png',
+                                  height: 20.h,
+                                  width: 20.w,
+                                  fit: BoxFit.contain,
+                                ),
                                 SizedBox(
                                   width: 5.w,
                                 ),
@@ -3313,8 +3312,16 @@ class _ShipmentDetailsWithOneProductState
                 String courierPhoneNumber = Preferences.instance.getPhoneNumber;
                 String merchantPhoneNumber =
                     data.shipmentById!.merchant!.phone!;
-                String locationId =
-                    '$courierPhoneNumber-$merchantPhoneNumber-${data.shipmentById!.id}';
+                String locationId = '';
+                if (merchantPhoneNumber.hashCode >=
+                    courierPhoneNumber.hashCode) {
+                  locationId =
+                      '$merchantPhoneNumber-$courierPhoneNumber-${data.shipmentById!.id}';
+                } else {
+                  locationId =
+                      '$courierPhoneNumber-$merchantPhoneNumber-${data.shipmentById!.id}';
+                }
+                
                 FirebaseFirestore.instance
                     .collection('locations')
                     .doc(locationId)

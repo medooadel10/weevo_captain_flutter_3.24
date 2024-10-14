@@ -59,8 +59,14 @@ class _HandleShipmentState extends State<HandleShipment> {
   void initState() {
     super.initState();
 
-    _locationId =
-        '${widget.model.courierNationalId}-${widget.model.merchantNationalId}-${widget.model.shipmentId}';
+    if (widget.model.merchantNationalId.hashCode >=
+        widget.model.courierNationalId.hashCode) {
+      _locationId =
+          '${widget.model.merchantNationalId}-${widget.model.courierNationalId}-${widget.model.shipmentId}';
+    } else {
+      _locationId =
+          '${widget.model.courierNationalId}-${widget.model.merchantNationalId}-${widget.model.shipmentId}';
+    }
 
     _authProvider = Provider.of<AuthProvider>(context, listen: false);
     _currentLat = _authProvider.locationData?.latitude ?? 0.0;
@@ -260,7 +266,6 @@ class _HandleShipmentState extends State<HandleShipment> {
           Navigator.pop(context);
         }
         return false;
-
       },
       child: ConnectivityWidget(
         callback: () {},

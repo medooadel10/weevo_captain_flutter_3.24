@@ -91,7 +91,6 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
           Navigator.pop(context);
         }
         return false;
-
       },
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -1250,10 +1249,17 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                         screenTo: 'shipment_screen',
                         type: 'cancel_shipment');
                 String courierPhoneNumber = Preferences.instance.getPhoneNumber;
+                String locationId = '';
                 String merchantPhoneNumber =
                     data.bulkShipmentById!.merchant!.phone!;
-                String locationId =
-                    '$courierPhoneNumber-$merchantPhoneNumber-${data.bulkShipmentById!.id}';
+                if (merchantPhoneNumber.hashCode >=
+                    courierPhoneNumber.hashCode) {
+                  locationId = 
+                      '$merchantPhoneNumber-$courierPhoneNumber-${data.bulkShipmentById!.id}';
+                } else {
+                   locationId =
+                      '$courierPhoneNumber-$merchantPhoneNumber-${data.bulkShipmentById!.id}';
+                }
                 FirebaseFirestore.instance
                     .collection('locations')
                     .doc(locationId)
