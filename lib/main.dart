@@ -65,14 +65,6 @@ void main() async {
   Freshchat.setPushRegistrationToken(Platform.isIOS
       ? await FirebaseMessaging.instance.getToken() ?? ''
       : await FirebaseMessaging.instance.getToken() ?? '');
-  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-  if (Platform.isIOS) {
-    FirebaseNotification.iOSPermission();
-  }
   FirebaseMessaging.instance.requestPermission(
     alert: true,
     announcement: false,

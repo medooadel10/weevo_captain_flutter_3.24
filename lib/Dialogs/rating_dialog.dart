@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:weevo_captain_app/Storage/shared_preference.dart';
 
 import '../Models/shipment_tracking_model.dart';
 import '../Providers/shipment_tracking_provider.dart';
 import '../Screens/home.dart';
+import '../Storage/shared_preference.dart';
 import '../Utilits/colors.dart';
 import '../Utilits/constants.dart';
 import '../Widgets/edit_text.dart';
+import '../Widgets/loading_dialog.dart';
 import '../Widgets/weevo_button.dart';
 import '../core/helpers/spacing.dart';
 import '../core/networking/api_constants.dart';
-import '../core/router/router.dart';
 import '../core/widgets/custom_image.dart';
+import '../router/router.dart';
 import 'action_dialog.dart';
-import 'loading.dart';
 
 class RatingDialog extends StatefulWidget {
   final ShipmentTrackingModel model;
@@ -103,8 +103,8 @@ class _RatingDialogState extends State<RatingDialog> {
                         image: widget.model.courierImage != null
                             ? widget.model.courierImage!
                                     .contains(ApiConstants.baseUrl)
-                                ? widget.model.courierImage!
-                                : '${ApiConstants.baseUrl}${widget.model.courierImage}'
+                                ? widget.model.courierImage ?? ''
+                                : '${ApiConstants.baseUrl}${widget.model.merchantImage}'
                             : '',
                       ),
                     ),
@@ -114,7 +114,7 @@ class _RatingDialogState extends State<RatingDialog> {
                   height: 8.0,
                 ),
                 Text(
-                  'كيف كانت شحنتك مع التاجر ${widget.model.courierName}',
+                  'كيف كانت شحنتك مع الكابتن ${widget.model.courierName}',
                   textDirection: TextDirection.rtl,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
@@ -196,7 +196,7 @@ class _RatingDialogState extends State<RatingDialog> {
                     filled: false,
                     radius: 12.0.r,
                     validator: (v) {
-                      return null;
+                      return '';
                     },
                     focusNode: _focusNode,
                     labelColor: Colors.grey,
@@ -214,8 +214,8 @@ class _RatingDialogState extends State<RatingDialog> {
                 WeevoButton(
                   onTap: () async {
                     showDialog(
-                        context: context,
-                        builder: (context) => const Loading());
+                        context: navigator.currentContext!,
+                        builder: (context) => const LoadingDialog());
                     await trackingProvider.reviewMerchant(
                         shipmentId: widget.model.shipmentId,
                         rating: _ratePoint?.toInt(),
@@ -233,7 +233,7 @@ class _RatingDialogState extends State<RatingDialog> {
                                         ? 'very good'
                                         : 'excellent');
                     if (trackingProvider.state == NetworkState.success) {
-                      Navigator.pop(navigator.currentContext!);
+                      MagicRouter.pop();
                       showDialog(
                           context: navigator.currentContext!,
                           builder: (context) => Dialog(
@@ -279,8 +279,8 @@ class _RatingDialogState extends State<RatingDialog> {
                                         ),
                                       ),
                                       onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
+                                        MagicRouter.pop();
+                                        MagicRouter.pop();
                                         Navigator.pushNamedAndRemoveUntil(
                                             context, Home.id, (route) => false);
                                       },
@@ -304,7 +304,7 @@ class _RatingDialogState extends State<RatingDialog> {
                                 content: 'حدث خطأ من فضلك حاول مرة اخري',
                                 cancelAction: 'حسناً',
                                 onCancelClick: () {
-                                  Navigator.pop(context);
+                                  MagicRouter.pop();
                                 },
                               ));
                     }
@@ -459,7 +459,7 @@ class _RatingDialogState extends State<RatingDialog> {
     //         if (_ratingController.text.isNotEmpty &&
     //             _ratePoint != null &&
     //             _value != null) {
-    //           showDialog(context: context, builder: (context) => Loading());
+    //           showDialog(navigator.currentContext!, builder: (context) => Loading());
     //           await trackingProvider.reviewCourier(
     //               shipmentId: widget.model.shipmentId,
     //               rating: _ratePoint.toInt(),
@@ -475,9 +475,8 @@ class _RatingDialogState extends State<RatingDialog> {
     //                               ? 'very good'
     //                               : 'excellent');
     //           if (trackingProvider.state == NetworkState.SUCCESS) {
-    //             Navigator.pop(context);
-    //             showDialog(
-    //                 context: context,
+    //       magicRouter.pop();    //             showDialog(
+    //                 navigator.currentContext!,
     //                 builder: (context) => Dialog(
     //                     insetPadding: EdgeInsets.all(20.0),
     //                     shape: RoundedRectangleBorder(
@@ -519,9 +518,7 @@ class _RatingDialogState extends State<RatingDialog> {
     //                               ),
     //                             ),
     //                             onPressed: () {
-    //                               Navigator.pop(context);
-    //                               Navigator.pop(context);
-    //                               Navigator.pushNamedAndRemoveUntil(
+    //               MagicRouter.pop();    //               MagicRouter.pop();    //                               Navigator.pushNamedAndRemoveUntil(
     //                                   context, Home.id, (route) => false);
     //                             },
     //                             child: Text(
@@ -538,24 +535,22 @@ class _RatingDialogState extends State<RatingDialog> {
     //                     )));
     //           } else if (trackingProvider.state == NetworkState.ERROR) {
     //             showDialog(
-    //                 context: context,
+    //                 navigator.currentContext!,
     //                 barrierDismissible: false,
     //                 builder: (context) => ActionDialog(
     //                       content: 'حدث خطأ من فضلك حاول مرة اخري',
     //                       cancelAction: 'حسناً',
     //                       onCancelClick: () {
-    //                         Navigator.pop(context);
-    //                       },
+    //         MagicRouter.pop();    //                       },
     //                     ));
     //           }
     //         } else {
     //           showDialog(
-    //               context: context,
+    //               navigator.currentContext!,
     //               builder: (context) => ContentDialog(
     //                   content: 'أدخل القيم بطريقة صحيحة',
     //                   callback: () {
-    //                     Navigator.pop(context);
-    //                   }));
+    //     MagicRouter.pop();    //                   }));
     //         }
     //       },
     //       child: Text(

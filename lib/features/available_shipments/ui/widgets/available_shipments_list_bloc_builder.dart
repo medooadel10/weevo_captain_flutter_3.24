@@ -91,44 +91,47 @@ class _AvailableShipmentsListBlocBuilderState
           onRefresh: () async {
             await cubit.getAvailableShipments();
           },
-          child: SingleChildScrollView(
-            controller: scrollController,
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    int reverseIndex = shipments.length - index - 1;
-                    if (reverseIndex < shipments.length) {
-                      return AvailableShipmentTile(
-                        availableShipment: shipments[reverseIndex],
-                      );
-                    } else {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.h),
-                        child: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    }
-                  },
-                  separatorBuilder: (context, index) => verticalSpace(10),
-                  itemCount: shipments.length +
-                      (state is AvailableShipmentsPagingLoadingState ? 1 : 0),
-                ),
-                Visibility(
-                  visible: state is AvailableShipmentsPagingLoadingState,
-                  child: ListView.separated(
+          child: SizedBox(
+            height: double.infinity,
+            child: SingleChildScrollView(
+              controller: scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                children: [
+                  ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => const ShipmentsLoading(),
+                    itemBuilder: (context, index) {
+                      int reverseIndex = shipments.length - index - 1;
+                      if (reverseIndex < shipments.length) {
+                        return AvailableShipmentTile(
+                          availableShipment: shipments[reverseIndex],
+                        );
+                      } else {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+                    },
                     separatorBuilder: (context, index) => verticalSpace(10),
-                    itemCount: 5,
+                    itemCount: shipments.length +
+                        (state is AvailableShipmentsPagingLoadingState ? 1 : 0),
                   ),
-                ),
-              ],
+                  Visibility(
+                    visible: state is AvailableShipmentsPagingLoadingState,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => const ShipmentsLoading(),
+                      separatorBuilder: (context, index) => verticalSpace(10),
+                      itemCount: 5,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
