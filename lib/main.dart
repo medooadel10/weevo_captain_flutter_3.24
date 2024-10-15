@@ -21,7 +21,6 @@ import 'core/networking/dio_factory.dart';
 import 'core/style/app_theme.dart';
 import 'features/wasully_details/logic/cubit/wasully_details_cubit.dart';
 import 'features/wasully_handle_shipment/logic/cubit/wasully_handle_shipment_cubit.dart';
-import 'firebase_options.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message,
@@ -75,7 +74,8 @@ void main() async {
   if (Platform.isIOS) FirebaseNotification.iOSPermission();
   FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true, badge: true, sound: true);
-  Freshchat.setPushRegistrationToken(await FirebaseMessaging.instance.getToken() ?? '');
+  Freshchat.setPushRegistrationToken(
+      await FirebaseMessaging.instance.getToken() ?? '');
   await Preferences.instance.initPref();
   setupGetIt();
   DioFactory.init();

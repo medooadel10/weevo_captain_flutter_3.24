@@ -892,7 +892,6 @@ class _HandleShipmentState extends State<HandleShipment> {
                           });
                           showDialog(
                               context: navigator.currentContext!,
-                              barrierDismissible: false,
                               builder: (ctx) => MerchantToCourierQrCodeScanner(
                                   parentContext: context,
                                   model: widget.model,
