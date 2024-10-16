@@ -6,12 +6,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:weevo_captain_app/Screens/onboarding.dart';
 import 'package:weevo_captain_app/Storage/shared_preference.dart';
 import 'package:weevo_captain_app/core/router/router.dart';
 
 import '../Dialogs/action_dialog.dart';
 import '../Providers/auth_provider.dart';
 import '../Utilits/constants.dart';
+import 'home.dart';
 
 class Splash extends StatefulWidget {
   static const String id = 'Splash';
@@ -34,7 +36,7 @@ class _SplashState extends State<Splash> {
         const SystemUiOverlayStyle(statusBarColor: Colors.white));
     _authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    getCountries();
+    initMain();
     // testMethod();
   }
 
@@ -80,7 +82,7 @@ class _SplashState extends State<Splash> {
     );
   }
 
-  void getCountries() async {
+  void initMain() async {
     if (await _authProvider.checkConnection()) {
       await _authProvider.getCurrentUserdata(false);
 
@@ -117,9 +119,12 @@ class _SplashState extends State<Splash> {
             ),
           );
         } else {
-          await _authProvider.getCountries();
           await _authProvider.getInitMessage();
-          _authProvider.setAppVersion(appVersion: packageInfo?.version);
+          if (Preferences.instance.getAccessToken.isEmpty) {
+            MagicRouter.navigateAndPopAll(const OnBoarding());
+          } else {
+            MagicRouter.navigateAndPopAll(const Home());
+          }
         }
       } else if (_authProvider.courierCriticalUpdateState ==
           NetworkState.error) {
@@ -132,7 +137,6 @@ class _SplashState extends State<Splash> {
             approveAction: 'حاول مرة اخري',
             onApproveClick: () async {
               Navigator.pop(context);
-              getCountries();
             },
             onCancelClick: () {
               Navigator.pop(context);
@@ -150,7 +154,6 @@ class _SplashState extends State<Splash> {
           approveAction: 'حاول مرة اخري',
           onApproveClick: () async {
             Navigator.pop(context);
-            getCountries();
           },
           onCancelClick: () {
             Navigator.pop(context);
@@ -160,82 +163,79 @@ class _SplashState extends State<Splash> {
     }
   }
 
-  void testMethod() async {
-    if (await _authProvider.checkConnection()) {
-      await _authProvider.getCurrentUserdata(false);
+  // void testMethod() async {
+  //   if (await _authProvider.checkConnection()) {
+  //     await _authProvider.getCurrentUserdata(false);
 
-      packageInfo = await PackageInfo.fromPlatform();
-      setState(() {});
-      await _authProvider.courierUpdate(packageInfo?.version);
+  //     packageInfo = await PackageInfo.fromPlatform();
+  //     setState(() {});
+  //     await _authProvider.courierUpdate(packageInfo?.version);
 
-      if (_authProvider.courierCriticalUpdateState == NetworkState.success) {
-        if (_authProvider.courierCriticalUpdate?.shouldUpdate ?? false) {
-          showDialog(
-            context: navigator.currentContext!,
-            barrierDismissible: false,
-            builder: (ctx) => ActionDialog(
-              content: 'عليك تحديث الاصدار الحالي',
-              cancelAction: 'الخروج',
-              approveAction: 'تحديث',
-              onApproveClick: () async {
-                Navigator.pop(context);
-                try {
-                  launchUrlString(
-                      "https://play.google.com/store/apps/details?id=${packageInfo?.packageName}");
-                } on PlatformException {
-                  launchUrlString(
-                      "https://play.google.com/store/apps/details?id=${packageInfo?.packageName}");
-                } finally {
-                  launchUrlString(
-                      "https://play.google.com/store/apps/details?id=${packageInfo?.packageName}");
-                }
-              },
-              onCancelClick: () {
-                SystemNavigator.pop();
-              },
-            ),
-          );
-        } else {
-          await _authProvider.getCountries();
-          await _authProvider.getInitMessage();
-          _authProvider.setAppVersion(appVersion: packageInfo?.version);
-        }
-      } else if (_authProvider.courierCriticalUpdateState ==
-          NetworkState.error) {
-        showDialog(
-          context: navigator.currentContext!,
-          barrierDismissible: false,
-          builder: (ctx) => ActionDialog(
-            content: 'تأكد من الاتصال بشبكة الانترنت',
-            cancelAction: 'حسناً',
-            approveAction: 'حاول مرة اخري',
-            onApproveClick: () async {
-              Navigator.pop(context);
-              getCountries();
-            },
-            onCancelClick: () {
-              Navigator.pop(context);
-            },
-          ),
-        );
-      }
-    } else {
-      showDialog(
-        context: navigator.currentContext!,
-        barrierDismissible: false,
-        builder: (ctx) => ActionDialog(
-          content: 'تأكد من الاتصال بشبكة الانترنت',
-          cancelAction: 'حسناً',
-          approveAction: 'حاول مرة اخري',
-          onApproveClick: () async {
-            Navigator.pop(context);
-            getCountries();
-          },
-          onCancelClick: () {
-            Navigator.pop(context);
-          },
-        ),
-      );
-    }
-  }
+  //     if (_authProvider.courierCriticalUpdateState == NetworkState.success) {
+  //       if (_authProvider.courierCriticalUpdate?.shouldUpdate ?? false) {
+  //         showDialog(
+  //           context: navigator.currentContext!,
+  //           barrierDismissible: false,
+  //           builder: (ctx) => ActionDialog(
+  //             content: 'عليك تحديث الاصدار الحالي',
+  //             cancelAction: 'الخروج',
+  //             approveAction: 'تحديث',
+  //             onApproveClick: () async {
+  //               Navigator.pop(context);
+  //               try {
+  //                 launchUrlString(
+  //                     "https://play.google.com/store/apps/details?id=${packageInfo?.packageName}");
+  //               } on PlatformException {
+  //                 launchUrlString(
+  //                     "https://play.google.com/store/apps/details?id=${packageInfo?.packageName}");
+  //               } finally {
+  //                 launchUrlString(
+  //                     "https://play.google.com/store/apps/details?id=${packageInfo?.packageName}");
+  //               }
+  //             },
+  //             onCancelClick: () {
+  //               SystemNavigator.pop();
+  //             },
+  //           ),
+  //         );
+  //       } else {
+  //         await _authProvider.getInitMessage();
+  //         _authProvider.setAppVersion(appVersion: packageInfo?.version);
+  //       }
+  //     } else if (_authProvider.courierCriticalUpdateState ==
+  //         NetworkState.error) {
+  //       showDialog(
+  //         context: navigator.currentContext!,
+  //         barrierDismissible: false,
+  //         builder: (ctx) => ActionDialog(
+  //           content: 'تأكد من الاتصال بشبكة الانترنت',
+  //           cancelAction: 'حسناً',
+  //           approveAction: 'حاول مرة اخري',
+  //           onApproveClick: () async {
+  //             Navigator.pop(context);
+  //           },
+  //           onCancelClick: () {
+  //             Navigator.pop(context);
+  //           },
+  //         ),
+  //       );
+  //     }
+  //   } else {
+  //     showDialog(
+  //       context: navigator.currentContext!,
+  //       barrierDismissible: false,
+  //       builder: (ctx) => ActionDialog(
+  //         content: 'تأكد من الاتصال بشبكة الانترنت',
+  //         cancelAction: 'حسناً',
+  //         approveAction: 'حاول مرة اخري',
+  //         onApproveClick: () async {
+  //           Navigator.pop(context);
+  //         },
+  //         onCancelClick: () {
+  //           Navigator.pop(context);
+  //         },
+  //       ),
+  //     );
+  //   }
+  // }
 }

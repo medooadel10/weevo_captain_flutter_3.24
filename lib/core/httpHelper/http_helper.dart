@@ -4,9 +4,7 @@ import 'dart:developer';
 import 'package:http/http.dart';
 
 import '../../Providers/auth_provider.dart';
-import '../../Screens/onboarding.dart';
 import '../../Storage/shared_preference.dart';
-import '../../router/router.dart';
 import 'header_config.dart';
 
 const String baseUrl =
@@ -37,8 +35,6 @@ class HttpHelper {
           Preferences.instance.getPassword.isNotEmpty) {
         await AuthProvider.listenFalse(navigator.currentContext!).authLogin();
         await getData();
-      } else {
-        MagicRouter.navigateAndPopAll(const OnBoarding());
       }
     }
     log('response -> ${r.body}');
@@ -61,8 +57,6 @@ class HttpHelper {
           Preferences.instance.getPassword.isNotEmpty) {
         await AuthProvider.listenFalse(navigator.currentContext!).authLogin();
         await getData();
-      } else {
-        MagicRouter.navigateAndPopAll(const OnBoarding());
       }
     }
     log('CountriesResponse -> ${r.body}');
@@ -86,8 +80,6 @@ class HttpHelper {
           Preferences.instance.getPassword.isNotEmpty) {
         await AuthProvider.listenFalse(navigator.currentContext!).authLogin();
         await getData();
-      } else {
-        MagicRouter.navigateAndPopAll(const OnBoarding());
       }
     }
     log('response -> ${r.body}');
@@ -110,8 +102,6 @@ class HttpHelper {
           Preferences.instance.getPassword.isNotEmpty) {
         await AuthProvider.listenFalse(navigator.currentContext!).authLogin();
         await getData();
-      } else {
-        MagicRouter.navigateAndPopAll(const OnBoarding());
       }
     }
     log('response -> ${r.body}');

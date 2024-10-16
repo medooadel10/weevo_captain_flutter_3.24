@@ -1,15 +1,15 @@
 class DataResult<T> {
-  T? data;
-  String? error;
-  bool? success;
+  final T? data;
+  final String error;
+  final bool success;
   DataResult({
     this.data,
-    this.error,
-    this.success,
+    required this.error,
+    required this.success,
   });
 
   factory DataResult.success(T data) {
-    return DataResult(data: data, success: true);
+    return DataResult(data: data, success: true, error: '');
   }
 
   factory DataResult.failure(String error) {

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/data/models/shipment_status/base_shipment_status.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/widgets/custom_loading_indicator.dart';
-import '../../data/models/shipment_status/base_shipment_status.dart';
 import '../../data/models/wasully_model.dart';
 import '../../logic/cubit/wasully_details_cubit.dart';
 import '../../logic/cubit/wasully_details_state.dart';
@@ -41,7 +41,7 @@ class WasullyDetailsBody extends StatelessWidget {
                       SliverToBoxAdapter(
                         child: BaseShipmentStatus
                             .shipmentStatusMap[wasullyModel.status]!
-                            .buildShipmentMerchantHeader(context),
+                            .buildWasullyMerchantHeader(context),
                       ),
                       SliverAppBar(
                         pinned: false,

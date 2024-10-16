@@ -1,21 +1,23 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:weevo_captain_app/core/helpers/extensions.dart';
+
 import '../Models/shipment_notification.dart';
 import '../Providers/auth_provider.dart';
 import '../Providers/shipment_provider.dart';
 import '../Providers/wallet_provider.dart';
 import '../Screens/child_shipment_details.dart';
-import '../Screens/shipment_details_display.dart';
 import '../Screens/wallet.dart';
 import '../Storage/shared_preference.dart';
 import '../Utilits/colors.dart';
 import '../Utilits/constants.dart';
 import '../core/networking/api_constants.dart';
 import '../core/router/router.dart';
+import '../features/shipment_details/ui/shipment_details_screen.dart';
 import '../features/wasully_details/ui/wasully_details_screen.dart';
 import '../features/wasully_details/ui/widgets/wasully_offer_dialog.dart';
 import 'content_dialog.dart';
@@ -364,11 +366,9 @@ class ShipmentDialog extends StatelessWidget {
                           );
                         }
                         {
-                          Navigator.pushNamed(
-                            context,
-                            ShipmentDetailsDisplay.id,
-                            arguments: shipmentNotification.shipmentId,
-                          );
+                          MagicRouter.navigateTo(ShipmentDetailsScreen(
+                            id: shipmentNotification.shipmentId!,
+                          ));
                         }
                       }
                     },

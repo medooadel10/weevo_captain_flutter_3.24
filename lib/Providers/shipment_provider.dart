@@ -10,7 +10,6 @@ import '../Models/merchant_review.dart';
 import '../Models/shipment_offer_data.dart';
 import '../Models/shipment_response.dart';
 import '../Models/shipment_status.dart';
-import '../Screens/new_offer_based_shipment.dart';
 import '../Storage/shared_preference.dart';
 import '../Utilits/constants.dart';
 import '../core/httpHelper/http_helper.dart';
@@ -102,7 +101,6 @@ class ShipmentProvider with ChangeNotifier {
   NetworkState? _shipmentByIdState;
   NetworkState? _bulkShipmentByIdState;
   bool _shipmentFromHome = false;
-  final Widget _availableShipment = const NewOfferBasedShipments();
   int _availableShipmentIndex = 1;
 
   bool get isNotEmpty => _isNotEmpty;
@@ -116,8 +114,6 @@ class ShipmentProvider with ChangeNotifier {
     _availableShipmentIndex = i;
     notifyListeners();
   }
-
-  Widget get availableShipment => _availableShipment;
 
   NetworkState? get declineFromShipmentState => _declineFromShipmentState;
 

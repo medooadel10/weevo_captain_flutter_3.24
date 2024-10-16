@@ -43,7 +43,7 @@ class AvailableShipmentsCubit extends Cubit<AvailableShipmentsStates> {
     }
     final result =
         await _availableShipmentsRepo.getAvailableShipments(currentPage);
-    if (result.success!) {
+    if (result.success) {
       isFirstTime = false;
       hasMoreData = result.data!.availableShipments.length == 15;
       if (!isPaging && !isPeriodicUpdate) {
@@ -55,7 +55,7 @@ class AvailableShipmentsCubit extends Cubit<AvailableShipmentsStates> {
       }
       emit(AvailableShipmentsLoadedState(availableShipments));
     } else {
-      emit(AvailableShipmentsErrorState(result.error!));
+      emit(AvailableShipmentsErrorState(result.error));
     }
   }
 

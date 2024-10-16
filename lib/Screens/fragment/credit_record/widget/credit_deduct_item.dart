@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../Models/dedaction_model.dart';
-import '../../../shipment_details_display.dart';
+import '../../../../core/router/router.dart';
+import '../../../../features/shipment_details/ui/shipment_details_screen.dart';
 import 'credit_deduct_trailling_widget.dart';
 import 'credit_leading_icon.dart';
 
@@ -13,8 +14,9 @@ class CreditDeductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        Navigator.pushNamed(context, ShipmentDetailsDisplay.id,
-            arguments: data.details!.chargeableId);
+        MagicRouter.navigateTo(
+          ShipmentDetailsScreen(id: data.details!.id!),
+        );
       },
       title: Text(
         'عملية رقم ${data.details!.id}',

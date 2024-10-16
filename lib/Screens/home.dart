@@ -25,11 +25,11 @@ import '../Utilits/constants.dart';
 import '../Widgets/custom_home_navigation.dart';
 import '../core/router/router.dart';
 import '../features/available_shipments/ui/screens/available_shipments_screen.dart';
+import '../features/shipment_details/ui/shipment_details_screen.dart';
 import 'fragment/main_screen.dart';
 import 'fragment/more_screen.dart';
 import 'fragment/notification_screen.dart';
 import 'messages.dart';
-import 'shipment_details_display.dart';
 
 class Home extends StatefulWidget {
   static String id = 'CategoryOne';
@@ -98,10 +98,8 @@ class _HomeState extends State<Home> {
     log('state >>>>> $state');
 
     log('state >>>>>>>>>>>>>>>>> "merchantId" $state');
-    Navigator.pushNamed(
-      navigator.currentContext!,
-      ShipmentDetailsDisplay.id,
-      arguments: int.parse(state),
+    MagicRouter.navigateTo(
+      ShipmentDetailsScreen(id: int.parse(state)),
     );
     // }
 
@@ -110,10 +108,8 @@ class _HomeState extends State<Home> {
       log('Deep Link Path: ${deepLink.path}');
       String state = deepLink.path.substring(1);
       log('Extracted State: $state');
-      Navigator.pushNamed(
-        navigator.currentContext!,
-        ShipmentDetailsDisplay.id,
-        arguments: int.parse(state),
+      MagicRouter.navigateTo(
+        ShipmentDetailsScreen(id: int.parse(state)),
       );
     }, onError: (error) {
       log('Link Error: $error');
@@ -251,7 +247,7 @@ class _HomeState extends State<Home> {
     if (_t?.isActive ?? false) {
       _t?.cancel();
     }
-    if (locationTimer!.isActive) {
+    if (locationTimer?.isActive ?? false) {
       locationTimer?.cancel();
     }
     super.dispose();

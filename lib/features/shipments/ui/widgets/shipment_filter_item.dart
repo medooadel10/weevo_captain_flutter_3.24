@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/data/models/shipment_status/base_shipment_status.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/widgets/custom_shimmer.dart';
-import '../../../wasully_details/data/models/shipment_status/base_shipment_status.dart';
 import '../../logic/cubit/shipments_cubit.dart';
 
 class ShipmentFilterItem extends StatelessWidget {

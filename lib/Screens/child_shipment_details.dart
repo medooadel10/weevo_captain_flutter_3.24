@@ -30,10 +30,10 @@ import '../Widgets/child_shipment_item.dart';
 import '../Widgets/connectivity_widget.dart';
 import '../core/networking/api_constants.dart';
 import '../core/router/router.dart';
+import '../features/shipment_details/ui/shipment_details_screen.dart';
 import '../main.dart';
 import 'handle_shipment.dart';
 import 'home.dart';
-import 'shipment_details_display.dart';
 import 'wallet.dart';
 
 class ChildShipmentDetails extends StatefulWidget {
@@ -139,12 +139,9 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                               itemBuilder: (context, i) => ChildShipmentItem(
                                 shipment: data.bulkShipmentById!.children![i],
                                 onItemClick: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    ShipmentDetailsDisplay.id,
-                                    arguments:
-                                        data.bulkShipmentById!.children![i].id,
-                                  );
+                                  MagicRouter.navigateTo(
+      ShipmentDetailsScreen(id:  data.bulkShipmentById!.children![i].id!),
+    );
                                 },
                               ),
                             ),
@@ -353,8 +350,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                                     onPressed: () {
                                                       showDialog(
                                                         context: context,
-                                                        barrierDismissible:
-                                                            false,
+                                                       
                                                         builder: (context) =>
                                                             InsideOfferDialog(
                                                           onShippingCostPressed:

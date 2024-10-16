@@ -16,8 +16,9 @@ import '../Widgets/chat_list.dart';
 import '../Widgets/chat_loading.dart';
 import '../Widgets/connectivity_widget.dart';
 import '../core/networking/api_constants.dart';
+import '../core/router/router.dart';
+import '../features/shipment_details/ui/shipment_details_screen.dart';
 import 'home.dart';
-import 'shipment_details_display.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'ChatScreen';
@@ -164,9 +165,10 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        await Navigator.pushNamed(
-                            context, ShipmentDetailsDisplay.id,
-                            arguments: widget.chatData.shipmentId);
+                        MagicRouter.navigateTo(
+                          ShipmentDetailsScreen(
+                              id: widget.chatData.shipmentId!),
+                        );
                       },
                       child: Image.asset(
                         'assets/images/circle_truck.png',

@@ -19,6 +19,7 @@ import 'Utilits/firebase_notification.dart';
 import 'core/di/dependency_injection.dart';
 import 'core/networking/dio_factory.dart';
 import 'core/style/app_theme.dart';
+import 'features/shipment_details/logic/cubit/shipment_details_cubit.dart';
 import 'features/wasully_details/logic/cubit/wasully_details_cubit.dart';
 import 'features/wasully_handle_shipment/logic/cubit/wasully_handle_shipment_cubit.dart';
 
@@ -96,6 +97,9 @@ class WeevoCaptain extends StatelessWidget {
       designSize: const Size(360, 702),
       builder: (context, child) => MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => ShipmentDetailsCubit(getIt()),
+          ),
           BlocProvider(
             create: (context) => WasullyDetailsCubit(getIt()),
           ),

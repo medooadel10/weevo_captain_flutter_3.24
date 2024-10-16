@@ -140,7 +140,6 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                         onPressed: () {
                                           showDialog(
                                             context: context,
-                                            barrierDismissible: false,
                                             builder: (context) =>
                                                 InsideOfferDialog(
                                               onShippingCostPressed: (String v,

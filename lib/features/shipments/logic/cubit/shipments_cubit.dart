@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-import '../../../wasully_details/data/models/shipment_status/base_shipment_status.dart';
+import '../../../../core/data/models/shipment_status/base_shipment_status.dart';
 import '../../data/models/shipment_model.dart';
 import '../../data/repos/shipments_repo.dart';
 import 'shipments_state.dart';
@@ -48,14 +48,14 @@ class ShipmentsCubit extends Cubit<ShipmentsStates> {
           : BaseShipmentStatus.shipmentStatusList[currentFilterIndex].status,
       currentPage,
     );
-    if (result.success!) {
+    if (result.success) {
       hasMoreData = result.data!.shipments.length == pageSize;
       shipments ??= [];
       shipments!.addAll(result.data!.shipments);
       if ((isPaging && hasMoreData) || currentPage == 1) currentPage++;
       emit(ShipmentsSuccessState(result.data!.shipments));
     } else {
-      emit(ShipmentsErrorState(result.error!));
+      emit(ShipmentsErrorState(result.error));
     }
   }
 }

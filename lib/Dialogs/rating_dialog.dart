@@ -279,10 +279,7 @@ class _RatingDialogState extends State<RatingDialog> {
                                         ),
                                       ),
                                       onPressed: () {
-                                        MagicRouter.pop();
-                                        MagicRouter.pop();
-                                        Navigator.pushNamedAndRemoveUntil(
-                                            context, Home.id, (route) => false);
+                                        MagicRouter.navigateAndPopAll(Home());
                                       },
                                       child: const Text(
                                         'حسناً',

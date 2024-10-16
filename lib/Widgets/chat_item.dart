@@ -12,7 +12,6 @@ import '../Models/chat_data.dart';
 import '../Providers/auth_provider.dart';
 import '../Screens/chat_screen.dart';
 import '../Utilits/colors.dart';
-import '../core/networking/api_constants.dart';
 import '../core/widgets/custom_image.dart';
 
 class ChatItem extends StatefulWidget {
@@ -125,10 +124,7 @@ class _ChatItemState extends State<ChatItem> {
                       borderRadius: BorderRadius.circular(0),
                       child: peerImageUrl != null
                           ? CustomImage(
-                              image:
-                                  peerImageUrl!.contains(ApiConstants.baseUrl)
-                                      ? peerImageUrl!
-                                      : '${ApiConstants.baseUrl}$peerImageUrl',
+                              image: peerImageUrl,
                               radius: 30,
                               width: double.infinity,
                               height: double.infinity,

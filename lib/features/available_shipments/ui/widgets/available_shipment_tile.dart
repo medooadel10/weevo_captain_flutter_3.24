@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:weevo_captain_app/features/available_shipments/logic/cubit/available_shipments_cubit.dart';
+import 'package:weevo_captain_app/features/shipment_details/ui/shipment_details_screen.dart';
 
 import '../../../../Providers/auth_provider.dart';
 import '../../../../Screens/child_shipment_details.dart';
-import '../../../../Screens/shipment_details_display.dart';
 import '../../../../Storage/shared_preference.dart';
 import '../../../../Utilits/colors.dart';
 import '../../../../Widgets/slide_dotes.dart';
@@ -84,10 +84,19 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
               }
             });
           } else {
-            MagicRouter.navigateTo(ShipmentDetailsDisplay(
-              shipmentId: widget.availableShipment.id,
+            // MagicRouter.navigateTo(ShipmentDetailsDisplay(
+            //   shipmentId: widget.availableShipment.id,
+            // )).then((_) {
+            //   if (context.mounted) {
+            //     context.read<AvailableShipmentsCubit>().resumeTimer();
+            //   }
+            // });
+
+            MagicRouter.navigateTo(ShipmentDetailsScreen(
+              id: widget.availableShipment.id,
             )).then((_) {
               if (context.mounted) {
+                context.read<AvailableShipmentsCubit>().getAvailableShipments();
                 context.read<AvailableShipmentsCubit>().resumeTimer();
               }
             });

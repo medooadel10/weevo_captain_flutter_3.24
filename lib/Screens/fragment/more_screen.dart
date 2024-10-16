@@ -513,12 +513,9 @@ class _MoreScreenState extends State<MoreScreen> {
   /// [auth.logout] and finally navigates to [BeforeRegistration] screen.
   /// ****  ed7c38d1-e050-4ea0-8c18-c2e04ef40126  ******
   void logoutUser(AuthProvider auth, bool allDevices) async {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (c) => const Loading());
     log('all devices -> $allDevices');
     auth.logout(allDevices);
+    Preferences.instance.clearUser();
     MagicRouter.pop();
     MagicRouter.navigateTo(
       const BeforeRegistration(),

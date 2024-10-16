@@ -6,7 +6,6 @@ import 'package:weevo_captain_app/Storage/shared_preference.dart';
 
 import '../../../../Providers/auth_provider.dart';
 import '../../../../Screens/child_shipment_details.dart';
-import '../../../../Screens/shipment_details_display.dart';
 import '../../../../Utilits/colors.dart';
 import '../../../../Widgets/slide_dotes.dart';
 import '../../../../core/helpers/extensions.dart';
@@ -14,6 +13,8 @@ import '../../../../core/helpers/spacing.dart';
 import '../../../../core/router/router.dart';
 import '../../../../core/widgets/custom_image.dart';
 import '../../../products/data/models/shipment_product_model.dart';
+import '../../../shipment_details/logic/cubit/shipment_details_cubit.dart';
+import '../../../shipment_details/ui/shipment_details_screen.dart';
 import '../../../wasully_details/ui/wasully_details_screen.dart';
 import '../../data/models/shipment_model.dart';
 import 'shipment_image.dart';
@@ -71,9 +72,19 @@ class _ShipmentTileState extends State<ShipmentTile> {
             MagicRouter.navigateTo(
                 WasullyDetailsScreen(id: widget.shipment.id));
           } else {
-            MagicRouter.navigateTo(ShipmentDetailsDisplay(
-              shipmentId: widget.shipment.id,
-            ));
+            // MagicRouter.navigateTo(ShipmentDetailsDisplay(
+            //   shipmentId: widget.shipment.id,
+            // ));
+
+            MagicRouter.navigateTo(ShipmentDetailsScreen(
+              id: widget.shipment.id,
+            )).then((_) {
+              if (context.mounted) {
+                context
+                    .read<ShipmentDetailsCubit>()
+                    .getShipmentDetails(widget.shipment.id);
+              }
+            });
           }
         },
         child: Card(

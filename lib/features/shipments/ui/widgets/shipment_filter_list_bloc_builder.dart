@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../wasully_details/data/models/shipment_status/base_shipment_status.dart';
+import '../../../../core/data/models/shipment_status/base_shipment_status.dart';
 import '../../logic/cubit/shipments_cubit.dart';
 import '../../logic/cubit/shipments_state.dart';
 import 'shipment_filter_item.dart';

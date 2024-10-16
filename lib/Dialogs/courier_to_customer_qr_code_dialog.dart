@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../Models/shipment_tracking_model.dart';
 import '../Providers/auth_provider.dart';
-import '../Providers/shipment_provider.dart';
 import '../Providers/shipment_tracking_provider.dart';
 import '../Storage/shared_preference.dart';
 import '../Utilits/colors.dart';
@@ -35,8 +34,7 @@ class CourierToCustomerQrCodeScanner extends StatelessWidget {
     final ShipmentTrackingProvider trackingProvider =
         Provider.of<ShipmentTrackingProvider>(context);
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    final ShipmentProvider shipmentProvider =
-        Provider.of<ShipmentProvider>(context);
+
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -50,9 +48,7 @@ class CourierToCustomerQrCodeScanner extends StatelessWidget {
             height: 20.0,
           ),
           Text(
-            model.wasullyModel != null
-                ? 'عشان تستلم الطلب \nلازم تعمل مسح لرمز ال Qrcode \nاو تكتب الكود اللي عند العميل'
-                : 'عشان تستلم الشحنة \nلازم تعمل مسح لرمز ال Qrcode \nاو تكتب الكود اللي عند العميل',
+            'عشان تسلم الطلب \nلازم تعمل مسح لرمز ال Qrcode \nاو تكتب الكود اللي عند العميل',
             style: TextStyle(
               fontSize: 14.0,
               color: Colors.grey[600],
@@ -97,7 +93,7 @@ class CourierToCustomerQrCodeScanner extends StatelessWidget {
                       if (trackingProvider.state == NetworkState.success) {
                         WeevoCaptain.facebookAppEvents.logPurchase(
                             amount: num.parse(
-                                    shipmentProvider.shipmentById!.amount!)
+                                    model.shipmentDetailsModel?.amount ?? '0')
                                 .toDouble(),
                             currency: 'EGP');
                         await FirebaseFirestore.instance

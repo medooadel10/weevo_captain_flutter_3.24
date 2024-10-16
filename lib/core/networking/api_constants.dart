@@ -5,6 +5,8 @@ class ApiConstants {
       '${ApiConstants.baseUrl}/api/v1/captain/shipping-offers';
   static const String myShipmentsUrl =
       '${ApiConstants.baseUrl}/api/v1/captain/my-shipments';
+  static const String myShipmentsDetailsUrl =
+      '${ApiConstants.baseUrl}/api/v1/captain/shipments';
   static const String wasullyDetails =
       '${ApiConstants.baseUrl}/api/v1/captain/wasuliy';
   static const String availableShipmentsUrl =

@@ -49,6 +49,7 @@ class TrackingDialog extends StatelessWidget {
     final AuthProvider authProvider =
         Provider.of<AuthProvider>(context, listen: false);
     log('Status is $status');
+    log('States : ${model.shipmentDetailsModel!.receivingStateModel.name}');
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Card(
@@ -178,8 +179,12 @@ class TrackingDialog extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                authProvider.getStateNameById(
-                                        int.parse(model.receivingState!)) ??
+                                model.shipmentDetailsModel?.receivingStateModel
+                                        .name ??
+                                    authProvider
+                                        .getStateNameById(
+                                            int.parse(model.receivingState!))
+                                        ?.toString() ??
                                     '',
                                 style: TextStyle(
                                   color: Colors.black,
@@ -188,10 +193,11 @@ class TrackingDialog extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                authProvider.getCityNameById(
-                                      int.parse(model.receivingState!),
-                                      int.parse(model.receivingCity!),
-                                    ) ??
+                                model.shipmentDetailsModel?.receivingCityModel
+                                        .name ??
+                                    authProvider.getCityNameById(
+                                        int.parse(model.receivingState!),
+                                        int.parse(model.receivingCity!)) ??
                                     '',
                                 style: TextStyle(
                                   color: Colors.black,
@@ -260,7 +266,9 @@ class TrackingDialog extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                authProvider.getStateNameById(
+                                model.shipmentDetailsModel?.deliveringStateModel
+                                        .name ??
+                                    authProvider.getStateNameById(
                                       int.parse(model.deliveringState!),
                                     ) ??
                                     '',
@@ -271,7 +279,9 @@ class TrackingDialog extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                authProvider.getCityNameById(
+                                model.shipmentDetailsModel?.deliveringCityModel
+                                        .name ??
+                                    authProvider.getCityNameById(
                                         int.parse(model.deliveringState!),
                                         int.parse(model.deliveringCity!)) ??
                                     '',

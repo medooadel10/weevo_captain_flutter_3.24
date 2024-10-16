@@ -6,16 +6,18 @@ import '../networking/api_constants.dart';
 import 'custom_shimmer.dart';
 
 class CustomImage extends StatelessWidget {
-  final String image;
+  final String? image;
   final double height;
   final double width;
   final double radius;
+  final BoxFit fit;
   const CustomImage({
     super.key,
     required this.image,
     this.height = 100,
     this.width = 100,
     this.radius = 8.0,
+    this.fit = BoxFit.cover,
   });
 
   @override
@@ -28,11 +30,13 @@ class CustomImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius),
       ),
       child: CachedNetworkImage(
-        imageUrl: image.contains('eg.api.weevoapp')
-            ? image
-            : '${ApiConstants.baseUrl}/$image',
+        imageUrl: image != null
+            ? image!.contains('eg.api.weevoapp')
+                ? image!
+                : '${ApiConstants.baseUrl}$image'
+            : '',
         width: width.w,
-        fit: BoxFit.cover,
+        fit: fit,
         placeholder: (context, url) => const CustomShimmer(),
         errorWidget: (context, url, error) => Container(
           width: width.w,

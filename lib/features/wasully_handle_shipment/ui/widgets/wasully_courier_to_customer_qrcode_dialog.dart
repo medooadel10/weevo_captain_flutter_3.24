@@ -14,7 +14,6 @@ import '../../../../Utilits/colors.dart';
 import '../../../../core/networking/api_constants.dart';
 import '../../../../core/router/router.dart';
 import '../../../../main.dart';
-import '../../../wasully_details/logic/cubit/wasully_details_cubit.dart';
 import '../../logic/cubit/wasully_handle_shipment_cubit.dart';
 import 'wasully_rating_dialog.dart';
 
@@ -33,7 +32,6 @@ class WasullyCourierToCustomerQrCodeScanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    final WasullyDetailsCubit wasullyDetailsCubit = context.read();
     final WasullyHandleShipmentCubit wasullyHandleShipmentCubit =
         context.read();
     return AlertDialog(
@@ -49,7 +47,7 @@ class WasullyCourierToCustomerQrCodeScanner extends StatelessWidget {
             height: 20.0,
           ),
           Text(
-            'عشان تستلم الطلب \nلازم تعمل مسح لرمز ال Qrcode \nاو تكتب الكود اللي عند العميل',
+            'عشان تسلم الطلب \nلازم تعمل مسح لرمز ال Qrcode \nاو تكتب الكود اللي عند العميل',
             style: TextStyle(
               fontSize: 14.0,
               color: Colors.grey[600],
@@ -90,8 +88,9 @@ class WasullyCourierToCustomerQrCodeScanner extends StatelessWidget {
                                   if (state
                                       is WasullyHandleShipmentValidateQrCodeSuccess) {
                                     WeevoCaptain.facebookAppEvents.logPurchase(
-                                        amount: num.parse(wasullyDetailsCubit
-                                                .wasullyModel!.amount)
+                                        amount: num.parse(
+                                                model.wasullyModel?.amount ??
+                                                    '0')
                                             .toDouble(),
                                         currency: 'EGP');
                                     DocumentSnapshot userToken =

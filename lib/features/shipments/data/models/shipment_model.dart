@@ -30,6 +30,7 @@ class ShipmentModel {
   final String status;
   final int? isOfferBased;
   final String? agreedShippingCostAfterDiscount;
+  final String? flags;
   ShipmentModel({
     required this.id,
     required this.receivingStateModel,
@@ -57,6 +58,7 @@ class ShipmentModel {
     required this.deliveringCity,
     required this.deliveringState,
     required this.agreedShippingCostAfterDiscount,
+    required this.flags,
   });
 
   factory ShipmentModel.fromJson(Map<String, dynamic> json) => ShipmentModel(
@@ -96,6 +98,7 @@ class ShipmentModel {
         deliveringState: json["delivering_state"],
         agreedShippingCostAfterDiscount:
             json["agreed_shipping_cost_after_discount"],
+        flags: json["flags"],
       );
 
   ShipmentModel copyWith({
@@ -127,33 +130,33 @@ class ShipmentModel {
     String? deliveringState,
   }) =>
       ShipmentModel(
-          id: id ?? this.id,
-          receivingStateModel: receivingStateModel ?? this.receivingStateModel,
-          receivingCityModel: receivingCityModel ?? this.receivingCityModel,
-          receivingStreet: receivingStreet ?? this.receivingStreet,
-          deliveringStateModel:
-              deliveringStateModel ?? this.deliveringStateModel,
-          deliveringCityModel: deliveringCityModel ?? this.deliveringCityModel,
-          deliveringStreet: deliveringStreet ?? this.deliveringStreet,
-          paymentMethod: paymentMethod ?? this.paymentMethod,
-          amount: amount ?? this.amount,
-          price: price ?? this.price,
-          createdAt: createdAt ?? this.createdAt,
-          products: products ?? this.products,
-          image: image ?? this.image,
-          slug: slug ?? this.slug,
-          title: title ?? this.title,
-          tip: tip ?? this.tip,
-          expectedShippingCost:
-              expectedShippingCost ?? this.expectedShippingCost,
-          agreedShippingCost: agreedShippingCost ?? this.agreedShippingCost,
-          children: children ?? children,
-          status: status ?? this.status,
-          isOfferBased: isOfferBased ?? this.isOfferBased,
-          agreedShippingCostAfterDiscount: agreedShippingCostAfterDiscount ??
-              this.agreedShippingCostAfterDiscount,
-          receivingCity: receivingCity ?? this.receivingCity,
-          receivingState: receivingState ?? this.receivingState,
-          deliveringCity: deliveringCity ?? this.deliveringCity,
-          deliveringState: deliveringState ?? this.deliveringState);
+        id: id ?? this.id,
+        receivingStateModel: receivingStateModel ?? this.receivingStateModel,
+        receivingCityModel: receivingCityModel ?? this.receivingCityModel,
+        receivingStreet: receivingStreet ?? this.receivingStreet,
+        deliveringStateModel: deliveringStateModel ?? this.deliveringStateModel,
+        deliveringCityModel: deliveringCityModel ?? this.deliveringCityModel,
+        deliveringStreet: deliveringStreet ?? this.deliveringStreet,
+        paymentMethod: paymentMethod ?? this.paymentMethod,
+        amount: amount ?? this.amount,
+        price: price ?? this.price,
+        createdAt: createdAt ?? this.createdAt,
+        products: products ?? this.products,
+        image: image ?? this.image,
+        slug: slug ?? this.slug,
+        title: title ?? this.title,
+        tip: tip ?? this.tip,
+        expectedShippingCost: expectedShippingCost ?? this.expectedShippingCost,
+        agreedShippingCost: agreedShippingCost ?? this.agreedShippingCost,
+        children: children ?? children,
+        status: status ?? this.status,
+        isOfferBased: isOfferBased ?? this.isOfferBased,
+        agreedShippingCostAfterDiscount: agreedShippingCostAfterDiscount ??
+            this.agreedShippingCostAfterDiscount,
+        receivingCity: receivingCity ?? this.receivingCity,
+        receivingState: receivingState ?? this.receivingState,
+        deliveringCity: deliveringCity ?? this.deliveringCity,
+        deliveringState: deliveringState ?? this.deliveringState,
+        flags: flags ?? flags,
+      );
 }

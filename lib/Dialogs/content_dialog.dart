@@ -32,7 +32,6 @@ class ContentDialog extends StatelessWidget {
             ElevatedButton(
               onPressed: callback,
               style: ButtonStyle(
-                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
                 backgroundColor:
                     WidgetStateProperty.all<Color>(weevoPrimaryOrangeColor),
               ),

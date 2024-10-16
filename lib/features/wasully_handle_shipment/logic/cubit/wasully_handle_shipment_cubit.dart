@@ -19,12 +19,12 @@ class WasullyHandleShipmentCubit extends Cubit<WasullyHandleShipmentState> {
     emit(WasullyHandleShipmentRefreshQrCodeLoading());
     final result = await _wasullyHandleShipmentRepo
         .refreshHandoverQrcodeCourierToMerchant(shipmentId);
-    if (result.success!) {
+    if (result.success) {
       qrCodeErrorMsg = '';
       emit(WasullyhandleShipmentRefreshQrCodeSuccess(result.data!));
     } else {
-      qrCodeErrorMsg = result.error!;
-      emit(WasullyHandleShipmentRefreshQrCodeError(result.error!));
+      qrCodeErrorMsg = result.error;
+      emit(WasullyHandleShipmentRefreshQrCodeError(result.error));
     }
   }
 
@@ -35,7 +35,7 @@ class WasullyHandleShipmentCubit extends Cubit<WasullyHandleShipmentState> {
     final result = await _wasullyHandleShipmentRepo
         .handleReceiveShipmentByValidatingHandoverCodeFromMerchantToCourier(
             shipmentId, qrCode);
-    if (result.success!) {
+    if (result.success) {
       try {
         await FirebaseFirestore.instance
             .collection('locations')
@@ -46,10 +46,10 @@ class WasullyHandleShipmentCubit extends Cubit<WasullyHandleShipmentState> {
         });
         emit(WasullyHandleShipmentValidateQrCodeSuccess());
       } on FirebaseException {
-        emit(WasullyHandleShipmentValidateQrCodeError(result.error!));
+        emit(WasullyHandleShipmentValidateQrCodeError(result.error));
       }
     } else {
-      emit(WasullyHandleShipmentValidateQrCodeError(result.error!));
+      emit(WasullyHandleShipmentValidateQrCodeError(result.error));
     }
   }
 
@@ -59,7 +59,7 @@ class WasullyHandleShipmentCubit extends Cubit<WasullyHandleShipmentState> {
     final result = await _wasullyHandleShipmentRepo
         .markShipmentAsDeliveredByValidatingCourierToCustomerHandoverCode(
             shipmentId, qrCode);
-    if (result.success!) {
+    if (result.success) {
       try {
         await FirebaseFirestore.instance
             .collection('locations')
@@ -72,11 +72,11 @@ class WasullyHandleShipmentCubit extends Cubit<WasullyHandleShipmentState> {
         );
         emit(WasullyHandleShipmentValidateQrCodeSuccess());
       } on FirebaseException {
-        emit(WasullyHandleShipmentValidateQrCodeError(result.error!));
+        emit(WasullyHandleShipmentValidateQrCodeError(result.error));
       }
     } else {
-      log('message: ${result.error!}');
-      emit(WasullyHandleShipmentValidateQrCodeError(result.error!));
+      log('message: ${result.error}');
+      emit(WasullyHandleShipmentValidateQrCodeError(result.error));
     }
   }
 
@@ -95,12 +95,12 @@ class WasullyHandleShipmentCubit extends Cubit<WasullyHandleShipmentState> {
       body: body,
       recommend: recommend,
     );
-    if (result.success!) {
+    if (result.success) {
       emit(WasullyHandleShipmentReviewMerchantSuccess());
     } else {
       emit(
         WasullyHandleShipmentReviewMerchantError(
-          result.error!,
+          result.error,
         ),
       );
     }

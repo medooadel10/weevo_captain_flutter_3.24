@@ -8,9 +8,11 @@ import '../widgets/shipments_body.dart';
 
 class ShipmentsScreen extends StatelessWidget {
   final bool shipmentsCompleted;
+  final int filterIndex;
   const ShipmentsScreen({
     super.key,
     required this.shipmentsCompleted,
+    this.filterIndex = 0,
   });
 
   @override
@@ -18,7 +20,7 @@ class ShipmentsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ShipmentsCubit(getIt())
         ..filterAndGetShipments(
-          0,
+          filterIndex,
           isForcedGetData: true,
           shipmentsCompleted: shipmentsCompleted,
         ),

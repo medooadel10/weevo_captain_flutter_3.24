@@ -7,12 +7,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:weevo_captain_app/features/shipment_details/logic/cubit/shipment_details_cubit.dart';
 
+import '../Dialogs/Loading.dart' as loading;
 import '../Dialogs/action_dialog.dart';
 import '../Dialogs/cancel_shipment_dialog.dart';
 import '../Dialogs/courier_to_customer_qr_code_dialog.dart';
 import '../Dialogs/done_dialog.dart';
-import '../Dialogs/loading.dart';
 import '../Dialogs/merchant_to_courier_qr_code_dialog.dart';
 import '../Dialogs/qr_dialog_code.dart';
 import '../Dialogs/rating_dialog.dart';
@@ -249,11 +250,13 @@ class _HandleShipmentState extends State<HandleShipment> {
   @override
   Widget build(BuildContext context) {
     log('currentStatus12 -> $_currentStatus');
+    log('locationId -> $_locationId');
+
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
     final ShipmentTrackingProvider trackingProvider =
         Provider.of<ShipmentTrackingProvider>(context);
-    final ShipmentProvider shipmentProvider =
-        Provider.of<ShipmentProvider>(context);
+    final ShipmentDetailsCubit cubit = context.read<ShipmentDetailsCubit>();
+    ShipmentProvider shipmentProvider = Provider.of<ShipmentProvider>(context);
     return WillPopScope(
       onWillPop: () async {
         if (authProvider.fromOutsideNotification) {
@@ -328,16 +331,16 @@ class _HandleShipmentState extends State<HandleShipment> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: FloatingActionButton(
                                   onPressed: () async {
-                                    if (shipmentProvider.shipmentById!
+                                    if (cubit.shipmentDetails!
                                                 .handoverCodeCourierToMerchant ==
                                             null &&
-                                        shipmentProvider.shipmentById!
+                                        cubit.shipmentDetails!
                                                 .handoverQrcodeCourierToMerchant ==
                                             null) {
                                       showDialog(
                                           context: context,
                                           builder: (context) =>
-                                              const Loading());
+                                              const loading.Loading());
                                       await trackingProvider
                                           .refreshHandoverQrcodeCourierToMerchant(
                                               widget.model.shipmentId!);
@@ -374,16 +377,14 @@ class _HandleShipmentState extends State<HandleShipment> {
                                         context: context,
                                         builder: (context) => QrCodeDialog(
                                             data: RefreshQrcode(
-                                                filename: shipmentProvider
-                                                    .shipmentById!
+                                                filename: cubit.shipmentDetails!
                                                     .handoverQrcodeCourierToMerchant!
                                                     .split('/')
                                                     .last,
-                                                path: shipmentProvider
-                                                    .shipmentById!
+                                                path: cubit.shipmentDetails!
                                                     .handoverQrcodeCourierToMerchant!,
-                                                code: int.parse(shipmentProvider
-                                                    .shipmentById!
+                                                code: int.parse(cubit
+                                                    .shipmentDetails!
                                                     .handoverCodeCourierToMerchant!))),
                                       );
                                     }
@@ -883,13 +884,14 @@ class _HandleShipmentState extends State<HandleShipment> {
                                       courierPhone: widget.model.courierPhone,
                                       locationIdStatus: _currentStatus)
                                   .toJson());
-                          FirebaseFirestore.instance
+                          await FirebaseFirestore.instance
                               .collection('locations')
                               .doc(_locationId)
                               .set({
                             'status': 'receivingShipment',
                             'shipmentId': widget.model.shipmentId,
                           });
+
                           showDialog(
                               context: navigator.currentContext!,
                               builder: (ctx) => MerchantToCourierQrCodeScanner(
@@ -1064,7 +1066,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                                     widget.model.paymentMethod == 'cod') {
                                   showDialog(
                                       context: navigator.currentContext!,
-                                      builder: (c) => const Loading());
+                                      builder: (c) => const loading.Loading());
                                   await trackingProvider
                                       .markShipmentAsDeliveredToEndCustomerWithoutValidating(
                                           widget.model.shipmentId!);
@@ -1075,8 +1077,9 @@ class _HandleShipmentState extends State<HandleShipment> {
                                   if (trackingProvider.state ==
                                       NetworkState.success) {
                                     WeevoCaptain.facebookAppEvents.logPurchase(
-                                        amount: num.parse(shipmentProvider
-                                                .shipmentById!.amount!)
+                                        amount: num.parse(
+                                                widget.model.shipmentDetailsModel?.amount ??
+                                                    '0')
                                             .toDouble(),
                                         currency: 'EGP');
                                     FirebaseFirestore.instance
@@ -1256,7 +1259,7 @@ class _HandleShipmentState extends State<HandleShipment> {
               showDialog(
                   context: context,
                   barrierDismissible: false,
-                  builder: (context) => const Loading());
+                  builder: (context) => const loading.Loading());
               await data.cancelShipping(model.shipmentId!);
               check(
                   ctx: navigator.currentContext!,
@@ -1277,7 +1280,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                 showDialog(
                     context: navigator.currentContext!,
                     barrierDismissible: false,
-                    builder: (context) => const Loading());
+                    builder: (context) => const loading.Loading());
                 DocumentSnapshot userToken = await FirebaseFirestore.instance
                     .collection('merchant_users')
                     .doc(widget.model.merchantId.toString())

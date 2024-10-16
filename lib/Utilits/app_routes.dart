@@ -35,7 +35,6 @@ import '../Screens/my_reviews.dart';
 import '../Screens/onboarding.dart';
 import '../Screens/promo_code.dart';
 import '../Screens/reset_password.dart';
-import '../Screens/shipment_details_display.dart';
 import '../Screens/shipment_tracking_map.dart';
 import '../Screens/sign_up.dart';
 import '../Screens/splash.dart';
@@ -116,14 +115,9 @@ RouteFactory generatedRoutes = (RouteSettings settings) {
     return MaterialPageRoute(
       builder: (context) => ImageDisplayScreen(imageUrl: imageUrl),
     );
-  } else if (settings.name == ShipmentDetailsDisplay.id) {
-    final int id = settings.arguments as int;
-    return MaterialPageRoute(
-      builder: (context) => ShipmentDetailsDisplay(
-        shipmentId: id,
-      ),
-    );
-  } else if (settings.name == ChildShipmentDetails.id) {
+  } 
+   
+  else if (settings.name == ChildShipmentDetails.id) {
     final int shipmentId = settings.arguments as int;
     return MaterialPageRoute(
       builder: (context) => ChildShipmentDetails(shipmentId: shipmentId),

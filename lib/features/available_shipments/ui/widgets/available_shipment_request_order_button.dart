@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:weevo_captain_app/features/shipment_details/ui/shipment_details_screen.dart';
 
 import '../../../../Dialogs/apply_confirmation_dialog.dart';
 import '../../../../Dialogs/deliver_shipment_dialog.dart';
@@ -14,7 +15,6 @@ import '../../../../Providers/auth_provider.dart';
 import '../../../../Providers/shipment_provider.dart';
 import '../../../../Providers/wallet_provider.dart';
 import '../../../../Screens/child_shipment_details.dart';
-import '../../../../Screens/shipment_details_display.dart';
 import '../../../../Screens/wallet.dart';
 import '../../../../Storage/shared_preference.dart';
 import '../../../../Utilits/colors.dart';
@@ -248,8 +248,8 @@ class AvailableShipmentRequestOrderButton extends StatelessWidget {
                               MagicRouter.pop();
                               if (model.children!.isEmpty) {
                                 MagicRouter.navigateAndPop(
-                                    ShipmentDetailsDisplay(
-                                  shipmentId: model.id,
+                                    ShipmentDetailsScreen(
+                                  id: model.id,
                                 ));
                               } else {
                                 MagicRouter.navigateAndPop(ChildShipmentDetails(

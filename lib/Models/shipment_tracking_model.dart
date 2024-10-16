@@ -1,3 +1,5 @@
+import 'package:weevo_captain_app/features/shipment_details/data/models/shipment_details_model.dart';
+
 import '../features/wasully_details/data/models/wasully_model.dart';
 
 class ShipmentTrackingModel {
@@ -36,6 +38,7 @@ class ShipmentTrackingModel {
   WasullyModel? wasullyModel;
   String? deliveringStreet;
   String? merchantRating;
+  ShipmentDetailsModel? shipmentDetailsModel;
 
   ShipmentTrackingModel({
     this.shipmentId,
@@ -73,6 +76,7 @@ class ShipmentTrackingModel {
     this.wasullyModel,
     this.deliveringStreet,
     this.merchantRating,
+    this.shipmentDetailsModel,
   });
 
   factory ShipmentTrackingModel.fromJson(Map<String, dynamic> map) {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:weevo_captain_app/Storage/shared_preference.dart';
 import 'package:weevo_captain_app/core/router/router.dart';
 import 'package:weevo_captain_app/features/available_shipments/ui/screens/available_shipments_screen.dart';
+import 'package:weevo_captain_app/features/shipment_details/ui/shipment_details_screen.dart';
 
 import '../Dialogs/action_dialog.dart';
 import '../Dialogs/loading.dart';
@@ -16,7 +17,6 @@ import '../Providers/auth_provider.dart';
 import '../Screens/chat_screen.dart';
 import '../Screens/child_shipment_details.dart';
 import '../Screens/handle_shipment.dart';
-import '../Screens/shipment_details_display.dart';
 import '../Screens/wallet.dart';
 import '../core/networking/api_constants.dart';
 import '../features/wasully_details/logic/cubit/wasully_details_cubit.dart';
@@ -186,9 +186,9 @@ void notificationNavigation(
         } else {
           if (auth.canGoInside) {
             if (AcceptMerchantOffer.fromMap(data).childrenShipment == 0) {
-              Navigator.pushNamed(
-                  navigator.currentContext!, ShipmentDetailsDisplay.id,
-                  arguments: AcceptMerchantOffer.fromMap(data).shipmentId);
+              MagicRouter.navigateTo(ShipmentDetailsScreen(
+                id: AcceptMerchantOffer.fromMap(data).shipmentId,
+              ));
             } else {
               Navigator.pushNamed(
                   navigator.currentContext!, ChildShipmentDetails.id,
@@ -236,8 +236,9 @@ void notificationNavigation(
       break;
     case shipmentDetailsScreen:
       if (AcceptMerchantOffer.fromMap(data).childrenShipment == 0) {
-        Navigator.pushNamed(ctx, ShipmentDetailsDisplay.id,
-            arguments: AcceptMerchantOffer.fromMap(data).shipmentId);
+        MagicRouter.navigateTo(ShipmentDetailsScreen(
+          id: AcceptMerchantOffer.fromMap(data).shipmentId,
+        ));
       } else {
         Navigator.pushNamed(ctx, ChildShipmentDetails.id,
             arguments: AcceptMerchantOffer.fromMap(data).shipmentId);
@@ -245,8 +246,9 @@ void notificationNavigation(
       break;
     case 'shipment':
       if (data['has_children'] == 0) {
-        Navigator.pushNamed(ctx, ShipmentDetailsDisplay.id,
-            arguments: data['shipment_id']);
+        MagicRouter.navigateTo(ShipmentDetailsScreen(
+          id: data['shipment_id'],
+        ));
       } else {
         Navigator.pushNamed(ctx, ChildShipmentDetails.id,
             arguments: data['shipment_id']);
@@ -254,8 +256,9 @@ void notificationNavigation(
       break;
     case 'new_shipment':
       if (data['children_shipment'] == 0) {
-        Navigator.pushNamed(ctx, ShipmentDetailsDisplay.id,
-            arguments: data['shipment_id']);
+        MagicRouter.navigateTo(ShipmentDetailsScreen(
+          id: data['shipment_id'],
+        ));
       } else {
         Navigator.pushNamed(ctx, ChildShipmentDetails.id,
             arguments: data['shipment_id']);

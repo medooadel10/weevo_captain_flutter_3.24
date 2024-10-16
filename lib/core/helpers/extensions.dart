@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 extension NavigationEx on BuildContext {
   void push(String routeName, {Object? arguments}) {
@@ -83,5 +84,23 @@ extension StringEx on String {
       input.replaceAll(arabicNumbers[i], englishNumbers[i]);
     }
     return input;
+  }
+
+  String get dateLabel {
+    DateTime shipmentDate = DateTime.parse(this);
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+    DateTime tomorrow = DateTime(now.year, now.month, now.day + 1);
+    DateTime yesterday = DateTime(now.year, now.month, now.day - 1);
+
+    if (shipmentDate == today) {
+      return 'اليوم';
+    } else if (shipmentDate == tomorrow) {
+      return 'غداً';
+    } else if (shipmentDate == yesterday) {
+      return 'أمس';
+    } else {
+      return DateFormat('dd MMM yyyy', 'ar-EG').format(shipmentDate);
+    }
   }
 }

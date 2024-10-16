@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:weevo_captain_app/Utilits/colors.dart';
 
 class OfferConfirmationDialog extends StatelessWidget {
   final VoidCallback onOkPressed;
@@ -105,7 +106,7 @@ class OfferConfirmationDialog extends StatelessWidget {
                   onPressed: onOkPressed,
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all<Color>(
-                      const Color(0xffFFF3EE),
+                      weevoPrimaryOrangeColor,
                     ),
                     padding: WidgetStateProperty.all<EdgeInsets>(
                         const EdgeInsets.symmetric(

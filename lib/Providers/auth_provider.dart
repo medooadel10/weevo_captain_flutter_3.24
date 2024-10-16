@@ -70,7 +70,6 @@ import '../Screens/fragment/sign_up_verify_phone_number.dart';
 import '../Screens/handle_shipment.dart';
 import '../Screens/home.dart';
 import '../Screens/onboarding.dart';
-import '../Screens/shipment_details_display.dart';
 import '../Screens/wallet.dart';
 import '../Storage/shared_preference.dart';
 import '../Utilits/constants.dart';
@@ -78,6 +77,7 @@ import '../Utilits/notification_const.dart';
 import '../core/httpHelper/http_helper.dart';
 import '../core/networking/api_constants.dart';
 import '../core/networking/dio_factory.dart';
+import '../features/shipment_details/ui/shipment_details_screen.dart';
 import '../features/wasully_handle_shipment/ui/widgets/wasully_rating_dialog.dart';
 import '../router/router.dart';
 
@@ -2002,9 +2002,9 @@ class AuthProvider with ChangeNotifier {
             break;
           case shipmentScreen:
             if (m.data['has_children']) {
-              Navigator.pushReplacementNamed(
-                  navigator.currentContext!, ShipmentDetailsDisplay.id,
-                  arguments: m.data['shipment_id']);
+              MagicRouter.navigateAndPop(
+                ShipmentDetailsScreen(id: m.data['shipment_id']),
+              );
             } else {
               Navigator.pushReplacementNamed(
                   navigator.currentContext!, ChildShipmentDetails.id,
@@ -2013,9 +2013,10 @@ class AuthProvider with ChangeNotifier {
             break;
           case shipmentDetailsScreen:
             if (AcceptMerchantOffer.fromMap(m.data).childrenShipment == 0) {
-              Navigator.pushNamed(
-                  navigator.currentContext!, ShipmentDetailsDisplay.id,
-                  arguments: AcceptMerchantOffer.fromMap(m.data).shipmentId);
+              MagicRouter.navigateTo(
+                ShipmentDetailsScreen(
+                    id: AcceptMerchantOffer.fromMap(m.data).shipmentId),
+              );
             } else {
               Navigator.pushNamed(
                   navigator.currentContext!, ChildShipmentDetails.id,
@@ -2220,12 +2221,7 @@ class AuthProvider with ChangeNotifier {
         'logout?logout_other_devices=$logoutOtherDevices',
         true,
       );
-      if (r.statusCode >= 200 && r.statusCode < 300) {
-        await _preferences.clearUser();
-        _logoutState = NetworkState.success;
-      } else {
-        _logoutState = NetworkState.error;
-      }
+      if (r.statusCode >= 200 && r.statusCode < 300) {}
     } catch (e) {
       log('error from logout user -> ${e.toString()}');
     }
@@ -2450,8 +2446,9 @@ class AuthProvider with ChangeNotifier {
                 break;
               case shipmentScreen:
                 if (m.data['has_children']) {
-                  Navigator.pushNamed(context, ShipmentDetailsDisplay.id,
-                      arguments: m.data['shipment_id']);
+                  MagicRouter.navigateTo(
+                    ShipmentDetailsScreen(id: m.data['shipment_id']),
+                  );
                 } else {
                   Navigator.pushNamed(context, ChildShipmentDetails.id,
                       arguments: m.data['shipment_id']);
@@ -2459,9 +2456,10 @@ class AuthProvider with ChangeNotifier {
                 break;
               case shipmentDetailsScreen:
                 if (AcceptMerchantOffer.fromMap(m.data).childrenShipment == 0) {
-                  Navigator.pushNamed(context, ShipmentDetailsDisplay.id,
-                      arguments:
-                          AcceptMerchantOffer.fromMap(m.data).shipmentId);
+                  MagicRouter.navigateTo(
+                    ShipmentDetailsScreen(
+                        id: AcceptMerchantOffer.fromMap(m.data).shipmentId),
+                  );
                 } else {
                   Navigator.pushNamed(context, ChildShipmentDetails.id,
                       arguments:
@@ -2694,8 +2692,9 @@ class AuthProvider with ChangeNotifier {
                 break;
               case shipmentScreen:
                 if (m.data['has_children']) {
-                  Navigator.pushNamed(context, ShipmentDetailsDisplay.id,
-                      arguments: m.data['shipment_id']);
+                  MagicRouter.navigateTo(
+                    ShipmentDetailsScreen(id: m.data['shipment_id']),
+                  );
                 } else {
                   Navigator.pushNamed(context, ChildShipmentDetails.id,
                       arguments: m.data['shipment_id']);
@@ -2703,9 +2702,10 @@ class AuthProvider with ChangeNotifier {
                 break;
               case shipmentDetailsScreen:
                 if (AcceptMerchantOffer.fromMap(m.data).childrenShipment == 0) {
-                  Navigator.pushNamed(context, ShipmentDetailsDisplay.id,
-                      arguments:
-                          AcceptMerchantOffer.fromMap(m.data).shipmentId);
+                  MagicRouter.navigateTo(
+                    ShipmentDetailsScreen(
+                        id: AcceptMerchantOffer.fromMap(m.data).shipmentId),
+                  );
                 } else {
                   Navigator.pushNamed(context, ChildShipmentDetails.id,
                       arguments:

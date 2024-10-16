@@ -27,11 +27,11 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
   Future<void> getWassullyDetails(int id) async {
     emit(WasullyDetailsLoadingState());
     final result = await _wasullyDetailsRepo.getWasullyDetails(id);
-    if (result.success!) {
+    if (result.success) {
       wasullyModel = result.data;
       emit(WasullyDetailsSuccessState(wasullyModel!));
     } else {
-      emit(WasullyDetailsErrorState(result.error!));
+      emit(WasullyDetailsErrorState(result.error));
     }
   }
 
@@ -45,23 +45,23 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
         offerController.text,
       ),
     );
-    if (result.success!) {
+    if (result.success) {
       log(result.data!.data.id.toString());
       if (result.data != null) {
         final updateResult = await _wasullyDetailsRepo.updateWasullyOffer(
           result.data!.data.id,
           double.parse(offerController.text),
         );
-        if (updateResult.success!) {
+        if (updateResult.success) {
           emit(WasullyDetailsSendOfferSuccessState(result.data!));
         } else {
-          emit(WasullyDetailsSendOfferErrorState(updateResult.error!));
+          emit(WasullyDetailsSendOfferErrorState(updateResult.error));
         }
       } else {
         emit(WasullyDetailsSendOfferSuccessState(result.data!));
       }
     } else {
-      emit(WasullyDetailsSendOfferErrorState(result.error!));
+      emit(WasullyDetailsSendOfferErrorState(result.error));
     }
   }
 
@@ -74,7 +74,7 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
         model != null ? model.id : wasullyModel!.id,
       ),
     );
-    if (result.success ?? false) {
+    if (result.success) {
       WeevoCaptain.facebookAppEvents.logInitiatedCheckout(
         totalPrice: model != null
             ? num.parse(model.amount!).toDouble()
@@ -84,14 +84,14 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
       sentNotifications(result.data!, auth);
       emit(WasullyDetailsApplyShipmentSuccessState());
     } else {
-      emit(WasullyDetailsApplyShipmentErrorState(result.error!));
+      emit(WasullyDetailsApplyShipmentErrorState(result.error));
     }
   }
 
   Future<void> sentNotifications(
       WasullyApplyShipmentResponse data, AuthProvider authProvider) async {
     final result = await _wasullyDetailsRepo.sentNotificationData(data);
-    if (result.success!) {
+    if (result.success) {
       await authProvider.sendNotification(
           title: 'ويفو وفرلك كابتن',
           body:
@@ -111,7 +111,7 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
           screenTo: 'shipment_screen',
           type: '');
     } else {
-      emit(WasullyDetailsApplyShipmentErrorState(result.error!));
+      emit(WasullyDetailsApplyShipmentErrorState(result.error));
     }
   }
 
@@ -121,7 +121,7 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
     final result = await _wasullyDetailsRepo.cancelShipment(
       wasullyModel!.id,
     );
-    if (result.success!) {
+    if (result.success) {
       String courierPhoneNumber = Preferences.instance.getPhoneNumber;
       String merchantPhoneNumber = wasullyModel!.merchant.phone!;
       String locationId =
@@ -137,7 +137,7 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
       );
       emit(WasullyDetailsCancelShipmentSuccessState(result.data!));
     } else {
-      emit(WasullyDetailsCancelShipmentErrorState(result.error!));
+      emit(WasullyDetailsCancelShipmentErrorState(result.error));
     }
   }
 
@@ -147,10 +147,10 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
     final result = await _wasullyDetailsRepo.onMyWay(
       wasullyModel!.id,
     );
-    if (result.success!) {
+    if (result.success) {
       emit(WasullyDetailsOnMyWaySuccessState());
     } else {
-      emit(WasullyDetailsOnMyWayErrorState(result.error!));
+      emit(WasullyDetailsOnMyWayErrorState(result.error));
     }
   }
 
