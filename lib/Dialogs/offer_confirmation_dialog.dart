@@ -78,7 +78,7 @@ class OfferConfirmationDialog extends StatelessWidget {
                 ? Text(
                     isOffer
                         ? 'انتظر قبول التاجر لعرض التوصيل'
-                        : 'يمكنك الذهاب لاستلام الشحنة من التاجر وتسليمها',
+                        : 'يمكنك الذهاب لاستلام الطلب من التاجر وتسليمها',
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 13.0.sp,
@@ -88,7 +88,7 @@ class OfferConfirmationDialog extends StatelessWidget {
                   )
                 : Text(
                     message ??
-                        'يرجي المحاولة مرة اخري\nيمكنك الدخول للشحنات الجديدة\nوتقديم العرض',
+                        'يرجي المحاولة مرة اخري\nيمكنك الدخول للطلبات الجديدة\nوتقديم العرض',
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 13.0.sp,

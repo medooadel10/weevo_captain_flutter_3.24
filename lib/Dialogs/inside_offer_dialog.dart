@@ -121,7 +121,7 @@ class _InsideOfferDialogState extends State<InsideOfferDialog> {
                                         vertical: 5.0.h,
                                       ),
                                       child: Text(
-                                        '${widget.shipmentNotification.childrenShipment}شحنات ',
+                                        '${widget.shipmentNotification.childrenShipment}طلبات ',
                                         style: const TextStyle(
                                           color: weevoPrimaryOrangeColor,
                                           fontWeight: FontWeight.w600,

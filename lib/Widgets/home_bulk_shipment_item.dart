@@ -115,7 +115,7 @@
 //                                                 fit: BoxFit.fill),
 //                                           ),
 //                                           child: Text(
-//                                             '${widget.bulkShipment.children!.length} شحنة',
+//                                             '${widget.bulkShipment.children!.length} طلب',
 //                                             textDirection: TextDirection.rtl,
 //                                             style: TextStyle(
 //                                               color: Colors.white,
@@ -189,7 +189,7 @@
 //                                                                   'title':
 //                                                                       'ويفو وفرلك كابتن',
 //                                                                   'body':
-//                                                                       'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+//                                                                       'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
 //                                                                   'user_icon': authProvider
 //                                                                           .photo
 //                                                                           .isNotEmpty
@@ -211,7 +211,7 @@
 //                                                                 });
 //                                                                 await authProvider.sendNotification(
 //                                                                     title: 'ويفو وفرلك كابتن',
-//                                                                     body: 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+//                                                                     body: 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
 //                                                                     toToken: token,
 //                                                                     image: authProvider.photo.isNotEmpty
 //                                                                         ? authProvider.photo.contains(base_url)
@@ -434,7 +434,7 @@
 //                                   //       context: context,
 //                                   //       builder: (cx) => ActionDialog(
 //                                   //             content:
-//                                   //                 'يمكنك التقديم علي الشحنات من ١٠ صباحاً حتي ١٠ مساءاً',
+//                                   //                 'يمكنك التقديم علي الطلبات من ١٠ صباحاً حتي ١٠ مساءاً',
 //                                   //             onApproveClick: () {
 //                                   //               Navigator.pop(cx);
 //                                   //             },
@@ -786,7 +786,7 @@
 //                                                     'type': 'cancel_shipment',
 //                                                     'title': 'ويفو وفرلك كابتن',
 //                                                     'body':
-//                                                         'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+//                                                         'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
 //                                                     'user_icon': authProvider
 //                                                             .photo.isNotEmpty
 //                                                         ? authProvider.photo
@@ -809,7 +809,7 @@
 //                                                           title:
 //                                                               'ويفو وفرلك كابتن',
 //                                                           body:
-//                                                               'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+//                                                               'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
 //                                                           toToken: token,
 //                                                           image: authProvider
 //                                                                   .photo
@@ -1144,7 +1144,7 @@
 //                         //       context: context,
 //                         //       builder: (cx) => ActionDialog(
 //                         //             content:
-//                         //                 'يمكنك التقديم علي الشحنات من ١٠ صباحاً حتي ١٠ مساءاً',
+//                         //                 'يمكنك التقديم علي الطلبات من ١٠ صباحاً حتي ١٠ مساءاً',
 //                         //             onApproveClick: () {
 //                         //               Navigator.pop(cx);
 //                         //             },

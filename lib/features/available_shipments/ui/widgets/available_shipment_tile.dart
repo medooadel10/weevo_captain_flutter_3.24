@@ -40,7 +40,10 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 220.h,
+      height: widget.availableShipment.tip != null &&
+              widget.availableShipment.tip != 0
+          ? 230.h
+          : 200.h,
       child: widget.availableShipment.products == null ||
               widget.availableShipment.products!.isEmpty
           ? (widget.availableShipment.children != null &&
@@ -84,14 +87,6 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
               }
             });
           } else {
-            // MagicRouter.navigateTo(ShipmentDetailsDisplay(
-            //   shipmentId: widget.availableShipment.id,
-            // )).then((_) {
-            //   if (context.mounted) {
-            //     context.read<AvailableShipmentsCubit>().resumeTimer();
-            //   }
-            // });
-
             MagicRouter.navigateTo(ShipmentDetailsScreen(
               id: widget.availableShipment.id,
             )).then((_) {
@@ -116,7 +111,10 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
               Row(
                 children: [
                   SizedBox(
-                    height: 120.h,
+                    height: widget.availableShipment.tip != null &&
+                            widget.availableShipment.tip != 0
+                        ? 130.h
+                        : 120.h,
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
@@ -240,7 +238,7 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
                                                   fit: BoxFit.fill),
                                             ),
                                             child: Text(
-                                              '${shipment.children!.length} شحنة',
+                                              '${shipment.children!.length} طلب',
                                               textDirection: TextDirection.rtl,
                                               style: TextStyle(
                                                 color: Colors.white,

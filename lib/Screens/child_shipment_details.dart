@@ -117,7 +117,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                   ),
                 ),
                 title: const Text(
-                  'ملخص الشحنات',
+                  'ملخص الطلبات',
                 ),
               ),
               body: Consumer<ShipmentProvider>(
@@ -140,8 +140,10 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                 shipment: data.bulkShipmentById!.children![i],
                                 onItemClick: () {
                                   MagicRouter.navigateTo(
-      ShipmentDetailsScreen(id:  data.bulkShipmentById!.children![i].id!),
-    );
+                                    ShipmentDetailsScreen(
+                                        id: data.bulkShipmentById!.children![i]
+                                            .id!),
+                                  );
                                 },
                               ),
                             ),
@@ -204,7 +206,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                                                               'date_time': DateTime.now().toIso8601String(),
                                                                               'type': 'cancel_shipment',
                                                                               'title': 'ويفو وفرلك كابتن',
-                                                                              'body': 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                                                              'body': 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                                                               'user_icon': authProvider.photo!.isNotEmpty
                                                                                   ? authProvider.photo!.contains(ApiConstants.baseUrl)
                                                                                       ? authProvider.photo
@@ -215,7 +217,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                                                             });
                                                                             await authProvider.sendNotification(
                                                                                 title: 'ويفو وفرلك كابتن',
-                                                                                body: 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                                                                body: 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                                                                 toToken: token,
                                                                                 image: authProvider.photo!.isNotEmpty
                                                                                     ? authProvider.photo!.contains(ApiConstants.baseUrl)
@@ -283,7 +285,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                                   //       context: context,
                                                   //       builder: (cx) =>
                                                   //           ActionDialog(
-                                                  //             content: 'يمكنك التقديم علي الشحنات من ١٠ صباحاً حتي ١٠ مساءاً',
+                                                  //             content: 'يمكنك التقديم علي الطلبات من ١٠ صباحاً حتي ١٠ مساءاً',
                                                   //             onApproveClick: () {
                                                   //               Navigator
                                                   //                   .pop(
@@ -350,7 +352,6 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                                     onPressed: () {
                                                       showDialog(
                                                         context: context,
-                                                       
                                                         builder: (context) =>
                                                             InsideOfferDialog(
                                                           onShippingCostPressed:
@@ -410,7 +411,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                                                             'title':
                                                                                 'ويفو وفرلك كابتن',
                                                                             'body':
-                                                                                'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                                                                'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                                                             'user_icon': authProvider.photo!.isNotEmpty
                                                                                 ? authProvider.photo!.contains(ApiConstants.baseUrl)
                                                                                     ? authProvider.photo
@@ -423,7 +424,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                                                           });
                                                                           await authProvider.sendNotification(
                                                                               title: 'ويفو وفرلك كابتن',
-                                                                              body: 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                                                              body: 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                                                               toToken: token,
                                                                               image: authProvider.photo!.isNotEmpty
                                                                                   ? authProvider.photo!.contains(ApiConstants.baseUrl)
@@ -1146,7 +1147,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                                         ],
                                       ),
                                       const Text(
-                                        'التكلفة الكلية للشحنات',
+                                        'التكلفة الكلية للطلبات',
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 18.0,
@@ -1214,7 +1215,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                   'type': 'cancel_shipment',
                   'title': 'تم إلغاء الشحن',
                   'body':
-                      'قام الكابتن ${authProvider.name} بالغاء الشحنة يمكنك الذهاب للشحنة في الشحنات المتاحة',
+                      'قام الكابتن ${authProvider.name} بالغاء الطلب يمكنك الذهاب للطلب في الطلبات المتاحة',
                   'user_icon': authProvider.photo!.isNotEmpty
                       ? authProvider.photo!.contains(ApiConstants.baseUrl)
                           ? authProvider.photo
@@ -1231,7 +1232,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                     .sendNotification(
                         title: 'تم إلغاء الشحن',
                         body:
-                            'قام الكابتن ${authProvider.name} بالغاء الشحنة يمكنك الذهاب للشحنة في الشحنات المتاحة',
+                            'قام الكابتن ${authProvider.name} بالغاء الطلب يمكنك الذهاب للطلب في الطلبات المتاحة',
                         image: authProvider.photo!.isNotEmpty
                             ? authProvider.photo!.contains(ApiConstants.baseUrl)
                                 ? authProvider.photo
@@ -1250,10 +1251,10 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
                     data.bulkShipmentById!.merchant!.phone!;
                 if (merchantPhoneNumber.hashCode >=
                     courierPhoneNumber.hashCode) {
-                  locationId = 
+                  locationId =
                       '$merchantPhoneNumber-$courierPhoneNumber-${data.bulkShipmentById!.id}';
                 } else {
-                   locationId =
+                  locationId =
                       '$courierPhoneNumber-$merchantPhoneNumber-${data.bulkShipmentById!.id}';
                 }
                 FirebaseFirestore.instance
@@ -1310,7 +1311,7 @@ class _ChildShipmentDetailsState extends State<ChildShipmentDetails> {
               barrierDismissible: false,
               builder: (context) => ContentDialog(
                     content:
-                        '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider.meezaCard!.transaction!.amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                        '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider.meezaCard!.transaction!.amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                     callback: () {
                       Navigator.pop(context);
                       walletProvider.setDepositIndex(5);

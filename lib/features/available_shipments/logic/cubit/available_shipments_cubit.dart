@@ -48,6 +48,7 @@ class AvailableShipmentsCubit extends Cubit<AvailableShipmentsStates> {
       hasMoreData = result.data!.availableShipments.length == 15;
       if (!isPaging && !isPeriodicUpdate) {
         availableShipments = result.data!.availableShipments;
+        availableShipments.sort((a, b) => a.createdAt.compareTo(b.createdAt));
       } else {
         final ids = availableShipments.map((e) => e.id).toSet();
         availableShipments.addAll(result.data!.availableShipments

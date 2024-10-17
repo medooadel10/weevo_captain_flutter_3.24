@@ -1859,7 +1859,7 @@ class AuthProvider with ChangeNotifier {
                 notifyListeners();
                 sendNotification(
                     title: 'ويفو وفرلك كابتن',
-                    body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
+                    body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالطلب',
                     toToken:
                         ShipmentNotification.fromMap(m.data).merchantFcmToken,
                     image: photo != null
@@ -1919,7 +1919,7 @@ class AuthProvider with ChangeNotifier {
                 notifyListeners();
                 sendNotification(
                     title: 'ويفو وفرلك مندوب',
-                    body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
+                    body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالطلب',
                     toToken:
                         ShipmentNotification.fromMap(m.data).merchantFcmToken,
                     image: photo != null
@@ -2011,7 +2011,7 @@ class AuthProvider with ChangeNotifier {
                 context: navigator.currentContext!,
                 builder: (c) => ActionDialog(
                       content:
-                          'تم الغاء الشحنة من قبل التاجر\nيمكنك التقديم علي شحنات اخري\nمن صفحة الشحنات المتاحة',
+                          'تم الغاء الطلب من قبل التاجر\nيمكنك التقديم علي طلبات اخري\nمن صفحة الطلبات المتاحة',
                       approveAction: 'حسناً',
                       onApproveClick: () {
                         Navigator.pop(c);
@@ -2305,8 +2305,7 @@ class AuthProvider with ChangeNotifier {
                       notifyListeners();
                       sendNotification(
                           title: 'ويفو وفرلك كابتن',
-                          body:
-                              'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
+                          body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالطلب',
                           toToken: ShipmentNotification.fromMap(m.data)
                               .merchantFcmToken,
                           image: photo != null
@@ -2387,8 +2386,7 @@ class AuthProvider with ChangeNotifier {
                       notifyListeners();
                       sendNotification(
                           title: 'ويفو وفرلك كابتن',
-                          body:
-                              'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
+                          body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالطلب',
                           toToken: ShipmentNotification.fromMap(m.data)
                               .merchantFcmToken,
                           image: photo != null
@@ -2491,7 +2489,7 @@ class AuthProvider with ChangeNotifier {
                     context: context,
                     builder: (c) => ActionDialog(
                           content:
-                              'تم الغاء الشحنة من قبل التاجر\nيمكنك التقديم علي شحنات اخري\nمن صفحة الشحنات المتاحة',
+                              'تم الغاء الطلب من قبل التاجر\nيمكنك التقديم علي طلبات اخري\nمن صفحة الطلبات المتاحة',
                           approveAction: 'حسناً',
                           onApproveClick: () {
                             Navigator.pop(c);
@@ -2548,8 +2546,7 @@ class AuthProvider with ChangeNotifier {
                       notifyListeners();
                       sendNotification(
                           title: 'ويفو وفرلك كابتن',
-                          body:
-                              'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
+                          body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالطلب',
                           toToken: ShipmentNotification.fromMap(m.data)
                               .merchantFcmToken,
                           image: photo != null
@@ -2611,8 +2608,7 @@ class AuthProvider with ChangeNotifier {
                       notifyListeners();
                       sendNotification(
                           title: 'ويفو وفرلك كابتن',
-                          body:
-                              'الكابتن $name قبل طلب الشحن وتم خصم مقدمالشحنة',
+                          body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالطلب',
                           toToken: ShipmentNotification.fromMap(m.data)
                               .merchantFcmToken,
                           image: photo != null
@@ -2695,7 +2691,7 @@ class AuthProvider with ChangeNotifier {
                     context: context,
                     builder: (c) => ActionDialog(
                           content:
-                              'تم الغاء الشحنة من قبل التاجر\nيمكنك التقديم علي شحنات اخري\nمن صفحة الشحنات المتاحة',
+                              'تم الغاء الطلب من قبل التاجر\nيمكنك التقديم علي طلبات اخري\nمن صفحة الطلبات المتاحة',
                           approveAction: 'حسناً',
                           onApproveClick: () {
                             Navigator.pop(c);

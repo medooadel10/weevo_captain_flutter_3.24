@@ -389,7 +389,7 @@ class TrackingDialog extends StatelessWidget {
                                   onTap: onCancelShipmentCallback,
                                   title: model.wasullyModel != null
                                       ? 'إلغاء الطلب'
-                                      : 'إلغاء الشحنة',
+                                      : 'إلغاء الطلب',
                                   color: weevoPrimaryBlueColor,
                                   isStable: true,
                                 ),
@@ -422,7 +422,7 @@ class TrackingDialog extends StatelessWidget {
                                       onTap: onReceivingShipmentCallback,
                                       title: model.wasullyModel != null
                                           ? 'إستلام الطلب'
-                                          : 'إستلام الشحنة',
+                                          : 'إستلام الطلب',
                                       color: weevoPrimaryOrangeColor,
                                       isStable: true,
                                     ),
@@ -483,7 +483,7 @@ class TrackingDialog extends StatelessWidget {
                                           onTap: onHandOverShipmentCallback,
                                           title: model.wasullyModel != null
                                               ? 'تسليم الطلب'
-                                              : 'تسليم الشحنة',
+                                              : 'تسليم الطلب',
                                           color: weevoPrimaryOrangeColor,
                                           isStable: true,
                                         ),

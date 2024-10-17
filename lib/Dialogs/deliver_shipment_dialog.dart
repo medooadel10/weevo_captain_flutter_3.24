@@ -73,7 +73,7 @@ class _DeliverShipmentDialogState extends State<DeliverShipmentDialog> {
                     width: 150.h,
                   ),
                   Text(
-                    'سوف يتم خصم ${double.parse(widget.amount).toInt()} جنية مقدم الشحنة\nمن محفظتك بالأضافة الي ${(double.parse(widget.shippingCost) * (Preferences.instance.getCourierCommission / 100)).toInt()} جنية\nنسبة التطبيق',
+                    'سوف يتم خصم ${double.parse(widget.amount).toInt()} جنية مقدم الطلب\nمن محفظتك بالأضافة الي ${(double.parse(widget.shippingCost) * (Preferences.instance.getCourierCommission / 100)).toInt()} جنية\nنسبة التطبيق',
                     style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,

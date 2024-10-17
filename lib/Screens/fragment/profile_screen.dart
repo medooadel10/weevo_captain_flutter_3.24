@@ -127,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Text(
-                          'عدد الشحنات',
+                          'عدد الطلبات',
                           style:
                               TextStyle(fontSize: 18.0.sp, color: Colors.grey),
                         ),

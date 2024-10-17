@@ -52,7 +52,7 @@ class MerchantToCourierQrCodeScanner extends StatelessWidget {
             height: 20.0,
           ),
           Text(
-            'عشان تستلم الشحنة \nلازم تعمل مسح لرمز ال Qrcode \nاو تكتب الكود اللي عند التاجر',
+            'عشان تستلم الطلب \nلازم تعمل مسح لرمز ال Qrcode \nاو تكتب الكود اللي عند التاجر',
             style: TextStyle(
               fontSize: 14.0,
               color: Colors.grey[600],
@@ -129,7 +129,7 @@ class MerchantToCourierQrCodeScanner extends StatelessWidget {
                                       MagicRouter.pop();
                                     }
                                   },
-                                  content: 'تم استلام الشحنة بنجاح',
+                                  content: 'تم استلام الطلب بنجاح',
                                 ));
                       } else {
                         MagicRouter.pop();

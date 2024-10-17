@@ -150,7 +150,7 @@ class _ChatItemState extends State<ChatItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'محادثة شحنة رقم $shipmentId',
+                    'محادثة طلب رقم $shipmentId',
                     style: TextStyle(
                       fontSize: 13.0.sp,
                       fontWeight: FontWeight.w600,

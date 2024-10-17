@@ -87,7 +87,7 @@
 //                             mainAxisAlignment: MainAxisAlignment.center,
 //                             children: [
 //                               const Text(
-//                                 'لا يوجد لديك شحنات مرتجعة',
+//                                 'لا يوجد لديك طلبات مرتجعة',
 //                                 strutStyle: StrutStyle(
 //                                   forceStrutHeight: true,
 //                                 ),

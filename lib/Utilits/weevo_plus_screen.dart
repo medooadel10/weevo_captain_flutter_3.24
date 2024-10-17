@@ -59,7 +59,7 @@ Widget bodyWeevoPlus(context, size) {
                 textAlign: TextAlign.center,
               ),
               Text(
-                'عشان تنجز شغلك بسرعة وسهولة وتوصل\nشحناتك في اسرع وقت',
+                'عشان تنجز شغلك بسرعة وسهولة وتوصل\nطلباتك في اسرع وقت',
                 style: TextStyle(
                   fontSize: 18.0.sp,
                   color: Colors.grey[600],
@@ -534,8 +534,8 @@ final offerList = [
       assetImage: ('assets/images/path.png')),
   Offers(
       image: 'assets/images/plusss.png',
-      subtitle: 'هتقدر تضيف عدد شحنات غير محدودة\nعلى تطبيق ويفو',
-      title: 'عدد اوردرات غير محدود',
+      subtitle: 'هتقدر تضيف عدد طلبات غير محدودة\nعلى تطبيق ويفو',
+      title: 'عدد طلبات غير محدود',
       assetImage: ('assets/images/order.png')),
   Offers(
       image: 'assets/images/pluss.png',

@@ -51,7 +51,7 @@ class ApplyConfirmationDialog extends StatelessWidget {
                 ? Text(
                     isWassully
                         ? 'الطلب بقت قيد التنفيذ وتم خصم المبلغ من المحفظة بالاضافة لنسبة ويفو'
-                        : 'الشحنة بقت قيد التنفيذ وتم خصم المبلغ من المحفظة بالاضافة لنسبة ويفو',
+                        : 'الطلب بقت قيد التنفيذ وتم خصم المبلغ من المحفظة بالاضافة لنسبة ويفو',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20.0.sp,

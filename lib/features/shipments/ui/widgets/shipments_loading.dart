@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../Storage/shared_preference.dart';
 import '../../../../Utilits/colors.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -158,26 +157,25 @@ class ShipmentsLoading extends StatelessWidget {
                       ),
                     ),
                     horizontalSpace(5),
-                    if (Preferences.instance.getUserFlags == 'freelance')
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/van_icon.png',
-                              fit: BoxFit.contain,
-                              color: const Color(0xff091147),
-                              height: 20.h,
-                              width: 20.w,
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/images/van_icon.png',
+                            fit: BoxFit.contain,
+                            color: const Color(0xff091147),
+                            height: 20.h,
+                            width: 20.w,
+                          ),
+                          horizontalSpace(5),
+                          Expanded(
+                            child: CustomShimmer(
+                              height: 8.h,
                             ),
-                            horizontalSpace(5),
-                            Expanded(
-                              child: CustomShimmer(
-                                height: 8.h,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+                    ),
                     horizontalSpace(5),
                     Expanded(
                       child: Row(

@@ -29,6 +29,7 @@ import '../Storage/shared_preference.dart';
 import '../Utilits/colors.dart';
 import '../Utilits/constants.dart';
 import '../Widgets/connectivity_widget.dart';
+import '../core/helpers/spacing.dart';
 import '../core/helpers/toasts.dart';
 import '../core/networking/api_constants.dart';
 import '../core/router/router.dart';
@@ -56,6 +57,7 @@ class _HandleShipmentState extends State<HandleShipment> {
   String? _locationId;
   String? _currentStatus;
   bool isFirstTime = true;
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -89,11 +91,17 @@ class _HandleShipmentState extends State<HandleShipment> {
       default:
         _currentStatus = 'closed';
     }
+    setState(() {
+      isLoading = true;
+    });
     await FirebaseFirestore.instance
         .collection('locations')
         .doc(_locationId)
         .set({
       'status': _currentStatus,
+    });
+    setState(() {
+      isLoading = false;
     });
     log('currentStatus11 -> $_currentStatus');
     FirebaseFirestore.instance
@@ -160,7 +168,7 @@ class _HandleShipmentState extends State<HandleShipment> {
         'read': false,
         'date_time': DateTime.now().toIso8601String(),
         'type': 'tracking',
-        'title': 'الشحنة في الطريق اليك',
+        'title': 'الطلب في الطريق اليك',
         'body':
             'الكابتن ${_authProvider.name} في الطريق اليك يرجي التواجد بالمكان',
         'user_icon': _authProvider.photo!.isNotEmpty
@@ -199,7 +207,7 @@ class _HandleShipmentState extends State<HandleShipment> {
             .toJson(),
       });
       _authProvider.sendNotification(
-          title: 'الشحنة في الطريق اليك',
+          title: 'الطلب في الطريق اليك',
           body:
               'الكابتن ${_authProvider.name} في الطريق اليك يرجي التواجد بالمكان',
           toToken: token,
@@ -276,44 +284,33 @@ class _HandleShipmentState extends State<HandleShipment> {
             backgroundColor: Colors.grey[200],
             appBar: AppBar(
               title: Text(
-                'شحنة رقم ${widget.model.shipmentId}',
+                'طلب رقم ${widget.model.shipmentId}',
               ),
             ),
             body: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+
               children: [
                 _currentStatus == 'receivingShipment'
                     ? Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: FloatingActionButton(
-                          onPressed: () async {
-                            showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (ctx) =>
-                                    MerchantToCourierQrCodeScanner(
-                                        parentContext: context,
-                                        model: widget.model,
-                                        locationId: _locationId!));
-                          },
-                          backgroundColor: weevoPrimaryBlueColor,
-                          child: const Icon(
-                            Icons.qr_code,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
-                    : _currentStatus == 'handingOverShipmentToCustomer' &&
-                            widget.model.paymentMethod == 'online'
-                        ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: FloatingActionButton(
+                        child: Column(
+                          children: [
+                            const Text(
+                              'برجاء الضغط على الزر الأزرق لإدخال الكود\n وبعد التحقق سيتم إستلام الطلب من المرسل',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.0,
+                                  color: Colors.black),
+                              textAlign: TextAlign.center,
+                            ),
+                            verticalSpace(10),
+                            FloatingActionButton(
                               onPressed: () async {
                                 showDialog(
-                                    context: navigator.currentContext!,
+                                    context: context,
                                     barrierDismissible: false,
                                     builder: (ctx) =>
-                                        CourierToCustomerQrCodeScanner(
+                                        MerchantToCourierQrCodeScanner(
                                             parentContext: context,
                                             model: widget.model,
                                             locationId: _locationId!));
@@ -323,6 +320,43 @@ class _HandleShipmentState extends State<HandleShipment> {
                                 Icons.qr_code,
                                 color: Colors.white,
                               ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : _currentStatus == 'handingOverShipmentToCustomer' &&
+                            widget.model.paymentMethod == 'online'
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                const Text(
+                                                'برجاء الضغط علي الزر الأزرق لارسال رمز\nال qrcode للمرسل لتأكيد تسليم الطلب للمرسل',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14.0,
+                                                    color: Colors.black),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              verticalSpace(10),
+                                FloatingActionButton(
+                                  onPressed: () async {
+                                    showDialog(
+                                        context: navigator.currentContext!,
+                                        barrierDismissible: false,
+                                        builder: (ctx) =>
+                                            CourierToCustomerQrCodeScanner(
+                                                parentContext: context,
+                                                model: widget.model,
+                                                locationId: _locationId!));
+                                  },
+                                  backgroundColor: weevoPrimaryBlueColor,
+                                  child: const Icon(
+                                    Icons.qr_code,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                           )
                         : _currentStatus ==
@@ -401,7 +435,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                   height: 4.0,
                 ),
                 TrackingDialog(
-                  isLoading: false,
+                  isLoading: isLoading,
                   status: _currentStatus,
                   onCLientPhoneCallback: () async {
                     await launchUrlString('tel:${widget.model.clientPhone}');
@@ -467,7 +501,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                         'type': 'tracking',
                         'title': 'الكابتن في الطريق',
                         'body':
-                            'جهز شحنتك الكابتن ${authProvider.name} في الطريق اليك',
+                            'جهز طلبك الكابتن ${authProvider.name} في الطريق اليك',
                         'user_icon': _authProvider.photo!.isNotEmpty
                             ? _authProvider.photo!
                                     .contains(ApiConstants.baseUrl)
@@ -509,7 +543,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                       _authProvider.sendNotification(
                           title: 'الكابتن في الطريق',
                           body:
-                              'جهز شحنتك الكابتن ${authProvider.name} في الطريق اليك',
+                              'جهز طلبك الكابتن ${authProvider.name} في الطريق اليك',
                           toToken: token,
                           image: _authProvider.photo!.isNotEmpty
                               ? _authProvider.photo!
@@ -552,6 +586,20 @@ class _HandleShipmentState extends State<HandleShipment> {
                     }
                   },
                   onArrivedCallback: () async {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return DoneDialog(
+                          callback: () async {
+                            MagicRouter.pop();
+                          },
+                          content: 'قم بإستلام الطلب',
+                        );
+                      },
+                    );
+                    setState(() {
+                      isLoading = true;
+                    });
                     DocumentSnapshot userToken = await FirebaseFirestore
                         .instance
                         .collection('merchant_users')
@@ -568,7 +616,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                       'type': 'tracking',
                       'title': 'الكابتن وصل',
                       'body':
-                          'الكابتن ${_authProvider.name} وصل يرجي التواجد بالمكان لتسليم الشحنة',
+                          'الكابتن ${_authProvider.name} وصل يرجي التواجد بالمكان لتسليم الطلب',
                       'user_icon': _authProvider.photo!.isNotEmpty
                           ? _authProvider.photo!.contains(ApiConstants.baseUrl)
                               ? _authProvider.photo
@@ -608,7 +656,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                     _authProvider.sendNotification(
                         title: 'الكابتن وصل',
                         body:
-                            'الكابتن ${_authProvider.name} وصل يرجي التواجد بالمكان لتسليم الشحنة',
+                            'الكابتن ${_authProvider.name} وصل يرجي التواجد بالمكان لتسليم الطلب',
                         toToken: token,
                         image: _authProvider.photo!.isNotEmpty
                             ? _authProvider.photo!
@@ -648,12 +696,15 @@ class _HandleShipmentState extends State<HandleShipment> {
                                 courierPhone: widget.model.courierPhone,
                                 locationIdStatus: _currentStatus)
                             .toJson());
-                    FirebaseFirestore.instance
+                    await FirebaseFirestore.instance
                         .collection('locations')
                         .doc(_locationId)
                         .set({
                       'status': 'arrived',
                       'shipmentId': widget.model.shipmentId,
+                    });
+                    setState(() {
+                      isLoading = false;
                     });
                     _streamSubscription?.cancel();
                   },
@@ -661,11 +712,14 @@ class _HandleShipmentState extends State<HandleShipment> {
                     showDialog(
                       context: navigator.currentContext!,
                       builder: (ctx) => ActionDialog(
-                        content: 'هل تود إسترجاع الشحنة',
+                        content: 'هل تود إسترجاع الطلب',
                         cancelAction: 'لا',
                         approveAction: 'نعم',
                         onApproveClick: () async {
                           MagicRouter.pop();
+                          setState(() {
+                            isLoading = true;
+                          });
                           sendCurrentLocation(
                               authProvider, widget.model, _locationId!);
                           DocumentSnapshot userToken = await FirebaseFirestore
@@ -682,9 +736,9 @@ class _HandleShipmentState extends State<HandleShipment> {
                             'read': false,
                             'date_time': DateTime.now().toIso8601String(),
                             'type': 'tracking',
-                            'title': 'الشحنة مرتجع الكابتن في الطريق اليك',
+                            'title': 'الطلب مرتجع الكابتن في الطريق اليك',
                             'body':
-                                'الكابتن ${_authProvider.name} في الطريق لاعادة الشحنة اليك يرجي التواجد بالمكان',
+                                'الكابتن ${_authProvider.name} في الطريق لاعادة الطلب اليك يرجي التواجد بالمكان',
                             'user_icon': _authProvider.photo!.isNotEmpty
                                 ? _authProvider.photo!
                                         .contains(ApiConstants.baseUrl)
@@ -723,9 +777,9 @@ class _HandleShipmentState extends State<HandleShipment> {
                                 .toJson(),
                           });
                           _authProvider.sendNotification(
-                              title: 'الشحنة مرتجع الكابتن في الطريق اليك',
+                              title: 'الطلب مرتجع الكابتن في الطريق اليك',
                               body:
-                                  'الكابتن ${_authProvider.name} في الطريق لاعادة الشحنة اليك يرجي التواجد بالمكان',
+                                  'الكابتن ${_authProvider.name} في الطريق لاعادة الطلب اليك يرجي التواجد بالمكان',
                               toToken: token,
                               image: _authProvider.photo!.isNotEmpty
                                   ? _authProvider.photo!
@@ -766,12 +820,15 @@ class _HandleShipmentState extends State<HandleShipment> {
                                       courierPhone: widget.model.courierPhone,
                                       locationIdStatus: _currentStatus)
                                   .toJson());
-                          FirebaseFirestore.instance
+                          await FirebaseFirestore.instance
                               .collection('locations')
                               .doc(_locationId)
                               .set({
                             'status': 'returnShipment',
                             'shipmentId': widget.model.shipmentId,
+                          });
+                          setState(() {
+                            isLoading = true;
                           });
                         },
                         onCancelClick: () {
@@ -783,6 +840,9 @@ class _HandleShipmentState extends State<HandleShipment> {
                   onReceivingShipmentCallback: _currentStatus == 'arrived' ||
                           _currentStatus == 'receivingShipment'
                       ? () async {
+                          setState(() {
+                            isLoading = true;
+                          });
                           DocumentSnapshot userToken = await FirebaseFirestore
                               .instance
                               .collection('merchant_users')
@@ -797,9 +857,9 @@ class _HandleShipmentState extends State<HandleShipment> {
                             'read': false,
                             'date_time': DateTime.now().toIso8601String(),
                             'type': 'tracking',
-                            'title': 'الكابتن يريد استلام الشحنة',
+                            'title': 'الكابتن يريد استلام الطلب',
                             'body':
-                                'الكابتن ${_authProvider.name} يريد استلام الشحنة',
+                                'الكابتن ${_authProvider.name} يريد استلام الطلب',
                             'user_icon': _authProvider.photo!.isNotEmpty
                                 ? _authProvider.photo!
                                         .contains(ApiConstants.baseUrl)
@@ -840,9 +900,9 @@ class _HandleShipmentState extends State<HandleShipment> {
                                 .toJson(),
                           });
                           _authProvider.sendNotification(
-                              title: 'الكابتن يريد استلام الشحنة',
+                              title: 'الكابتن يريد استلام الطلب',
                               body:
-                                  'الكابتن ${_authProvider.name} يريد استلام الشحنة',
+                                  'الكابتن ${_authProvider.name} يريد استلام الطلب',
                               toToken: token,
                               image: _authProvider.photo!.isNotEmpty
                                   ? _authProvider.photo!
@@ -892,7 +952,9 @@ class _HandleShipmentState extends State<HandleShipment> {
                             'status': 'receivingShipment',
                             'shipmentId': widget.model.shipmentId,
                           });
-
+                          setState(() {
+                            isLoading = false;
+                          });
                           showDialog(
                               context: navigator.currentContext!,
                               builder: (ctx) => MerchantToCourierQrCodeScanner(
@@ -921,9 +983,12 @@ class _HandleShipmentState extends State<HandleShipment> {
                     showDialog(
                         context: context,
                         builder: (ctx) => ActionDialog(
-                              content: 'هل تود تسليم الشحنة ؟',
+                              content: 'هل تود تسليم الطلب ؟',
                               onApproveClick: () async {
                                 MagicRouter.pop();
+                                setState(() {
+                                  isLoading = true;
+                                });
                                 DocumentSnapshot userToken =
                                     await FirebaseFirestore.instance
                                         .collection('merchant_users')
@@ -941,7 +1006,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                                   'type': 'tracking',
                                   'title': 'الكابتن وصل لمكان التسليم',
                                   'body':
-                                      'الكابتن ${_authProvider.name} وصل لتسليم الشحنة يرجي التأكد من ارسال صورة ال qrcode لأتمام عملية التسليم',
+                                      'الكابتن ${_authProvider.name} وصل لتسليم الطلب يرجي التأكد من ارسال صورة ال qrcode لأتمام عملية التسليم',
                                   'user_icon': _authProvider.photo!.isNotEmpty
                                       ? _authProvider.photo!
                                               .contains(ApiConstants.baseUrl)
@@ -998,7 +1063,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                                 _authProvider.sendNotification(
                                     title: 'الكابتن وصل لمكان التسليم',
                                     body:
-                                        'الكابتن ${_authProvider.name} وصل لتسليم الشحنة يرجي التأكد من ارسال صورة ال qrcode لأتمام عملية التسليم',
+                                        'الكابتن ${_authProvider.name} وصل لتسليم الطلب يرجي التأكد من ارسال صورة ال qrcode لأتمام عملية التسليم',
                                     toToken: token,
                                     image: _authProvider.photo!.isNotEmpty
                                         ? _authProvider.photo!
@@ -1062,6 +1127,9 @@ class _HandleShipmentState extends State<HandleShipment> {
                                   'status': 'handingOverShipmentToCustomer',
                                   'shipmentId': widget.model.shipmentId,
                                 });
+                                setState(() {
+                                  isLoading = false;
+                                });
                                 if (_currentStatus ==
                                         'handingOverShipmentToCustomer' &&
                                     widget.model.paymentMethod == 'cod') {
@@ -1078,9 +1146,11 @@ class _HandleShipmentState extends State<HandleShipment> {
                                   if (trackingProvider.state ==
                                       NetworkState.success) {
                                     WeevoCaptain.facebookAppEvents.logPurchase(
-                                        amount: num.parse(
-                                                widget.model.shipmentDetailsModel?.amount ??
-                                                    '0')
+                                        amount: num.parse(widget
+                                                    .model
+                                                    .shipmentDetailsModel
+                                                    ?.amount ??
+                                                '0')
                                             .toDouble(),
                                         currency: 'EGP');
                                     FirebaseFirestore.instance
@@ -1100,9 +1170,9 @@ class _HandleShipmentState extends State<HandleShipment> {
                                     log('CourierName2 ${authProvider.name}');
 
                                     _authProvider.sendNotification(
-                                        title: 'تهانينا شحنتك اتسلمت',
+                                        title: 'تهانينا طلبك اتسلمت',
                                         body:
-                                            'تسليم الشحنة رقم ${widget.model.shipmentId} اتأكد وتم تحويل الرصيد لحسابك',
+                                            'تسليم الطلب رقم ${widget.model.shipmentId} اتأكد وتم تحويل الرصيد لحسابك',
                                         toToken: token,
                                         image: _authProvider.photo!.isNotEmpty
                                             ? _authProvider.photo!.contains(
@@ -1166,7 +1236,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                                     await showDialog(
                                         context: navigator.currentContext!,
                                         builder: (c) => DoneDialog(
-                                              content: 'تم تسليم شحنتك بنجاح',
+                                              content: 'تم تسليم طلبك بنجاح',
                                               callback: () {
                                                 MagicRouter.pop();
                                               },
@@ -1212,11 +1282,17 @@ class _HandleShipmentState extends State<HandleShipment> {
                             ));
                   },
                   onHandOverReturnedShipmentCallback: () async {
-                    FirebaseFirestore.instance
+                    setState(() {
+                      isLoading = true;
+                    });
+                    await FirebaseFirestore.instance
                         .collection('locations')
                         .doc(_locationId)
                         .set({
                       'status': 'handingOverReturnedShipmentToMerchant',
+                    });
+                    setState(() {
+                      isLoading = false;
                     });
                   },
                   onReceiveShipmentToClientCallback: () async {
@@ -1228,12 +1304,18 @@ class _HandleShipmentState extends State<HandleShipment> {
                         approveAction: 'نعم',
                         onApproveClick: () async {
                           MagicRouter.pop();
+                          setState(() {
+                            isLoading = true;
+                          });
                           FirebaseFirestore.instance
                               .collection('locations')
                               .doc(_locationId)
                               .set({
                             'status': 'receivedShipment',
                             'shipmentId': widget.model.shipmentId,
+                          });
+                          setState(() {
+                            isLoading = false;
                           });
                         },
                         onCancelClick: () {
@@ -1297,7 +1379,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                   'type': 'cancel_shipment',
                   'title': 'تم إلغاء الشحن',
                   'body':
-                      'قام الكابتن ${authProvider.name} بالغاء الشحنة يمكنك الذهاب للشحنة في الشحنات المتاحة',
+                      'قام الكابتن ${authProvider.name} بالغاء الطلب يمكنك الذهاب للطلب في الطلبات المتاحة',
                   'user_icon': _authProvider.photo!.isNotEmpty
                       ? _authProvider.photo!.contains(ApiConstants.baseUrl)
                           ? _authProvider.photo
@@ -1334,7 +1416,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                     .sendNotification(
                         title: 'تم إلغاء الشحن',
                         body:
-                            'قام الكابتن ${authProvider.name} بالغاء الشحنة يمكنك الذهاب للشحنة في الشحنات المتاحة',
+                            'قام الكابتن ${authProvider.name} بالغاء الطلب يمكنك الذهاب للطلب في الطلبات المتاحة',
                         toToken: token,
                         image: _authProvider.photo!.isNotEmpty
                             ? _authProvider.photo!
@@ -1423,7 +1505,13 @@ class _HandleShipmentState extends State<HandleShipment> {
 
   void onMyWayCheckConnection(AuthProvider authProvider,
       ShipmentTrackingProvider trackingProvider) async {
+    setState(() {
+      isLoading = true;
+    });
     if (await authProvider.checkConnection()) {
+      setState(() {
+        isLoading = true;
+      });
       await trackingProvider.onMyWayToGetShipment(widget.model.shipmentId!);
       if (trackingProvider.state == NetworkState.success) {
         DocumentSnapshot userToken = await FirebaseFirestore.instance
@@ -1440,7 +1528,7 @@ class _HandleShipmentState extends State<HandleShipment> {
           'date_time': DateTime.now().toIso8601String(),
           'type': 'tracking',
           'title': 'الكابتن في الطريق',
-          'body': 'جهز شحنتك الكابتن ${authProvider.name} في الطريق اليك',
+          'body': 'جهز طلبك الكابتن ${authProvider.name} في الطريق اليك',
           'user_icon': _authProvider.photo!.isNotEmpty
               ? _authProvider.photo!.contains(ApiConstants.baseUrl)
                   ? _authProvider.photo
@@ -1476,7 +1564,7 @@ class _HandleShipmentState extends State<HandleShipment> {
         });
         _authProvider.sendNotification(
             title: 'الكابتن في الطريق',
-            body: 'جهز شحنتك الكابتن ${authProvider.name} في الطريق اليك',
+            body: 'جهز طلبك الكابتن ${authProvider.name} في الطريق اليك',
             toToken: token,
             screenTo: 'handle_shipment_screen',
             image: _authProvider.photo!.isNotEmpty
@@ -1511,12 +1599,15 @@ class _HandleShipmentState extends State<HandleShipment> {
                     courierPhone: widget.model.courierPhone,
                     locationIdStatus: _currentStatus)
                 .toJson());
-        FirebaseFirestore.instance
+        await FirebaseFirestore.instance
             .collection('locations')
             .doc(_locationId)
             .set({
           'status': 'inMyWay',
           'shipmentId': widget.model.shipmentId,
+        });
+        setState(() {
+          isLoading = false;
         });
         _streamSubscription = authProvider.location!.onLocationChanged
             .listen((LocationData data) async {

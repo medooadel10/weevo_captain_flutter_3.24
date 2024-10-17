@@ -38,6 +38,7 @@ class AvailableShipmentModel {
       children; // nullable for normal shipment && wasully
   final int isOfferBased;
   final String? agreedShippingCostAfterDiscount;
+  final String? flags;
   AvailableShipmentModel(
     this.id,
     this.slug,
@@ -72,6 +73,7 @@ class AvailableShipmentModel {
     this.children,
     this.isOfferBased,
     this.agreedShippingCostAfterDiscount,
+    this.flags,
   );
 
   factory AvailableShipmentModel.fromJson(Map<String, dynamic> json) =>
@@ -115,5 +117,6 @@ class AvailableShipmentModel {
                 .map((x) => AvailableShipmentModel.fromJson(x))),
         json["is_offer_based"],
         json["agreed_shipping_cost_after_discount"],
+        json["flags"],
       );
 }

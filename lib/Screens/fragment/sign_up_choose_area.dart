@@ -53,7 +53,7 @@ class _SignUpChooseAreaState extends State<SignUpChooseArea> {
                 ),
                 Expanded(
                   child: Text(
-                    'اضغط علي اسم المحافظة ثم اسم المدينة \n ليتم اختيارها لك في الشحنات المتاحة',
+                    'اضغط علي اسم المحافظة ثم اسم المدينة \n ليتم اختيارها لك في الطلبات المتاحة',
                     style: TextStyle(
                       fontSize: 16.0.sp,
                     ),

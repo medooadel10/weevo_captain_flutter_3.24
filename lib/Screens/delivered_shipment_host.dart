@@ -86,7 +86,7 @@
 //                             mainAxisAlignment: MainAxisAlignment.center,
 //                             children: [
 //                               Text(
-//                                 'لا يوجد لديك شحنات مكتملة',
+//                                 'لا يوجد لديك طلبات مكتملة',
 //                                 strutStyle: StrutStyle(
 //                                   forceStrutHeight: true,
 //                                 ),

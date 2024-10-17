@@ -86,7 +86,7 @@
 //                           mainAxisAlignment: MainAxisAlignment.center,
 //                           children: [
 //                             Text(
-//                               'لا يوجد لديك شحنات متاحة للتوصيل',
+//                               'لا يوجد لديك طلبات متاحة للتوصيل',
 //                               strutStyle: StrutStyle(
 //                                 forceStrutHeight: true,
 //                               ),

@@ -82,7 +82,7 @@ class ShipmentShippingBtn extends StatelessWidget {
                                   'type': '',
                                   'title': 'ويفو وفرلك كابتن',
                                   'body':
-                                      'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                      'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                   'user_icon': authProvider.photo!.isNotEmpty
                                       ? authProvider.photo!
                                               .contains(ApiConstants.baseUrl)
@@ -98,7 +98,7 @@ class ShipmentShippingBtn extends StatelessWidget {
                                 authProvider.sendNotification(
                                     title: 'ويفو وفرلك كابتن',
                                     body:
-                                        'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                        'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                     toToken: token,
                                     image: authProvider.photo!.isNotEmpty
                                         ? authProvider.photo!

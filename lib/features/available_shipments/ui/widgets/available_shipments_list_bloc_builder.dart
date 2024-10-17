@@ -65,7 +65,7 @@ class _AvailableShipmentsListBlocBuilderState
                 ),
                 verticalSpace(10),
                 Text(
-                  'لا يوجد لديك شحنات متاحة للتوصيل',
+                  'لا يوجد لديك طلبات متاحة للتوصيل',
                   strutStyle: const StrutStyle(
                     forceStrutHeight: true,
                   ),

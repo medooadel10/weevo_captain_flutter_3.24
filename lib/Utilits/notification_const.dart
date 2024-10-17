@@ -57,7 +57,7 @@ void notificationNavigation(
           context: ctx,
           builder: (c) => ActionDialog(
                 content:
-                    'تم الغاء الشحنة من قبل التاجر\nيمكنك التقديم علي شحنات اخري\nمن صفحة الشحنات المتاحة',
+                    'تم الغاء الطلب من قبل التاجر\nيمكنك التقديم علي طلبات اخري\nمن صفحة الطلبات المتاحة',
                 approveAction: 'حسناً',
                 onApproveClick: () {
                   Navigator.pop(c);
@@ -102,7 +102,7 @@ void notificationNavigation(
                         'type': '',
                         'title': 'ويفو وفرلك مندوب',
                         'body':
-                            'الكابتن ${auth.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                            'الكابتن ${auth.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                         'user_icon':
                             auth.photo != null && auth.photo!.isNotEmpty
                                 ? auth.photo!.contains(ApiConstants.baseUrl)
@@ -115,7 +115,7 @@ void notificationNavigation(
                       auth.sendNotification(
                           title: 'ويفو وفرلك كابتن',
                           body:
-                              'الكابتن ${auth.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                              'الكابتن ${auth.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                           toToken: token,
                           image: auth.photo != null && auth.photo!.isNotEmpty
                               ? auth.photo!.contains(ApiConstants.baseUrl)
@@ -176,7 +176,7 @@ void notificationNavigation(
                 context: navigator.currentContext!,
                 builder: (c) => ActionDialog(
                       content:
-                          'هذه الشحنة غير متاحة للتقديم\nعليها يمكنك التقديم علي شحنات اخري\nفي الشحنات الجديدة',
+                          'هذه الطلب غير متاحة للتقديم\nعليها يمكنك التقديم علي طلبات اخري\nفي الطلبات الجديدة',
                       approveAction: 'حسناً',
                       onApproveClick: () {
                         Navigator.pop(c);
@@ -199,7 +199,7 @@ void notificationNavigation(
                 context: navigator.currentContext!,
                 builder: (c) => ActionDialog(
                       content:
-                          'تم الغاء الشحنة من قبل التاجر\nيمكنك التقديم علي شحنات اخري\nمن صفحة الشحنات المتاحة',
+                          'تم الغاء الطلب من قبل التاجر\nيمكنك التقديم علي طلبات اخري\nمن صفحة الطلبات المتاحة',
                       approveAction: 'حسناً',
                       onApproveClick: () {
                         Navigator.pop(c);

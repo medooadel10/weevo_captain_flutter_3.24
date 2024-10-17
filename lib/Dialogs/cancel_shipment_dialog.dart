@@ -39,7 +39,7 @@ class _CancelShipmentDialogState extends State<CancelShipmentDialog> {
               width: 150.h,
             ),
             const Text(
-              'سيتم خصم رسوم الغاء الشحنة\nهل تود ذلك ؟',
+              'سيتم خصم رسوم الغاء الطلب\nهل تود ذلك ؟',
               style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w600,

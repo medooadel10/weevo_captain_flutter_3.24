@@ -114,7 +114,7 @@ class ShipmentDialog extends StatelessWidget {
                           vertical: 5.0.h,
                         ),
                         child: Text(
-                          '${shipmentNotification.childrenShipment} شحنات',
+                          '${shipmentNotification.childrenShipment} طلبات',
                           style: const TextStyle(
                             color: weevoPrimaryOrangeColor,
                             fontWeight: FontWeight.w600,
@@ -166,8 +166,8 @@ class ShipmentDialog extends StatelessWidget {
                   children: [
                     Text(
                       shipmentNotification.childrenShipment! > 0
-                          ? 'مقدم الشحنات الكلية'
-                          : 'مقدم الشحنة',
+                          ? 'مقدم الطلبات الكلية'
+                          : 'مقدم الطلب',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 14.0.sp,
@@ -435,7 +435,7 @@ class ShipmentDialog extends StatelessWidget {
                                             //     title:
                                             //     'ويفو وفرلك مندوب',
                                             //     body:
-                                            //     'المندوب ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                            //     'المندوب ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                             //     toToken: token,
                                             //     image: authProvider
                                             //         .photo
@@ -669,7 +669,7 @@ class ShipmentDialog extends StatelessWidget {
               barrierDismissible: false,
               builder: (context) => ContentDialog(
                     content:
-                        '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider.meezaCard!.transaction!.amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                        '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider.meezaCard!.transaction!.amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                     callback: () {
                       Navigator.pop(context);
                       walletProvider.setDepositIndex(5);

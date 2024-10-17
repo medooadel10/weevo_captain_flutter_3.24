@@ -52,6 +52,7 @@ class ShipmentsCubit extends Cubit<ShipmentsStates> {
       hasMoreData = result.data!.shipments.length == pageSize;
       shipments ??= [];
       shipments!.addAll(result.data!.shipments);
+      shipments!.sort((a, b) => a.createdAt.compareTo(b.createdAt));
       if ((isPaging && hasMoreData) || currentPage == 1) currentPage++;
       emit(ShipmentsSuccessState(result.data!.shipments));
     } else {

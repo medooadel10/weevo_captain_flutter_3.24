@@ -74,7 +74,7 @@ class _ShipmentTrackingMapState extends State<ShipmentTrackingMap> {
             //                 .get();
             //             String token = userToken['fcmToken'];
             //             data.sendNotification(
-            //                 'الشحنة في الطريق اليك',
+            //                 'الطلب في الطريق اليك',
             //                 'الكابتن ${authProvider.name} في الطريق اليك يرجي التواجد بالمكان',
             //                 token);
             //             _locationStream = authProvider
@@ -192,7 +192,7 @@ class _ShipmentTrackingMapState extends State<ShipmentTrackingMap> {
                 //                 .get();
                 //             String token = userToken['fcmToken'];
                 //             await data.sendNotification(
-                //                 'الشحنة في الطريق اليك',
+                //                 'الطلب في الطريق اليك',
                 //                 'الكابتن ${authProvider.name} في الطريق اليك يرجي التواجد بالمكان',
                 //                 token);
                 //             _locationStream = authProvider

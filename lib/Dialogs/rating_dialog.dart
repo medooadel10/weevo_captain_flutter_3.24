@@ -114,7 +114,7 @@ class _RatingDialogState extends State<RatingDialog> {
                   height: 8.0,
                 ),
                 Text(
-                  'كيف كانت شحنتك مع الكابتن ${widget.model.courierName}',
+                  'كيف كانت طلبك مع الكابتن ${widget.model.courierName}',
                   textDirection: TextDirection.rtl,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
@@ -337,7 +337,7 @@ class _RatingDialogState extends State<RatingDialog> {
     //       height: 8.0,
     //     ),
     //     Text(
-    //       'كيف كانت شحنتك مع الكابتن ${widget.model.courierName}',
+    //       'كيف كانت طلبك مع الكابتن ${widget.model.courierName}',
     //       textDirection: TextDirection.rtl,
     //       textAlign: TextAlign.center,
     //       style: TextStyle(

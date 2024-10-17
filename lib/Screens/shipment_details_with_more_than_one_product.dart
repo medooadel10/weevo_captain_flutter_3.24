@@ -79,7 +79,7 @@
 //                 Expanded(
 //                   child: Center(
 //                     child: Text(
-//                       'شحنة رقم ${data.shipmentById!.id}',
+//                       'طلب رقم ${data.shipmentById!.id}',
 //                     ),
 //                   ),
 //                 ),
@@ -432,7 +432,7 @@
 //                         child: Column(
 //                           children: [
 //                             Text(
-//                               'الاوردر ده عليه خصم علي سعر التوصيل\nهتحصل من العميل ${num.parse(data.shipmentById!.agreedShippingCostAfterDiscount!).toInt()} ج وهتستلم في محفظتك ${(num.parse(data.shipmentById!.agreedShippingCost!).toInt() - num.parse(data.shipmentById!.agreedShippingCostAfterDiscount!).toInt())} ج',
+//                               'الطلب ده عليه خصم علي سعر التوصيل\nهتحصل من العميل ${num.parse(data.shipmentById!.agreedShippingCostAfterDiscount!).toInt()} ج وهتستلم في محفظتك ${(num.parse(data.shipmentById!.agreedShippingCost!).toInt() - num.parse(data.shipmentById!.agreedShippingCostAfterDiscount!).toInt())} ج',
 //                               style: TextStyle(
 //                                 fontSize: 14.0.sp,
 //                                 color: weevoPrimaryBlueColor,
@@ -998,7 +998,7 @@
 //                                                                   'title':
 //                                                                       'ويفو وفرلك كابتن',
 //                                                                   'body':
-//                                                                       'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+//                                                                       'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
 //                                                                   'user_icon': authProvider
 //                                                                           .photo!
 //                                                                           .isNotEmpty
@@ -1020,7 +1020,7 @@
 //                                                                 });
 //                                                                 await authProvider.sendNotification(
 //                                                                     title: 'ويفو وفرلك كابتن',
-//                                                                     body: 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+//                                                                     body: 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
 //                                                                     toToken: token,
 //                                                                     image: authProvider.photo!.isNotEmpty
 //                                                                         ? authProvider.photo!.contains(ApiConstants.baseUrl)
@@ -1097,7 +1097,7 @@
 //                                   //       builder: (cx) =>
 //                                   //           ActionDialog(
 //                                   //             content:
-//                                   //             'يمكنك التقديم علي الشحنات من ١٠ صباحاً حتي ١٠ مساءاً',
+//                                   //             'يمكنك التقديم علي الطلبات من ١٠ صباحاً حتي ١٠ مساءاً',
 //                                   //             onApproveClick: () {
 //                                   //               Navigator.pop(cx);
 //                                   //             },
@@ -1129,7 +1129,7 @@
 //                                   width: 30.0,
 //                                 ),
 //                                 label: const Text(
-//                                   'وصل الشحنة',
+//                                   'وصل الطلب',
 //                                   style: TextStyle(
 //                                     fontSize: 16.0,
 //                                     fontWeight: FontWeight.w600,
@@ -1223,7 +1223,7 @@
 //                                                             'title':
 //                                                                 'ويفو وفرلك كابتن',
 //                                                             'body':
-//                                                                 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+//                                                                 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
 //                                                             'user_icon': authProvider
 //                                                                     .photo!
 //                                                                     .isNotEmpty
@@ -1250,7 +1250,7 @@
 //                                                                   title:
 //                                                                       'ويفو وفرلك كابتن',
 //                                                                   body:
-//                                                                       'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+//                                                                       'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
 //                                                                   toToken:
 //                                                                       token,
 //                                                                   image: authProvider
@@ -1457,7 +1457,7 @@
 //                                                             //                               content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
 //                                                             //                                   .meezaCard
 //                                                             //                                   .transaction
-//                                                             //                                   .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',                                                                                          callback: () {
+//                                                             //                                   .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',                                                                                          callback: () {
 //                                                             //                                 Navigator
 //                                                             //                                     .pop(
 //                                                             //                                     Preferences
@@ -1583,7 +1583,7 @@
 //                                                             //                                     content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
 //                                                             //                                         .eWallet
 //                                                             //                                         .transaction
-//                                                             //                                         .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+//                                                             //                                         .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
 //                                                             //                                     callback: () {
 //                                                             //                                       Navigator
 //                                                             //                                           .pop(
@@ -1603,7 +1603,7 @@
 //                                                             //                                                 content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
 //                                                             //                                                     .eWallet
 //                                                             //                                                     .transaction
-//                                                             //                                                     .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+//                                                             //                                                     .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
 //                                                             //                                                 callback: () {
 //                                                             //                                                   Navigator
 //                                                             //                                                       .pop(
@@ -2162,7 +2162,7 @@
 //                                                             //                               content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
 //                                                             //                                   .meezaCard
 //                                                             //                                   .transaction
-//                                                             //                                   .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',                                                                                          callback: () {
+//                                                             //                                   .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',                                                                                          callback: () {
 //                                                             //                                 Navigator
 //                                                             //                                     .pop(
 //                                                             //                                     Preferences
@@ -2288,7 +2288,7 @@
 //                                                             //                                     content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
 //                                                             //                                         .eWallet
 //                                                             //                                         .transaction
-//                                                             //                                         .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+//                                                             //                                         .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
 //                                                             //                                     callback: () {
 //                                                             //                                       Navigator
 //                                                             //                                           .pop(
@@ -2734,7 +2734,7 @@
 //                   'type': 'cancel_shipment',
 //                   'title': 'تم إلغاء الشحن',
 //                   'body':
-//                       'قام الكابتن ${authProvider.name} بالغاء الشحنة يمكنك الذهاب للشحنة في الشحنات المتاحة',
+//                       'قام الكابتن ${authProvider.name} بالغاء الطلب يمكنك الذهاب للطلب في الطلبات المتاحة',
 //                   'user_icon': authProvider.photo!.isNotEmpty
 //                       ? authProvider.photo!.contains(ApiConstants.baseUrl)
 //                           ? authProvider.photo
@@ -2751,7 +2751,7 @@
 //                     .sendNotification(
 //                         title: 'تم إلغاء الشحن',
 //                         body:
-//                             'قام الكابتن ${authProvider.name} بالغاء الشحنة يمكنك الذهاب للشحنة في الشحنات المتاحة',
+//                             'قام الكابتن ${authProvider.name} بالغاء الطلب يمكنك الذهاب للطلب في الطلبات المتاحة',
 //                         toToken: token,
 //                         image: authProvider.photo!.isNotEmpty
 //                             ? authProvider.photo!.contains(ApiConstants.baseUrl)
@@ -2831,7 +2831,7 @@
 //               barrierDismissible: false,
 //               builder: (context) => ContentDialog(
 //                     content:
-//                         '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider.meezaCard!.transaction!.amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+//                         '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider.meezaCard!.transaction!.amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
 //                     callback: () {
 //                       Navigator.pop(context);
 //                       walletProvider.setDepositIndex(5);

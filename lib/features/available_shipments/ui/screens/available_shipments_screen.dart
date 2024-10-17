@@ -28,7 +28,7 @@ class _AvailableShipmentsScreenState extends State<AvailableShipmentsScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'الشحنات المتاحة',
+            'الطلبات المتاحة',
           ),
           leading: IconButton(
             icon: const Icon(

@@ -203,7 +203,7 @@
 //             //                 }),
 //             //             AvailableShipmentTabItem(
 //             //                 title: 'المتاحة للتوصيل',
-//             //                 smallTitle: 'قبول الشحنة',
+//             //                 smallTitle: 'قبول الطلب',
 //             //                 index: 0,
 //             //                 selectedIndex: data.availableShipmentIndex,
 //             //                 onTap: () {

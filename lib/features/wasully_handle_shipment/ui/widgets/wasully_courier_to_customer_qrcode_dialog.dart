@@ -100,9 +100,9 @@ class WasullyCourierToCustomerQrCodeScanner extends StatelessWidget {
                                             .get();
                                     String token = userToken['fcmToken'];
                                     authProvider.sendNotification(
-                                        title: 'تم تسليم شحنتك بنجاح',
+                                        title: 'تم تسليم طلبك بنجاح',
                                         body:
-                                            'تم تسليم شحنتك بنجاح برجاء تقييم شحنتك مع الكابتن ${authProvider.name}',
+                                            'تم تسليم طلبك بنجاح برجاء تقييم طلبك مع الكابتن ${authProvider.name}',
                                         toToken: token,
                                         image: authProvider.photo!.isNotEmpty
                                             ? authProvider.photo!.contains(

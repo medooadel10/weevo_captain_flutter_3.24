@@ -119,7 +119,7 @@ class _WasullyRatingDialogState extends State<WasullyRatingDialog> {
                 height: 8.0,
               ),
               Text(
-                'كيف كانت شحنتك مع التاجر ${widget.model.merchantName}',
+                'كيف كانت طلبك مع التاجر ${widget.model.merchantName}',
                 textDirection: TextDirection.rtl,
                 textAlign: TextAlign.center,
                 style: const TextStyle(

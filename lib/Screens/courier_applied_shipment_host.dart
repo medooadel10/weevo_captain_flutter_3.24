@@ -101,7 +101,7 @@
 //                             mainAxisAlignment: MainAxisAlignment.center,
 //                             children: [
 //                               const Text(
-//                                 'لا يوجد لديك شحنات مقدم عليها',
+//                                 'لا يوجد لديك طلبات مقدم عليها',
 //                                 strutStyle: StrutStyle(
 //                                   forceStrutHeight: true,
 //                                 ),
@@ -167,7 +167,7 @@
 //                                                   NetworkState.SUCCESS) {
 //                                                 authProvider.sendNotification(
 //                                                     body:
-//                                                         'قام الكابتن ${authProvider.name}بسحب العرض المقدم علي شحنتك',
+//                                                         'قام الكابتن ${authProvider.name}بسحب العرض المقدم علي طلبك',
 //                                                     toToken: token,
 //                                                     image: authProvider
 //                                                             .photo.isNotEmpty
@@ -250,7 +250,7 @@
 //                                                   'type': 'decline_offer',
 //                                                   'title': 'تم سحب العرض',
 //                                                   'body':
-//                                                       'قام الكابتن ${authProvider.name}بسحب العرض المقدم علي شحنتك',
+//                                                       'قام الكابتن ${authProvider.name}بسحب العرض المقدم علي طلبك',
 //                                                   'user_icon': authProvider
 //                                                           .photo.isNotEmpty
 //                                                       ? authProvider.photo

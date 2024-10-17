@@ -118,7 +118,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                 fit: BoxFit.fill),
                                           ),
                                           child: Text(
-                                            '${widget.bulkShipment.children!.length} شحنة',
+                                            '${widget.bulkShipment.children!.length} طلب',
                                             textDirection: TextDirection.rtl,
                                             style: TextStyle(
                                               color: Colors.white,
@@ -209,7 +209,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                                 'title':
                                                                     'ويفو وفرلك كابتن',
                                                                 'body':
-                                                                    'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                                                    'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                                                 'user_icon': authProvider
                                                                         .photo!
                                                                         .isNotEmpty
@@ -233,7 +233,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                               });
                                                               await authProvider.sendNotification(
                                                                   title: 'ويفو وفرلك كابتن',
-                                                                  body: 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                                                  body: 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                                                   toToken: token,
                                                                   image: authProvider.photo!.isNotEmpty
                                                                       ? authProvider.photo!.contains(ApiConstants.baseUrl)
@@ -423,7 +423,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                                     //                                 content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
                                                                     //                                     .meezaCard
                                                                     //                                     .transaction
-                                                                    //                                     .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                                                                    //                                     .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                                                                     //                               callback: () {
                                                                     //                                 Navigator
                                                                     //                                     .pop(
@@ -551,7 +551,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                                     //                                     content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
                                                                     //                                         .eWallet
                                                                     //                                         .transaction
-                                                                    //                                         .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                                                                    //                                         .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                                                                     //                                     callback: () {
                                                                     //                                       Navigator
                                                                     //                                           .pop(
@@ -1102,7 +1102,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                                     //                               content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
                                                                     //                                   .meezaCard
                                                                     //                                   .transaction
-                                                                    //                                   .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                                                                    //                                   .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                                                                     //                               callback: () {
                                                                     //                                 Navigator
                                                                     //                                     .pop(
@@ -1229,7 +1229,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                                     //                                     content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
                                                                     //                                         .eWallet
                                                                     //                                         .transaction
-                                                                    //                                         .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                                                                    //                                         .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                                                                     //                                     callback: () {
                                                                     //                                       Navigator
                                                                     //                                           .pop(
@@ -1741,7 +1741,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                           'title':
                                                               'ويفو وفرلك كابتن',
                                                           'body':
-                                                              'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                                              'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                                           'user_icon': authProvider
                                                                   .photo!
                                                                   .isNotEmpty
@@ -1769,7 +1769,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                                 title:
                                                                     'ويفو وفرلك كابتن',
                                                                 body:
-                                                                    'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
+                                                                    'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالطلب',
                                                                 toToken: token,
                                                                 image: authProvider
                                                                         .photo!
@@ -1978,7 +1978,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                           //                               content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
                                                           //                                   .meezaCard
                                                           //                                   .transaction
-                                                          //                                   .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                                                          //                                   .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                                                           //                               callback: () {
                                                           //                                 Navigator
                                                           //                                     .pop(
@@ -2108,7 +2108,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                           //                                     content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
                                                           //                                         .eWallet
                                                           //                                         .transaction
-                                                          //                                         .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                                                          //                                         .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                                                           //                                     callback: () {
                                                           //                                       Navigator
                                                           //                                           .pop(
@@ -2684,7 +2684,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                           //                               content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
                                                           //                                   .meezaCard
                                                           //                                   .transaction
-                                                          //                                   .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                                                          //                                   .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                                                           //                               callback: () {
                                                           //                                 Navigator
                                                           //                                     .pop(
@@ -2816,7 +2816,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                                           //                                     content: '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider
                                                           //                                         .eWallet
                                                           //                                         .transaction
-                                                          //                                         .amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                                                          //                                         .amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                                                           //                                     callback: () {
                                                           //                                       Navigator
                                                           //                                           .pop(
@@ -3227,7 +3227,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
               barrierDismissible: false,
               builder: (context) => ContentDialog(
                     content:
-                        '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider.meezaCard?.transaction?.amount}\nيمكنك الان التقديم على الشحنة مرة اخرى',
+                        '.لقد تم شحن محفظتك بنجاح بمبلغ ${walletProvider.meezaCard?.transaction?.amount}\nيمكنك الان التقديم على الطلب مرة اخرى',
                     callback: () {
                       Navigator.pop(context);
                       walletProvider.setDepositIndex(5);

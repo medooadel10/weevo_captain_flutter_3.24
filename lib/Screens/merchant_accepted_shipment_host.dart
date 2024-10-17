@@ -89,7 +89,7 @@
 //                             mainAxisAlignment: MainAxisAlignment.center,
 //                             children: [
 //                               const Text(
-//                                 'لا يوجد لديك شحنات في انتظار التوصيل',
+//                                 'لا يوجد لديك طلبات في انتظار التوصيل',
 //                                 strutStyle: StrutStyle(
 //                                   forceStrutHeight: true,
 //                                 ),

@@ -274,7 +274,7 @@ class AvailableShipmentRequestOrderButton extends StatelessWidget {
                                 'title': 'ويفو وفرلك كابتن',
                                 'body': model.slug != null || model.slug != ''
                                     ? 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدم الطلب'
-                                    : 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدم الشحنة',
+                                    : 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدم الطلب',
                                 'user_icon': authProvider.photo!.isNotEmpty
                                     ? authProvider.photo!
                                             .contains(ApiConstants.baseUrl)
@@ -290,7 +290,7 @@ class AvailableShipmentRequestOrderButton extends StatelessWidget {
                                   title: 'ويفو وفرلك كابتن',
                                   body: model.slug != null || model.slug != ''
                                       ? 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدم الطلب'
-                                      : 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدم الشحنة',
+                                      : 'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدم الطلب',
                                   toToken: token,
                                   image: authProvider.photo!.isNotEmpty
                                       ? authProvider.photo!
@@ -349,7 +349,7 @@ class AvailableShipmentRequestOrderButton extends StatelessWidget {
       color: weevoPrimaryOrangeColor,
       isStable: true,
       childWidget: const Text(
-        'وصل الاوردر',
+        'وصل الطلب',
         style: TextStyle(
           color: Colors.white,
         ),

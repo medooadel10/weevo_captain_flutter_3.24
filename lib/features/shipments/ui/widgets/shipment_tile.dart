@@ -220,7 +220,7 @@ class _ShipmentTileState extends State<ShipmentTile> {
                                                     fit: BoxFit.fill),
                                               ),
                                               child: Text(
-                                                '${shipment.children!.length} شحنة',
+                                                '${shipment.children!.length} طلب',
                                                 textDirection:
                                                     TextDirection.rtl,
                                                 style: TextStyle(

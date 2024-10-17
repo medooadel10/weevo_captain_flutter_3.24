@@ -122,7 +122,7 @@ class _WasullyHandleShipmentScreenState
           });
         }
       }
-            setState(() {
+      setState(() {
         isLoading = false;
       });
     }).onError((error) {
@@ -130,9 +130,9 @@ class _WasullyHandleShipmentScreenState
         setState(() {
           _currentStatus = '';
         });
-              setState(() {
-        isLoading = false;
-      });
+        setState(() {
+          isLoading = false;
+        });
       }
     });
     if (_currentStatus == 'inMyWay') {
@@ -335,7 +335,7 @@ class _WasullyHandleShipmentScreenState
                                     child: Column(
                                       children: [
                                         const Text(
-                                          'برجاء الضغط على الزر الأزرق لإدخال الكود\n وبعد التحقق سيتم إستلام الشحنة من المرسل',
+                                          'برجاء الضغط على الزر الأزرق لإدخال الكود\n وبعد التحقق سيتم إستلام الطلب من المرسل',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14.0,
@@ -374,7 +374,7 @@ class _WasullyHandleShipmentScreenState
                                         child: Column(
                                           children: [
                                             const Text(
-                                              'برجاء الضغط على الزر الأزرق لإدخال الكود من المرسل إليه\n وبعد التحقق سيتم تسليم الشحنة إالى المرسل إليه',
+                                              'برجاء الضغط على الزر الأزرق لإدخال الكود من المرسل إليه\n وبعد التحقق سيتم تسليم الطلب إالى المرسل إليه',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 14.0,
@@ -552,7 +552,7 @@ class _WasullyHandleShipmentScreenState
                                     'type': 'tracking',
                                     'title': 'الكابتن في الطريق',
                                     'body':
-                                        'جهز شحنتك الكابتن ${authProvider.name} في الطريق اليك',
+                                        'جهز طلبك الكابتن ${authProvider.name} في الطريق اليك',
                                     'user_icon': _authProvider.photo!.isNotEmpty
                                         ? _authProvider.photo!
                                                 .contains(ApiConstants.baseUrl)
@@ -611,7 +611,7 @@ class _WasullyHandleShipmentScreenState
                                   _authProvider.sendNotification(
                                       title: 'الكابتن في الطريق',
                                       body:
-                                          'جهز شحنتك الكابتن ${authProvider.name} في الطريق اليك',
+                                          'جهز طلبك الكابتن ${authProvider.name} في الطريق اليك',
                                       toToken: token,
                                       image: _authProvider.photo!.isNotEmpty
                                           ? _authProvider.photo!.contains(
@@ -677,9 +677,14 @@ class _WasullyHandleShipmentScreenState
                                   context: context,
                                   builder: (context) {
                                     return DoneDialog(
-                                      callback: ()async {
+                                      callback: () async {
                                         MagicRouter.pop();
-                                        setState(() {
+                                      },
+                                      content: 'قم بإستلام الطلب',
+                                    );
+                                  },
+                                );
+                                setState(() {
                                   isLoading = true;
                                 });
                                 DocumentSnapshot userToken =
@@ -753,6 +758,7 @@ class _WasullyHandleShipmentScreenState
                                           locationIdStatus: _currentStatus)
                                       .toJson(),
                                 });
+                                log('Arrived Arrived');
                                 _authProvider.sendNotification(
                                     title: 'الكابتن وصل',
                                     body:
@@ -824,12 +830,6 @@ class _WasullyHandleShipmentScreenState
                                   isLoading = false;
                                 });
                                 _streamSubscription?.cancel();
-                                      },
-                                      content: 'قم بإستلام الطلب',
-                                    );
-                                  },
-                                );
-                                
                               },
                               onReturnShipmentCallback: () async {
                                 showDialog(
@@ -1427,7 +1427,7 @@ class _WasullyHandleShipmentScreenState
       'date_time': DateTime.now().toIso8601String(),
       'type': 'tracking',
       'title': 'الكابتن في الطريق',
-      'body': 'جهز شحنتك الكابتن ${authProvider.name} في الطريق اليك',
+      'body': 'جهز طلبك الكابتن ${authProvider.name} في الطريق اليك',
       'user_icon': _authProvider.photo!.isNotEmpty
           ? _authProvider.photo!.contains(ApiConstants.baseUrl)
               ? _authProvider.photo
@@ -1463,7 +1463,7 @@ class _WasullyHandleShipmentScreenState
     });
     _authProvider.sendNotification(
         title: 'الكابتن في الطريق',
-        body: 'جهز شحنتك الكابتن ${authProvider.name} في الطريق اليك',
+        body: 'جهز طلبك الكابتن ${authProvider.name} في الطريق اليك',
         toToken: token,
         screenTo: 'handle_shipment_screen',
         image: _authProvider.photo!.isNotEmpty

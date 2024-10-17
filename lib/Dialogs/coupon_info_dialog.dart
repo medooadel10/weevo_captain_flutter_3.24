@@ -41,7 +41,7 @@ class CouponInfoDialog extends StatelessWidget {
               height: 10.0.h,
             ),
             Text(
-              'هتحصل من العميل ${num.parse(shipment.shipmentById!.agreedShippingCostAfterDiscount!).toInt()} ج سعر التوصيل + ${num.parse(shipment.shipmentById!.amount!).toInt()} ج سعر مقدم الشحنة',
+              'هتحصل من العميل ${num.parse(shipment.shipmentById!.agreedShippingCostAfterDiscount!).toInt()} ج سعر التوصيل + ${num.parse(shipment.shipmentById!.amount!).toInt()} ج سعر مقدم الطلب',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14.0.sp,
