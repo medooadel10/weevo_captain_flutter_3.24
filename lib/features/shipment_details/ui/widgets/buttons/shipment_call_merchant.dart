@@ -14,7 +14,7 @@ class ShipmentCallCourier extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         await launchUrlString(
-          'tel:${data.clientPhone}',
+          'tel:${data.merchant}',
         );
       },
       child: Container(

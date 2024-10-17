@@ -372,30 +372,6 @@ class AuthProvider with ChangeNotifier {
     return true;
   }
 
-  Future<void> setAppVersion({
-    String? appVersion,
-  }) async {
-    _versionState = NetworkState.waiting;
-    try {
-      http.Response r = await HttpHelper.instance.httpPost(
-        'update',
-        true,
-        body: {
-          'app_version': appVersion,
-          'password_verification': password,
-        },
-      );
-      if (r.statusCode >= 200 && r.statusCode < 300) {
-        _versionState = NetworkState.success;
-      } else {
-        _versionState = NetworkState.error;
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-    notifyListeners();
-  }
-
   Future<bool> locationPermissionGranted() async {
     _permissionGranted = await _location?.hasPermission();
     if (_permissionGranted == PermissionStatus.deniedForever) {
@@ -571,7 +547,9 @@ class AuthProvider with ChangeNotifier {
     bool isBiometricSupported = await auth.isDeviceSupported();
     bool canCheckBiometrics = await auth.canCheckBiometrics;
     bool isAuthenticated = false;
-    if (isBiometricSupported && canCheckBiometrics) {
+    bool isClicked = false;
+    final bool canAuthenticate = canCheckBiometrics || isBiometricSupported;
+    if (canAuthenticate) {
       try {
         isAuthenticated = await auth.authenticate(
           localizedReason: 'من فضلك قم بتسجيل الدخول للمحفظة',

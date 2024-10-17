@@ -1159,12 +1159,12 @@ PODS:
     - Flutter
     - FlutterMacOS
   - facebook_app_events (0.0.1):
-    - FBAudienceNetwork (~> 6.15)
+    - FBAudienceNetwork (= 6.15.0)
     - FBSDKCoreKit (~> 17.0)
     - Flutter
   - FBAEMKit (17.3.0):
     - FBSDKCoreKit_Basics (= 17.3.0)
-  - FBAudienceNetwork (6.15.2)
+  - FBAudienceNetwork (6.15.0)
   - FBSDKCoreKit (17.3.0):
     - FBAEMKit (= 17.3.0)
     - FBSDKCoreKit_Basics (= 17.3.0)
@@ -1652,9 +1652,9 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: ca6a8e5d04812fce8ffd6437810c2d46f925eaeb
   cloud_firestore: 5cb927f1a8c9d748d6fdbf16c6b267956cb82c53
   connectivity_plus: ddd7f30999e1faaef5967c23d5b6d503d10434db
-  facebook_app_events: acb7c266406d3e3592bcf846d7184172ecfd6492
+  facebook_app_events: c913b6757053494b19db1648a07ab755f0d3bf74
   FBAEMKit: 92f488a9c97208e2f6f01655750944d213fbc0b0
-  FBAudienceNetwork: 2457a89b45e2596241fd81b0c2fd8cb6f6053869
+  FBAudienceNetwork: 80a035aa69cc3a71c99e44cb5c2874e4cef9909f
   FBSDKCoreKit: 1be47a742ccdddf8dd85272c3953534214dc0f30
   FBSDKCoreKit_Basics: fcafe75f7deeed1146d04ea51b45a69731e63c16
   Firebase: 98e6bf5278170668a7983e12971a66b2cd57fc8c
@@ -1722,6 +1722,6 @@ SPEC CHECKSUMS:
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
   webview_flutter_wkwebview: 0982481e3d9c78fd5c6f62a002fcd24fc791f1e4
 
-PODFILE CHECKSUM: 339992de9934102b42f20b92f240616a01aeef78
+PODFILE CHECKSUM: b253b3e799dcc66a7e435b0c254e39363ba1f5a0
 
 COCOAPODS: 1.15.2

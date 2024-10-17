@@ -74,7 +74,10 @@ void main() async {
   FirebaseMessaging.instance.setAutoInitEnabled(true);
   if (Platform.isIOS) FirebaseNotification.iOSPermission();
   FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: true, badge: true, sound: true);
+    alert: true,
+    badge: true,
+    sound: true,
+  );
   Freshchat.setPushRegistrationToken(
       await FirebaseMessaging.instance.getToken() ?? '');
   await Preferences.instance.initPref();
@@ -113,7 +116,7 @@ class WeevoCaptain extends StatelessWidget {
             builder: EasyLoading.init(),
             navigatorKey: navigator,
             theme: AppTheme.lightTheme(context),
-            title: 'Weevo captain | ويفو كابتن',
+            title: 'Weevo Captain | ويفو كابتن',
             debugShowCheckedModeBanner: false,
             initialRoute: initRoute,
             routes: routes,

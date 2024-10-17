@@ -24,13 +24,6 @@ class ShipmentDetailsPriceInfo extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Image.asset(
-          'assets/images/$priceImage.png',
-          height: 20.h,
-          width: 20.w,
-          fit: BoxFit.contain,
-        ),
-        horizontalSpace(4),
         Row(
           children: [
             Text(

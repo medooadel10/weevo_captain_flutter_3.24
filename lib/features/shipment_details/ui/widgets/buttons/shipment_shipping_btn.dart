@@ -79,7 +79,7 @@ class ShipmentShippingBtn extends StatelessWidget {
                                     .add({
                                   'read': false,
                                   'date_time': DateTime.now().toIso8601String(),
-                                  'type': 'cancel_shipment',
+                                  'type': '',
                                   'title': 'ويفو وفرلك كابتن',
                                   'body':
                                       'الكابتن ${authProvider.name} قبل طلب الشحن وتم خصم مقدمالشحنة',
@@ -112,7 +112,7 @@ class ShipmentShippingBtn extends StatelessWidget {
                                             hasChildren: 1)
                                         .toJson(),
                                     screenTo: 'shipment_screen',
-                                    type: 'cancel_shipment');
+                                    type: '');
                               },
                               isDone: true,
                               isOffer: true,
