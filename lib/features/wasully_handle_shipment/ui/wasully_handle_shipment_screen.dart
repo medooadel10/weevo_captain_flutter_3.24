@@ -9,6 +9,7 @@ import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:weevo_captain_app/Dialogs/done_dialog.dart';
 import 'package:weevo_captain_app/core/helpers/spacing.dart';
 import 'package:weevo_captain_app/core/helpers/toasts.dart';
 
@@ -57,6 +58,7 @@ class _WasullyHandleShipmentScreenState
   late String _locationId;
   String? _currentStatus;
   bool isFirstTime = true;
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -77,7 +79,9 @@ class _WasullyHandleShipmentScreenState
 
   void getInit() async {
     log('locationId -> $_locationId');
-
+    setState(() {
+      isLoading = true;
+    });
     switch (widget.model.status) {
       case 'courier-applied-to-shipment':
       case 'merchant-accepted-shipping-offer':
@@ -118,11 +122,17 @@ class _WasullyHandleShipmentScreenState
           });
         }
       }
+            setState(() {
+        isLoading = false;
+      });
     }).onError((error) {
       if (mounted) {
         setState(() {
           _currentStatus = '';
         });
+              setState(() {
+        isLoading = false;
+      });
       }
     });
     if (_currentStatus == 'inMyWay') {
@@ -469,6 +479,7 @@ class _WasullyHandleShipmentScreenState
                                           )
                                         : Container(),
                             TrackingDialog(
+                              isLoading: isLoading,
                               onCLientPhoneCallback: () async {
                                 await launchUrl(Uri.parse(
                                     'tel:${widget.model.clientPhone}'));
@@ -662,6 +673,15 @@ class _WasullyHandleShipmentScreenState
                                 }
                               },
                               onArrivedCallback: () async {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return DoneDialog(
+                                      callback: ()async {
+                                        MagicRouter.pop();
+                                        setState(() {
+                                  isLoading = true;
+                                });
                                 DocumentSnapshot userToken =
                                     await FirebaseFirestore.instance
                                         .collection('merchant_users')
@@ -793,14 +813,23 @@ class _WasullyHandleShipmentScreenState
                                                 widget.model.courierPhone,
                                             locationIdStatus: _currentStatus)
                                         .toJson());
-                                FirebaseFirestore.instance
+                                await FirebaseFirestore.instance
                                     .collection('locations')
                                     .doc(_locationId)
                                     .set({
                                   'status': 'arrived',
                                   'shipmentId': widget.model.wasullyModel!.slug,
                                 });
+                                setState(() {
+                                  isLoading = false;
+                                });
                                 _streamSubscription?.cancel();
+                                      },
+                                      content: 'قم بإستلام الطلب',
+                                    );
+                                  },
+                                );
+                                
                               },
                               onReturnShipmentCallback: () async {
                                 showDialog(
@@ -811,6 +840,9 @@ class _WasullyHandleShipmentScreenState
                                     approveAction: 'نعم',
                                     onApproveClick: () async {
                                       MagicRouter.pop();
+                                      setState(() {
+                                        isLoading = true;
+                                      });
                                       sendCurrentLocation(authProvider,
                                           widget.model, _locationId);
                                       DocumentSnapshot userToken =
@@ -948,13 +980,16 @@ class _WasullyHandleShipmentScreenState
                                                   courierPhone: widget.model.courierPhone,
                                                   locationIdStatus: _currentStatus)
                                               .toJson());
-                                      FirebaseFirestore.instance
+                                      await FirebaseFirestore.instance
                                           .collection('locations')
                                           .doc(_locationId)
                                           .set({
                                         'status': 'returnShipment',
                                         'shipmentId':
                                             widget.model.wasullyModel!.slug,
+                                      });
+                                      setState(() {
+                                        isLoading = false;
                                       });
                                     },
                                     onCancelClick: () {
@@ -971,14 +1006,20 @@ class _WasullyHandleShipmentScreenState
                                     cancelAction: 'لا',
                                     approveAction: 'نعم',
                                     onApproveClick: () async {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
                                       MagicRouter.pop();
-                                      FirebaseFirestore.instance
+                                      await FirebaseFirestore.instance
                                           .collection('locations')
                                           .doc(_locationId)
                                           .set({
                                         'status': 'receivedShipment',
                                         'shipmentId':
                                             widget.model.wasullyModel!.slug,
+                                      });
+                                      setState(() {
+                                        isLoading = false;
                                       });
                                     },
                                     onCancelClick: () {
@@ -991,6 +1032,9 @@ class _WasullyHandleShipmentScreenState
                                   _currentStatus == 'arrived' ||
                                           _currentStatus == 'receivingShipment'
                                       ? () async {
+                                          setState(() {
+                                            isLoading = true;
+                                          });
                                           DocumentSnapshot userToken =
                                               await FirebaseFirestore.instance
                                                   .collection('merchant_users')
@@ -1124,13 +1168,16 @@ class _WasullyHandleShipmentScreenState
                                                       courierPhone: widget.model.courierPhone,
                                                       locationIdStatus: _currentStatus)
                                                   .toJson());
-                                          FirebaseFirestore.instance
+                                          await FirebaseFirestore.instance
                                               .collection('locations')
                                               .doc(_locationId)
                                               .set({
                                             'status': 'receivingShipment',
                                             'shipmentId':
                                                 widget.model.wasullyModel!.slug,
+                                          });
+                                          setState(() {
+                                            isLoading = false;
                                           });
                                           showDialog(
                                               context:
@@ -1142,10 +1189,10 @@ class _WasullyHandleShipmentScreenState
                                                       locationId: _locationId));
                                         }
                                       : () {
-                                        showToast(
-                            'يجب عليك الضغط على الزر وصلت أولاً',
-                          );
-                                      },
+                                          showToast(
+                                            'يجب عليك الضغط على الزر وصلت أولاً',
+                                          );
+                                        },
                               onMerchantLocation: () async {
                                 openGoogleMap(widget.model.receivingLat!,
                                     widget.model.receivingLng!);
@@ -1160,6 +1207,9 @@ class _WasullyHandleShipmentScreenState
                                     builder: (ctx) => ActionDialog(
                                           content: 'هل تود تسليم الطلب ؟',
                                           onApproveClick: () async {
+                                            setState(() {
+                                              isLoading = true;
+                                            });
                                             Navigator.pop(ctx);
                                             DocumentSnapshot userToken =
                                                 await FirebaseFirestore.instance
@@ -1301,23 +1351,26 @@ class _WasullyHandleShipmentScreenState
                                                         courierPhone: widget.model.courierPhone,
                                                         locationIdStatus: _currentStatus)
                                                     .toJson());
-                                             FirebaseFirestore.instance
+                                            await FirebaseFirestore.instance
                                                 .collection('locations')
                                                 .doc(_locationId)
                                                 .set({
                                               'status':
                                                   'handingOverShipmentToCustomer',
                                             });
+                                            setState(() {
+                                              isLoading = false;
+                                            });
                                             showDialog(
-                                                    context: navigator.currentContext!,
-                                                    barrierDismissible: false,
-                                                    builder: (ctx) =>
-                                                        WasullyCourierToCustomerQrCodeScanner(
-                                                            parentContext:
-                                                                context,
-                                                            model: widget.model,
-                                                            locationId:
-                                                                _locationId));
+                                                context:
+                                                    navigator.currentContext!,
+                                                barrierDismissible: false,
+                                                builder: (ctx) =>
+                                                    WasullyCourierToCustomerQrCodeScanner(
+                                                        parentContext: context,
+                                                        model: widget.model,
+                                                        locationId:
+                                                            _locationId));
                                           },
                                           approveAction: 'نعم',
                                           onCancelClick: () {
@@ -1327,12 +1380,18 @@ class _WasullyHandleShipmentScreenState
                                         ));
                               },
                               onHandOverReturnedShipmentCallback: () async {
-                                FirebaseFirestore.instance
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                await FirebaseFirestore.instance
                                     .collection('locations')
                                     .doc(_locationId)
                                     .set({
                                   'status':
                                       'handingOverReturnedShipmentToMerchant',
+                                });
+                                setState(() {
+                                  isLoading = false;
                                 });
                               },
                               model: widget.model,
@@ -1350,6 +1409,9 @@ class _WasullyHandleShipmentScreenState
   }
 
   void onMyWaySuccess(AuthProvider authProvider) async {
+    setState(() {
+      isLoading = true;
+    });
     DocumentSnapshot userToken = await FirebaseFirestore.instance
         .collection('merchant_users')
         .doc(widget.model.merchantId.toString())
@@ -1442,6 +1504,9 @@ class _WasullyHandleShipmentScreenState
         .set({
       'status': 'inMyWay',
       'shipmentId': widget.model.wasullyModel!.slug,
+    });
+    setState(() {
+      isLoading = false;
     });
     _streamSubscription = authProvider.location!.onLocationChanged
         .listen((LocationData data) async {

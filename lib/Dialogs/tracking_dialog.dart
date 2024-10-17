@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:weevo_captain_app/core/widgets/custom_loading_indicator.dart';
 
 import '../Models/chat_data.dart';
 import '../Models/shipment_tracking_model.dart';
@@ -27,6 +28,7 @@ class TrackingDialog extends StatelessWidget {
   final VoidCallback onClientLocationCallback;
   final VoidCallback onCLientPhoneCallback;
   final VoidCallback onReceiveShipmentToClientCallback;
+  final bool isLoading;
 
   const TrackingDialog({
     super.key,
@@ -43,13 +45,13 @@ class TrackingDialog extends StatelessWidget {
     required this.onClientLocationCallback,
     required this.onCLientPhoneCallback,
     required this.onReceiveShipmentToClientCallback,
+    required this.isLoading,
   });
   @override
   Widget build(BuildContext context) {
     final AuthProvider authProvider =
         Provider.of<AuthProvider>(context, listen: false);
     log('Status is $status');
-    log('States : ${model.shipmentDetailsModel!.receivingStateModel.name}');
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Card(
@@ -93,7 +95,8 @@ class TrackingDialog extends StatelessWidget {
                           children: [
                             Text(
                               model.merchantRating != null
-                                  ? double.tryParse(model.merchantRating!)
+                                  ? double.tryParse(
+                                              model.merchantRating ?? '4.5')
                                           ?.toStringAsFixed(1) ??
                                       '4.5'
                                   : '4.5',
@@ -360,226 +363,231 @@ class TrackingDialog extends StatelessWidget {
               SizedBox(
                 height: 16.h,
               ),
-              status == '' || status == null
-                  ? Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: WeevoButton(
-                                onTap: onMyWayCallback,
-                                title: 'في الطريق',
-                                color: weevoPrimaryOrangeColor,
-                                isStable: true,
+              if (isLoading)
+                Center(
+                  child: CustomLoadingIndicator(),
+                ),
+              if (!isLoading)
+                status == '' || status == null
+                    ? Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: WeevoButton(
+                                  onTap: onMyWayCallback,
+                                  title: 'في الطريق',
+                                  color: weevoPrimaryOrangeColor,
+                                  isStable: true,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Expanded(
-                              child: WeevoButton(
-                                onTap: onCancelShipmentCallback,
-                                title: model.wasullyModel != null
-                                    ? 'إلغاء الطلب'
-                                    : 'إلغاء الشحنة',
-                                color: weevoPrimaryBlueColor,
-                                isStable: true,
+                              SizedBox(
+                                width: 5.w,
                               ),
-                            ),
-                          ],
-                        ),
-                        verticalSpace(10),
-                        SizedBox(
-                          width: double.infinity,
-                          child: WeevoButton(
-                            onTap: onMerchantLocation,
-                            title: model.wasullyModel != null
-                                ? 'لوكيشن المرسل'
-                                : 'لوكيشن التاجر',
-                            color: weevoGoldYellow,
-                            isStable: true,
+                              Expanded(
+                                child: WeevoButton(
+                                  onTap: onCancelShipmentCallback,
+                                  title: model.wasullyModel != null
+                                      ? 'إلغاء الطلب'
+                                      : 'إلغاء الشحنة',
+                                  color: weevoPrimaryBlueColor,
+                                  isStable: true,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    )
-                  : status == 'inMyWay' ||
-                          status == 'arrived' ||
-                          status == 'receivingShipment'
-                      ? Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: WeevoButton(
-                                    onTap: onReceivingShipmentCallback,
-                                    title: model.wasullyModel != null
-                                        ? 'إستلام الطلب'
-                                        : 'إستلام الشحنة',
-                                    color: weevoPrimaryOrangeColor,
-                                    isStable: true,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                                Expanded(
-                                  child: WeevoButton(
-                                    onTap: onArrivedCallback,
-                                    title: 'وصلت',
-                                    color: weevoPrimaryBlueColor,
-                                    isStable: true,
-                                  ),
-                                ),
-                              ],
+                          verticalSpace(10),
+                          SizedBox(
+                            width: double.infinity,
+                            child: WeevoButton(
+                              onTap: onMerchantLocation,
+                              title: model.wasullyModel != null
+                                  ? 'لوكيشن المرسل'
+                                  : 'لوكيشن التاجر',
+                              color: weevoGoldYellow,
+                              isStable: true,
                             ),
-                            SizedBox(
-                              height: 6.h,
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: WeevoButton(
-                                    onTap: onMerchantLocation,
-                                    title: model.wasullyModel != null
-                                        ? 'لوكيشن المرسل'
-                                        : 'لوكيشن التاجر',
-                                    color: weevoGoldYellow,
-                                    isStable: true,
+                          ),
+                        ],
+                      )
+                    : status == 'inMyWay' ||
+                            status == 'arrived' ||
+                            status == 'receivingShipment'
+                        ? Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: WeevoButton(
+                                      onTap: onReceivingShipmentCallback,
+                                      title: model.wasullyModel != null
+                                          ? 'إستلام الطلب'
+                                          : 'إستلام الشحنة',
+                                      color: weevoPrimaryOrangeColor,
+                                      isStable: true,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                                Expanded(
-                                  child: WeevoButton(
-                                    onTap: onCancelShipmentCallback,
-                                    title: model.wasullyModel != null
-                                        ? 'إلغاء الطلب'
-                                        : 'إلغاء الشحن',
-                                    color: weevoDarkGrey,
-                                    isStable: true,
+                                  SizedBox(
+                                    width: 5.w,
                                   ),
-                                )
-                              ],
-                            ),
-                          ],
-                        )
-                      : status == 'receivedShipment' ||
-                              status == 'handingOverShipmentToCustomer'
-                          ? Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: WeevoButton(
-                                        onTap: onHandOverShipmentCallback,
-                                        title: model.wasullyModel != null
-                                            ? 'تسليم الطلب'
-                                            : 'تسليم الشحنة',
-                                        color: weevoPrimaryOrangeColor,
-                                        isStable: true,
-                                      ),
+                                  Expanded(
+                                    child: WeevoButton(
+                                      onTap: onArrivedCallback,
+                                      title: 'وصلت',
+                                      color: weevoPrimaryBlueColor,
+                                      isStable: true,
                                     ),
-                                    SizedBox(
-                                      width: 5.w,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 6.h,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: WeevoButton(
+                                      onTap: onMerchantLocation,
+                                      title: model.wasullyModel != null
+                                          ? 'لوكيشن المرسل'
+                                          : 'لوكيشن التاجر',
+                                      color: weevoGoldYellow,
+                                      isStable: true,
                                     ),
-                                    Expanded(
-                                      child: WeevoButton(
-                                        onTap: onReturnShipmentCallback,
-                                        title: 'مرتجع',
-                                        color: weevoPrimaryBlueColor,
-                                        isStable: true,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                verticalSpace(10),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: WeevoButton(
-                                        onTap: onClientLocationCallback,
-                                        title: model.wasullyModel != null
-                                            ? 'لوكيشن المرسل اليه'
-                                            : 'لوكيشن العميل',
-                                        color: weevoGoldYellow,
-                                        isStable: true,
-                                      ),
+                                  ),
+                                  SizedBox(
+                                    width: 5.w,
+                                  ),
+                                  Expanded(
+                                    child: WeevoButton(
+                                      onTap: onCancelShipmentCallback,
+                                      title: model.wasullyModel != null
+                                          ? 'إلغاء الطلب'
+                                          : 'إلغاء الشحن',
+                                      color: weevoDarkGrey,
+                                      isStable: true,
                                     ),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Expanded(
-                                      child: WeevoButton(
-                                        onTap: onCLientPhoneCallback,
-                                        title: model.wasullyModel != null
-                                            ? 'رقم المرسل اليه'
-                                            : 'رقم العميل',
-                                        color: weevoDarkGrey,
-                                        isStable: true,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                          : status == 'returnShipment'
-                              ? Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: WeevoButton(
-                                            onTap:
-                                                onHandOverReturnedShipmentCallback,
-                                            title: 'تسليم المرتجع',
-                                            color: weevoPrimaryOrangeColor,
-                                            isStable: true,
-                                          ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )
+                        : status == 'receivedShipment' ||
+                                status == 'handingOverShipmentToCustomer'
+                            ? Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: WeevoButton(
+                                          onTap: onHandOverShipmentCallback,
+                                          title: model.wasullyModel != null
+                                              ? 'تسليم الطلب'
+                                              : 'تسليم الشحنة',
+                                          color: weevoPrimaryOrangeColor,
+                                          isStable: true,
                                         ),
-                                        horizontalSpace(10),
-                                        Expanded(
-                                          child: WeevoButton(
-                                            onTap: onMerchantLocation,
-                                            title: model.wasullyModel != null
-                                                ? 'لوكيشن المرسل'
-                                                : 'لوكيشن التاجر',
-                                            color: weevoPrimaryBlueColor,
-                                            isStable: true,
+                                      ),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Expanded(
+                                        child: WeevoButton(
+                                          onTap: onReturnShipmentCallback,
+                                          title: 'مرتجع',
+                                          color: weevoPrimaryBlueColor,
+                                          isStable: true,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  verticalSpace(10),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: WeevoButton(
+                                          onTap: onClientLocationCallback,
+                                          title: model.wasullyModel != null
+                                              ? 'لوكيشن المرسل اليه'
+                                              : 'لوكيشن العميل',
+                                          color: weevoGoldYellow,
+                                          isStable: true,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Expanded(
+                                        child: WeevoButton(
+                                          onTap: onCLientPhoneCallback,
+                                          title: model.wasullyModel != null
+                                              ? 'رقم المرسل اليه'
+                                              : 'رقم العميل',
+                                          color: weevoDarkGrey,
+                                          isStable: true,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            : status == 'returnShipment'
+                                ? Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: WeevoButton(
+                                              onTap:
+                                                  onHandOverReturnedShipmentCallback,
+                                              title: 'تسليم المرتجع',
+                                              color: weevoPrimaryOrangeColor,
+                                              isStable: true,
+                                            ),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    verticalSpace(10),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      child: WeevoButton(
-                                        onTap:
-                                            onReceiveShipmentToClientCallback,
-                                        title: model.wasullyModel != null
-                                            ? 'إعادة توصيل الطلب الي المرسل اليه'
-                                            : 'إعادة توصيل الطلب الي العميل',
-                                        color: weevoGoldYellow,
-                                        isStable: true,
+                                          horizontalSpace(10),
+                                          Expanded(
+                                            child: WeevoButton(
+                                              onTap: onMerchantLocation,
+                                              title: model.wasullyModel != null
+                                                  ? 'لوكيشن المرسل'
+                                                  : 'لوكيشن التاجر',
+                                              color: weevoPrimaryBlueColor,
+                                              isStable: true,
+                                            ),
+                                          )
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                )
-                              : status ==
-                                      'handingOverReturnedShipmentToMerchant'
-                                  ? SizedBox(
-                                      width: double.infinity,
-                                      child: WeevoButton(
-                                        onTap:
-                                            onReceiveShipmentToClientCallback,
-                                        title: model.wasullyModel != null
-                                            ? 'إعادة توصيل الطلب الي المرسل اليه'
-                                            : 'إعادة توصيل الطلب الي العميل',
-                                        color: weevoPrimaryOrangeColor,
-                                        isStable: true,
+                                      verticalSpace(10),
+                                      SizedBox(
+                                        width: double.infinity,
+                                        child: WeevoButton(
+                                          onTap:
+                                              onReceiveShipmentToClientCallback,
+                                          title: model.wasullyModel != null
+                                              ? 'إعادة توصيل الطلب الي المرسل اليه'
+                                              : 'إعادة توصيل الطلب الي العميل',
+                                          color: weevoGoldYellow,
+                                          isStable: true,
+                                        ),
                                       ),
-                                    )
-                                  : const SizedBox(),
+                                    ],
+                                  )
+                                : status ==
+                                        'handingOverReturnedShipmentToMerchant'
+                                    ? SizedBox(
+                                        width: double.infinity,
+                                        child: WeevoButton(
+                                          onTap:
+                                              onReceiveShipmentToClientCallback,
+                                          title: model.wasullyModel != null
+                                              ? 'إعادة توصيل الطلب الي المرسل اليه'
+                                              : 'إعادة توصيل الطلب الي العميل',
+                                          color: weevoPrimaryOrangeColor,
+                                          isStable: true,
+                                        ),
+                                      )
+                                    : const SizedBox(),
             ],
           ),
         ),

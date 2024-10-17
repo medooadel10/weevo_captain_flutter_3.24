@@ -401,6 +401,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                   height: 4.0,
                 ),
                 TrackingDialog(
+                  isLoading: false,
                   status: _currentStatus,
                   onCLientPhoneCallback: () async {
                     await launchUrlString('tel:${widget.model.clientPhone}');

@@ -35,7 +35,9 @@ class _ShipmentTileState extends State<ShipmentTile> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 180.h,
+      height: widget.shipment.tip != null && widget.shipment.tip != 0
+          ? 200.h
+          : 180.h,
       child: widget.shipment.products == null ||
               widget.shipment.products!.isEmpty
           ? (widget.shipment.children != null &&
@@ -99,7 +101,9 @@ class _ShipmentTileState extends State<ShipmentTile> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 110.h,
+                height: widget.shipment.tip != null && widget.shipment.tip != 0
+                    ? 120.h
+                    : 110.h,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

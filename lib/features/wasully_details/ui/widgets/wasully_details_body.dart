@@ -24,65 +24,67 @@ class WasullyDetailsBody extends StatelessWidget {
         final cubit = context.read<WasullyDetailsCubit>();
         if (cubit.wasullyModel != null) {
           WasullyModel wasullyModel = cubit.wasullyModel!;
-          return Column(
-            children: [
-              Expanded(
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    await context
-                        .read<WasullyDetailsCubit>()
-                        .getWassullyDetails(
-                          wasullyModel.id,
-                        );
-                    return Future.value();
-                  },
-                  child: CustomScrollView(
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: BaseShipmentStatus
-                            .shipmentStatusMap[wasullyModel.status]!
-                            .buildWasullyMerchantHeader(context),
-                      ),
-                      SliverAppBar(
-                        pinned: false,
-                        floating: true,
-                        snap: true,
-                        leading: null,
-                        automaticallyImplyLeading: false,
-                        expandedHeight: 200.h,
-                        backgroundColor: Colors.transparent,
-                        flexibleSpace: FlexibleSpaceBar(
-                          background: WasullyDetailsImage(
-                            image: wasullyModel.image,
+          return SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      await context
+                          .read<WasullyDetailsCubit>()
+                          .getWassullyDetails(
+                            wasullyModel.id,
+                          );
+                      return Future.value();
+                    },
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: BaseShipmentStatus
+                              .shipmentStatusMap[wasullyModel.status]!
+                              .buildWasullyMerchantHeader(context),
+                        ),
+                        SliverAppBar(
+                          pinned: false,
+                          floating: true,
+                          snap: true,
+                          leading: null,
+                          automaticallyImplyLeading: false,
+                          expandedHeight: 200.h,
+                          backgroundColor: Colors.transparent,
+                          flexibleSpace: FlexibleSpaceBar(
+                            background: WasullyDetailsImage(
+                              image: wasullyModel.image,
+                            ),
                           ),
                         ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: Column(
-                          children: [
-                            verticalSpace(10),
-                            WasullyDetailsInfo(
-                              wasullyModel: wasullyModel,
-                            ),
-                            verticalSpace(16),
-                            WasullyDetailsLocations(
-                              wasullyModel: wasullyModel,
-                            ),
-                          ],
+                        SliverToBoxAdapter(
+                          child: Column(
+                            children: [
+                              verticalSpace(10),
+                              WasullyDetailsInfo(
+                                wasullyModel: wasullyModel,
+                              ),
+                              verticalSpace(16),
+                              WasullyDetailsLocations(
+                                wasullyModel: wasullyModel,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              verticalSpace(10),
-              WasullyDetailsButtons(
-                status: wasullyModel.status,
-              ),
-            ],
-          ).paddingSymmetric(
-            horizontal: 16.w,
-            vertical: 10.h,
+                verticalSpace(10),
+                WasullyDetailsButtons(
+                  status: wasullyModel.status,
+                ),
+              ],
+            ).paddingSymmetric(
+              horizontal: 16.w,
+              vertical: 5.h,
+            ),
           );
         }
         return const Center(

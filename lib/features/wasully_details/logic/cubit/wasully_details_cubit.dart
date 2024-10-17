@@ -25,6 +25,7 @@ class WasullyDetailsCubit extends Cubit<WasullyDetailsState> {
   WasullyModel? wasullyModel;
 
   Future<void> getWassullyDetails(int id) async {
+    wasullyModel = null;
     emit(WasullyDetailsLoadingState());
     final result = await _wasullyDetailsRepo.getWasullyDetails(id);
     if (result.success) {
