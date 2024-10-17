@@ -44,31 +44,39 @@ class _ShipmentsBodyState extends State<ShipmentsBody> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: CustomScrollView(
-        controller: scrollController,
-        slivers: [
-          SliverAppBar(
-            expandedHeight: widget.shipmentsCompleted ? 60.h : 120.h,
-            excludeHeaderSemantics: true,
-            leading: null,
-            automaticallyImplyLeading: false,
-            flexibleSpace: FlexibleSpaceBar(
-              background: ShipmentFilterListBlocBuilder(
+      child: RefreshIndicator(
+        onRefresh: () async {
+          context
+              .read<ShipmentsCubit>()
+              .getShipments(shipmentsCompleted: widget.shipmentsCompleted);
+        },
+        child: CustomScrollView(
+          controller: scrollController,
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverAppBar(
+              expandedHeight: widget.shipmentsCompleted ? 60.h : 120.h,
+              excludeHeaderSemantics: true,
+              leading: null,
+              automaticallyImplyLeading: false,
+              flexibleSpace: FlexibleSpaceBar(
+                background: ShipmentFilterListBlocBuilder(
+                  shipmentsCompleted: widget.shipmentsCompleted,
+                ).paddingSymmetric(
+                  horizontal: 10.w,
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: ShipmentsListBlocBuilder(
                 shipmentsCompleted: widget.shipmentsCompleted,
               ).paddingSymmetric(
                 horizontal: 10.w,
+                vertical: 10.h,
               ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: ShipmentsListBlocBuilder(
-              shipmentsCompleted: widget.shipmentsCompleted,
-            ).paddingSymmetric(
-              horizontal: 10.w,
-              vertical: 10.h,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

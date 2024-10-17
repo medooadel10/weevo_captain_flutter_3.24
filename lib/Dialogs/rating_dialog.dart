@@ -36,7 +36,7 @@ class _RatingDialogState extends State<RatingDialog> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
   bool _isFocus = false;
   double? _ratePoint;
-  final bool _value = false;
+  final bool _value = true;
 
   @override
   void initState() {
@@ -114,7 +114,7 @@ class _RatingDialogState extends State<RatingDialog> {
                   height: 8.0,
                 ),
                 Text(
-                  'كيف كانت طلبك مع الكابتن ${widget.model.courierName}',
+                  'كيف كانت طلبك مع التاجر ${widget.model.courierName}',
                   textDirection: TextDirection.rtl,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
@@ -294,6 +294,7 @@ class _RatingDialogState extends State<RatingDialog> {
                                 ),
                               )));
                     } else if (trackingProvider.state == NetworkState.error) {
+                      MagicRouter.pop();
                       showDialog(
                           context: navigator.currentContext!,
                           barrierDismissible: false,

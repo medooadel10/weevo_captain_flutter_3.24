@@ -68,7 +68,7 @@ class _QrCodeDisplayState extends State<QrCodeDisplay> {
                 : Column(
                     children: [
                       const Text(
-                        'خلي الكابتن يعمل\nسكان للكود ده',
+                        'خلي التاجر يعمل\nسكان للكود ده',
                         style: TextStyle(
                           fontSize: 14.0,
                           color: weevoGreyLighter,

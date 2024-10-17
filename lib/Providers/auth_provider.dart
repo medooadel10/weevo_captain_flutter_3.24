@@ -1908,6 +1908,7 @@ class AuthProvider with ChangeNotifier {
             builder: (context) => ShipmentDialog(
               shipmentNotification: ShipmentNotification.fromMap(m.data),
               betterOffer: true,
+              isWasully: m.data['is_wasully'] == '1' ? true : false,
               onDetailsCallback: () {
                 _dialogOpen = false;
                 _notificationsNo--;

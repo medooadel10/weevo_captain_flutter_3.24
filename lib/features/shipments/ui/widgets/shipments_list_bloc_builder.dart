@@ -58,37 +58,30 @@ class ShipmentsListBlocBuilder extends StatelessWidget {
             ),
           );
         }
-        return RefreshIndicator(
-          onRefresh: () async => {
-            await context
-                .read<ShipmentsCubit>()
-                .getShipments(shipmentsCompleted: shipmentsCompleted),
-          },
-          child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    ShipmentModel shipment = cubit.shipments![index];
-                    return ShipmentTile(
-                      shipment: shipment,
-                    );
-                  },
-                  separatorBuilder: (context, index) => verticalSpace(14),
-                  itemCount: cubit.shipments!.length,
-                ),
-                if (state is ShipmentsPagingLoadingState) ...[
-                  verticalSpace(14),
-                  const ShipmentsLoading(
-                    itemCount: 3,
-                  ),
-                ],
+        return SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  ShipmentModel shipment = cubit.shipments![index];
+                  return ShipmentTile(
+                    shipment: shipment,
+                  );
+                },
+                separatorBuilder: (context, index) => verticalSpace(14),
+                itemCount: cubit.shipments!.length,
+              ),
+              if (state is ShipmentsPagingLoadingState) ...[
                 verticalSpace(14),
+                const ShipmentsLoading(
+                  itemCount: 3,
+                ),
               ],
-            ),
+              verticalSpace(14),
+            ],
           ),
         );
       },

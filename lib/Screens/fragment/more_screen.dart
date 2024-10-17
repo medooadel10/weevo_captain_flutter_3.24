@@ -412,8 +412,9 @@ class _MoreScreenState extends State<MoreScreen> {
                         case 4:
                           Navigator.pushNamed(context, CarInformation.id);
                           break;
-                        case 6:
-                          Navigator.pushNamed(context, MyReviews.id);
+                        case 5:
+                          log('clicked');
+                          MagicRouter.navigateTo(MyReviews());
                           break;
                         case 7:
                           Navigator.pushNamed(context, ChangeYourEmail.id);
@@ -440,7 +441,6 @@ class _MoreScreenState extends State<MoreScreen> {
                         case 13:
                           auth.deleteAccount();
                           break;
-
                         case 14:
                           showDialog(
                               context: context,

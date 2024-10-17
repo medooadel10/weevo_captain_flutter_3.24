@@ -75,7 +75,8 @@ class WasullyDetailsHandleShipmentBtn extends StatelessWidget {
                               fromLat: authProvider.locationData?.latitude,
                               fromLng: authProvider.locationData?.longitude,
                               merchantId: cubit.wasullyModel!.merchant.id,
-                              courierId: cubit.wasullyModel!.courier.id,
+                              courierId:
+                                  int.parse(Preferences.instance.getUserId),
                               merchantImage: cubit.wasullyModel!.merchant.photo,
                               merchantName: cubit.wasullyModel!.merchant.name,
                               merchantPhone: cubit.wasullyModel!.merchant.phone,
@@ -135,7 +136,7 @@ class WasullyDetailsHandleShipmentBtn extends StatelessWidget {
                   fromLat: authProvider.locationData?.latitude,
                   fromLng: authProvider.locationData?.longitude,
                   merchantId: cubit.wasullyModel!.merchant.id,
-                  courierId: cubit.wasullyModel!.courier.id,
+                  courierId: int.parse(Preferences.instance.getUserId),
                   merchantImage: cubit.wasullyModel!.merchant.photo,
                   merchantName: cubit.wasullyModel!.merchant.name,
                   merchantPhone: cubit.wasullyModel!.merchant.phone,

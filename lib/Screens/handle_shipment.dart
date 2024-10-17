@@ -288,7 +288,6 @@ class _HandleShipmentState extends State<HandleShipment> {
               ),
             ),
             body: Column(
-
               children: [
                 _currentStatus == 'receivingShipment'
                     ? Padding(
@@ -296,7 +295,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                         child: Column(
                           children: [
                             const Text(
-                              'برجاء الضغط على الزر الأزرق لإدخال الكود\n وبعد التحقق سيتم إستلام الطلب من المرسل',
+                              'برجاء الضغط على الزر الأزرق لإدخال الكود\n وبعد التحقق سيتم إستلام الطلب من التاجر',
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14.0,
@@ -331,14 +330,14 @@ class _HandleShipmentState extends State<HandleShipment> {
                             child: Column(
                               children: [
                                 const Text(
-                                                'برجاء الضغط علي الزر الأزرق لارسال رمز\nال qrcode للمرسل لتأكيد تسليم الطلب للمرسل',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 14.0,
-                                                    color: Colors.black),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              verticalSpace(10),
+                                  'برجاء الضغط على الزر الأزرق لإدخال الكود من العميل\n وبعد التحقق سيتم تسليم الطلب إالى العميل',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14.0,
+                                      color: Colors.black),
+                                  textAlign: TextAlign.center,
+                                ),
+                                verticalSpace(10),
                                 FloatingActionButton(
                                   onPressed: () async {
                                     showDialog(
@@ -363,71 +362,97 @@ class _HandleShipmentState extends State<HandleShipment> {
                                 'handingOverReturnedShipmentToMerchant'
                             ? Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: FloatingActionButton(
-                                  onPressed: () async {
-                                    if (cubit.shipmentDetails!
-                                                .handoverCodeCourierToMerchant ==
-                                            null &&
-                                        cubit.shipmentDetails!
-                                                .handoverQrcodeCourierToMerchant ==
-                                            null) {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              const loading.Loading());
-                                      await trackingProvider
-                                          .refreshHandoverQrcodeCourierToMerchant(
-                                              widget.model.shipmentId!);
-                                      check(
-                                          auth: authProvider,
-                                          state: trackingProvider.state!,
-                                          ctx: navigator.currentContext!);
-                                      if (trackingProvider.state ==
-                                          NetworkState.success) {
-                                        Navigator.pop(
-                                            navigator.currentContext!);
-                                        showDialog(
-                                          context: navigator.currentContext!,
-                                          builder: (context) => QrCodeDialog(
-                                              data: trackingProvider
-                                                  .refreshQrCode!),
-                                        );
-                                      } else {
-                                        Navigator.pop(
-                                            navigator.currentContext!);
-                                        showDialog(
-                                          context: navigator.currentContext!,
-                                          builder: (context) => WalletDialog(
-                                            msg:
-                                                'حدث خطأ برجاء المحاولة مرة اخري',
-                                            onPress: () {
-                                              Navigator.pop(context);
-                                            },
+                                child: Column(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        const Text(
+                                          'برجاء الضغط علي الزر الأزرق لارسال رمز\nال qrcode للمرسل لتأكيد تسليم الطلب للتاجر',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14.0,
+                                              color: Colors.black),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        verticalSpace(10),
+                                        FloatingActionButton(
+                                          onPressed: () async {
+                                            if (cubit.shipmentDetails!
+                                                        .handoverCodeCourierToMerchant ==
+                                                    null &&
+                                                cubit.shipmentDetails!
+                                                        .handoverQrcodeCourierToMerchant ==
+                                                    null) {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      const loading.Loading());
+                                              await trackingProvider
+                                                  .refreshHandoverQrcodeCourierToMerchant(
+                                                      widget.model.shipmentId!);
+                                              check(
+                                                  auth: authProvider,
+                                                  state:
+                                                      trackingProvider.state!,
+                                                  ctx: navigator
+                                                      .currentContext!);
+                                              if (trackingProvider.state ==
+                                                  NetworkState.success) {
+                                                Navigator.pop(
+                                                    navigator.currentContext!);
+                                                showDialog(
+                                                  context:
+                                                      navigator.currentContext!,
+                                                  builder: (context) =>
+                                                      QrCodeDialog(
+                                                          data: trackingProvider
+                                                              .refreshQrCode!),
+                                                );
+                                              } else {
+                                                Navigator.pop(
+                                                    navigator.currentContext!);
+                                                showDialog(
+                                                  context:
+                                                      navigator.currentContext!,
+                                                  builder: (context) =>
+                                                      WalletDialog(
+                                                    msg:
+                                                        'حدث خطأ برجاء المحاولة مرة اخري',
+                                                    onPress: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                );
+                                              }
+                                            } else {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) => QrCodeDialog(
+                                                    data: RefreshQrcode(
+                                                        filename: cubit
+                                                            .shipmentDetails!
+                                                            .handoverQrcodeCourierToMerchant!
+                                                            .split('/')
+                                                            .last,
+                                                        path: cubit
+                                                            .shipmentDetails!
+                                                            .handoverQrcodeCourierToMerchant!,
+                                                        code: int.parse(cubit
+                                                            .shipmentDetails!
+                                                            .handoverCodeCourierToMerchant!))),
+                                              );
+                                            }
+                                          },
+                                          backgroundColor:
+                                              weevoPrimaryBlueColor,
+                                          child: const Icon(
+                                            Icons.qr_code,
+                                            color: Colors.white,
                                           ),
-                                        );
-                                      }
-                                    } else {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => QrCodeDialog(
-                                            data: RefreshQrcode(
-                                                filename: cubit.shipmentDetails!
-                                                    .handoverQrcodeCourierToMerchant!
-                                                    .split('/')
-                                                    .last,
-                                                path: cubit.shipmentDetails!
-                                                    .handoverQrcodeCourierToMerchant!,
-                                                code: int.parse(cubit
-                                                    .shipmentDetails!
-                                                    .handoverCodeCourierToMerchant!))),
-                                      );
-                                    }
-                                  },
-                                  backgroundColor: weevoPrimaryBlueColor,
-                                  child: const Icon(
-                                    Icons.qr_code,
-                                    color: Colors.white,
-                                  ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               )
                             : Container(),
@@ -828,7 +853,7 @@ class _HandleShipmentState extends State<HandleShipment> {
                             'shipmentId': widget.model.shipmentId,
                           });
                           setState(() {
-                            isLoading = true;
+                            isLoading = false;
                           });
                         },
                         onCancelClick: () {

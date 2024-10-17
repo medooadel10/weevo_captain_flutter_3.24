@@ -86,6 +86,10 @@ class _HomeState extends State<Home> {
     } catch (e) {
       log(e.toString());
     }
+
+    await Future.delayed(
+      const Duration(seconds: 5),
+    );
   }
 
   void _initDynamicLinks() async {
@@ -548,120 +552,6 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-
-          //   bottomNavigationBar: BottomAppBar(
-          //     color: Colors.white,
-          //     child: Container(
-          //       padding: EdgeInsets.symmetric(
-          //         horizontal: 5.0,
-          //       ),
-          //       height: 54.0,
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         children: [
-          //           IconButton(
-          //             icon: Icon(Icons.home_outlined,
-          //                 color: _currentIndex == 0
-          //                     ? weevoPrimaryOrangeColor
-          //                     : Colors.black),
-          //             onPressed: () {
-          //               setState(() {
-          //                 _currentIndex = 0;
-          //               });
-          //             },
-          //           ),
-          //           Stack(
-          //             children: [
-          //               Column(
-          //                 children: [
-          //                   auth.totalNotifications > 0
-          //                       ? Container(
-          //                           height: 20.0,
-          //                           width: 20.0,
-          //                           decoration: BoxDecoration(
-          //                             color: weevoPrimaryOrangeColor,
-          //                             shape: BoxShape.circle,
-          //                           ),
-          //                           child: Center(
-          //                             child: Text(
-          //                               '${auth.totalNotifications}',
-          //                               style: TextStyle(
-          //                                   color: Colors.white, fontSize: 10.0),
-          //                             ),
-          //                           ),
-          //                         )
-          //                       : Container(),
-          //                 ],
-          //               ),
-          //               IconButton(
-          //                 icon: Icon(Icons.notifications_none_outlined,
-          //                     color: _currentIndex == 1
-          //                         ? weevoPrimaryOrangeColor
-          //                         : Colors.black),
-          //                 onPressed: () {
-          //                   setState(() {
-          //                     _currentIndex = 1;
-          //                   });
-          //                 },
-          //               ),
-          //             ],
-          //           ),
-          //           Container(),
-          //           Stack(
-          //             children: [
-          //               auth.totalMessages > 0
-          //                   ? Container(
-          //                       height: 20.0,
-          //                       width: 20.0,
-          //                       decoration: BoxDecoration(
-          //                         color: weevoPrimaryOrangeColor,
-          //                         shape: BoxShape.circle,
-          //                       ),
-          //                       child: Center(
-          //                         child: Text(
-          //                           '${auth.totalMessages}',
-          //                           style: TextStyle(
-          //                               color: Colors.white, fontSize: 10.0),
-          //                         ),
-          //                       ),
-          //                     )
-          //                   : Container(),
-          //               IconButton(
-          //                 icon: Padding(
-          //                   padding: EdgeInsets.all(4.0),
-          //                   child: Image.asset(
-          //                     'assets/images/weevo_chat_icon.png',
-          //                     color: _currentIndex == 2
-          //                         ? weevoPrimaryOrangeColor
-          //                         : Colors.black,
-          //                     height: 25.0,
-          //                     width: 25.0,
-          //                   ),
-          //                 ),
-          //                 onPressed: () {
-          //                   setState(() {
-          //                     _currentIndex = 2;
-          //                   });
-          //                 },
-          //               ),
-          //             ],
-          //           ),
-          //           IconButton(
-          //             icon: Icon(Icons.menu,
-          //                 color: _currentIndex == 3
-          //                     ? weevoPrimaryOrangeColor
-          //                     : Colors.black),
-          //             onPressed: () {
-          //               setState(() {
-          //                 _currentIndex = 3;
-          //               });
-          //             },
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ),
       ),
     );

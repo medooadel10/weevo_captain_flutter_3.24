@@ -327,7 +327,7 @@ class ShipmentDialog extends StatelessWidget {
                         padding: WidgetStateProperty.all<EdgeInsets>(
                             const EdgeInsets.all(0.0)),
                         backgroundColor: WidgetStateProperty.all<Color>(
-                          Colors.grey,
+                          Colors.red,
                         ),
                         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
@@ -339,6 +339,7 @@ class ShipmentDialog extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 14.0.sp,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -389,7 +390,9 @@ class ShipmentDialog extends StatelessWidget {
                     child: Text(
                       'التفاصيل',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 14.0.sp),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.0.sp,
+                          color: Colors.white),
                     ),
                   ),
                 ),
@@ -512,59 +515,6 @@ class ShipmentDialog extends StatelessWidget {
                                           onOkPressed: () async {
                                             Navigator.pop(c);
                                             onOfferOkPressed();
-                                            // authProvider
-                                            //     .sendNotification(
-                                            //     title: 'عرض جديد',
-                                            //     body:
-                                            //     'تم تقديم عرض جديد من المندوب ${authProvider.name}',
-                                            //     toToken: token,
-                                            //     image: authProvider
-                                            //         .photo
-                                            //         .isNotEmpty
-                                            //         ? authProvider
-                                            //         .photo
-                                            //         .contains(
-                                            //         base_url)
-                                            //         ? authProvider
-                                            //         .photo
-                                            //         : '$base_url${authProvider.photo}'
-                                            //         : '',
-                                            //     type: '',
-                                            //     screenTo:
-                                            //     'shipment_offers',
-                                            //     data: ShipmentNotification(
-                                            //         receivingState: widget
-                                            //             .bulkShipment
-                                            //             .receivingState,
-                                            //         receivingCity:
-                                            //         null,
-                                            //         deliveryState: widget
-                                            //             .bulkShipment
-                                            //             .deliveringState,
-                                            //         deliveryCity:
-                                            //         null,
-                                            //         shipmentId: widget
-                                            //             .bulkShipment
-                                            //             .id,
-                                            //         merchantImage: widget
-                                            //             .bulkShipment
-                                            //             .merchant
-                                            //             .photo,
-                                            //         merchantName: widget
-                                            //             .bulkShipment
-                                            //             .merchant
-                                            //             .name,
-                                            //         childrenShipment: widget
-                                            //             .bulkShipment
-                                            //             .children
-                                            //             .length,
-                                            //         shippingCost: widget
-                                            //             .bulkShipment
-                                            //             .expectedShippingCost,
-                                            //         totalShipmentCost: widget
-                                            //             .bulkShipment
-                                            //             .amount)
-                                            //         .toMap());
                                           },
                                           isDone: true,
                                         ));
@@ -628,7 +578,9 @@ class ShipmentDialog extends StatelessWidget {
                     child: Text(
                       'تقديم عرض',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 14.0.sp),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.0.sp,
+                          color: Colors.white),
                     ),
                   ),
                 ),

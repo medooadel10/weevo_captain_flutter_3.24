@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -59,6 +61,8 @@ class _WasullyRatingDialogState extends State<WasullyRatingDialog> {
   Widget build(BuildContext context) {
     final WasullyHandleShipmentCubit wasullyHandleShipmentCubit =
         context.read<WasullyHandleShipmentCubit>();
+    log('model ${widget.model.courierId}');
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
