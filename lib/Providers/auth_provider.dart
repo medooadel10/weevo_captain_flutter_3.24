@@ -503,51 +503,11 @@ class AuthProvider with ChangeNotifier {
     return cities?.id;
   }
 
-  // Future<bool> authenticateWithBiometrics() async {
-  //   final LocalAuthentication localAuthentication = LocalAuthentication();
-  //
-  //   bool isBiometricSupported = await localAuthentication.isDeviceSupported();
-  //   bool canCheckBiometrics = await localAuthentication.canCheckBiometrics;
-  //   bool isAuthenticated = false;
-  //
-  //   if (isBiometricSupported && canCheckBiometrics) {
-  //     try {
-  //       isAuthenticated = await localAuthentication.authenticate(
-  //         localizedReason: 'Please complete the biometrics to proceed.',
-  //         biometricOnly: true,
-  //       );
-  //     } on PlatformException catch (e) {
-  //       log('${e.message}');
-  //       if (e.code == notAvailable ||
-  //           e.code == passcodeNotSet ||
-  //           e.code == notEnrolled) {
-  //         isAuthenticated = await localAuthentication.authenticate(
-  //           localizedReason: 'Please complete the biometrics to proceed.',
-  //         );
-  //       }
-  //     }
-  //   } else {
-  //     try {
-  //       isAuthenticated = await localAuthentication.authenticate(
-  //         localizedReason: 'Please complete the biometrics to proceed.',
-  //       );
-  //     } on PlatformException catch (e) {
-  //       log('${e.message}');
-  //       if (e.code == notAvailable ||
-  //           e.code == passcodeNotSet ||
-  //           e.code == notEnrolled) {
-  //         isAuthenticated = true;
-  //       }
-  //     }
-  //   }
-  //   return isAuthenticated;
-  // }
   Future<bool> authenticateWithBiometrics() async {
     final LocalAuthentication auth = LocalAuthentication();
     bool isBiometricSupported = await auth.isDeviceSupported();
     bool canCheckBiometrics = await auth.canCheckBiometrics;
     bool isAuthenticated = false;
-    bool isClicked = false;
     final bool canAuthenticate = canCheckBiometrics || isBiometricSupported;
     if (canAuthenticate) {
       try {
