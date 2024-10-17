@@ -10,12 +10,14 @@ class CustomHomeNavigation extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
+  final String svgPictureSelected;
   const CustomHomeNavigation({
     super.key,
     required this.svgPicture,
     required this.label,
     required this.isSelected,
     required this.onTap,
+    required this.svgPictureSelected,
   });
 
   @override
@@ -39,7 +41,7 @@ class CustomHomeNavigation extends StatelessWidget {
           ),
           verticalSpace(8),
           SvgPicture.asset(
-            svgPicture,
+            isSelected ? svgPictureSelected : svgPicture,
             width: 22.w,
             height: 22.h,
             colorFilter: ColorFilter.mode(

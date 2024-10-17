@@ -2,21 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WeevoButton extends StatefulWidget {
-  final VoidCallback onTap;
+  final Function? onTap;
   final String? title;
   final Color color;
   final bool isStable;
   final FontWeight? weight;
-  final Widget? childWidget;
-
-  const WeevoButton(
-      {super.key,
-      required this.onTap,
-      this.title,
-      required this.color,
-      this.isStable = true,
-      this.weight,
-      this.childWidget});
+  final double? radius;
+  final String? icon;
+  final bool isExpand;
+  final Widget? child;
+  const WeevoButton({
+    super.key,
+    required this.onTap,
+    this.title,
+    required this.color,
+    required this.isStable,
+    this.weight,
+    this.radius,
+    this.icon,
+    this.isExpand = false,
+    this.child,
+  });
 
   @override
   State<WeevoButton> createState() => _WeevoButtonState();
@@ -26,14 +32,14 @@ class _WeevoButtonState extends State<WeevoButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
+      width: widget.isExpand ? double.infinity : null,
+      child: ElevatedButton.icon(
         style: ButtonStyle(
           elevation: WidgetStateProperty.all<double>(
             0.0,
           ),
           padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
-            const EdgeInsets.all(15.0),
+            const EdgeInsets.all(13.0),
           ),
           backgroundColor: WidgetStateProperty.all<Color>(
             widget.isStable ? widget.color : Colors.transparent,
@@ -47,22 +53,32 @@ class _WeevoButtonState extends State<WeevoButton> {
                 color: widget.color,
               ),
               borderRadius: BorderRadius.circular(
-                20.0,
+                widget.radius ?? 12.0,
               ),
             ),
           ),
         ),
-        onPressed: widget.onTap,
-        child: widget.childWidget ??
+        onPressed: widget.onTap != null
+            ? () {
+                FocusScope.of(context).unfocus();
+                widget.onTap!();
+              }
+            : null,
+        label: widget.child ??
             Text(
               widget.title ?? '',
               style: TextStyle(
                 fontSize: 16.0.sp,
                 fontWeight: widget.weight,
               ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
             ),
+        icon: widget.icon != null
+            ? Image.asset(
+                widget.icon!,
+                height: 30.h,
+                width: 30.w,
+              )
+            : Container(),
       ),
     );
   }

@@ -547,6 +547,8 @@ class _HomeState extends State<Home> {
                         _currentIndex = index;
                       });
                     },
+                    svgPictureSelected: HomeNavigationData
+                        .navigationData[index].svgPicutureSelected,
                   ),
                 ),
               ),

@@ -13,6 +13,10 @@ extension NavigationEx on BuildContext {
   void pop() {
     Navigator.pop(this);
   }
+
+  void unfocus() {
+    FocusScope.of(this).unfocus();
+  }
 }
 
 extension PaddingEx on Widget {
