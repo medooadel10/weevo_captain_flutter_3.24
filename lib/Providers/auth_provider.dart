@@ -2621,6 +2621,7 @@ class AuthProvider with ChangeNotifier {
   // }
 
   void showNotification(RemoteMessage remoteMessage) async {
+    log('showNotification');
     AndroidInitializationSettings initializationSettingsAndroid =
         const AndroidInitializationSettings('app_icon');
     DarwinInitializationSettings initializationSettingsIOS =

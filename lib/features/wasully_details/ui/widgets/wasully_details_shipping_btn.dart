@@ -22,7 +22,7 @@ class WasullyDetailsShippingBtn extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: WeevoButton(
-        onTap: () {
+        onTap: () async {
           showDialog(
             context: context,
             barrierDismissible: false,

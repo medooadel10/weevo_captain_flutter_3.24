@@ -14,7 +14,6 @@ class AvailableShipmentsCubit extends Cubit<AvailableShipmentsStates> {
   List<AvailableShipmentModel> availableShipments = [];
   int currentPage = 1;
   bool hasMoreData = true;
-  Timer? timer;
   bool isFirstTime = true;
   StreamSubscription? subscription;
 
