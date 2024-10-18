@@ -78,8 +78,14 @@ void main() async {
     badge: true,
     sound: true,
   );
-  Freshchat.setPushRegistrationToken(
-      await FirebaseMessaging.instance.getToken() ?? '');
+  try {
+    final token = Platform.isIOS
+        ? await FirebaseMessaging.instance.getAPNSToken()
+        : await FirebaseMessaging.instance.getToken();
+    Freshchat.setPushRegistrationToken(token ?? '');
+  } on FirebaseException catch (e) {
+    log('Token : ${e.message ?? e.toString()}');
+  }
   await Preferences.instance.initPref();
   setupGetIt();
   DioFactory.init();
