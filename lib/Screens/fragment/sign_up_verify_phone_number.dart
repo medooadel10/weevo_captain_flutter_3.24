@@ -1,9 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_autofill/sms_autofill.dart';
+import 'package:weevo_captain_app/core/helpers/extensions.dart';
 
 import '../../Dialogs/action_dialog.dart';
 import '../../Providers/auth_provider.dart';
@@ -24,7 +25,7 @@ class SignUpPhoneVerification extends StatefulWidget {
 }
 
 class _SignUpPhoneVerificationState extends State<SignUpPhoneVerification> {
-  String _code = '', _currentCode = '';
+  String _code = '';
   late TextEditingController _pinController;
 
   @override
@@ -105,25 +106,72 @@ class _SignUpPhoneVerificationState extends State<SignUpPhoneVerification> {
                     SizedBox(
                       height: size.height * 0.01,
                     ),
-                    PinFieldAutoFill(
-                      controller: _pinController,
-                      decoration: UnderlineDecoration(
-                        textStyle:
-                            const TextStyle(fontSize: 20, color: Colors.black),
-                        colorBuilder:
-                            FixedColorBuilder(Colors.black.withOpacity(0.3)),
-                      ),
-                      currentCode: _currentCode,
-                      onCodeSubmitted: (code) {
-                        log('code submitted -> $code');
-                      },
-                      onCodeChanged: (code) {
-                        _currentCode = code!;
-                        if (code.length == 6) {
-                          FocusScope.of(context).requestFocus(FocusNode());
-                        }
-                      },
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: PinCodeTextField(
+                        appContext: context,
+                        length: 6,
+                        obscureText: false,
+                        animationType: AnimationType.fade,
+                        textStyle: TextStyle(
+                          fontSize: 18.sp,
+                          color: Colors.black,
+                        ),
+                        hintStyle: TextStyle(
+                          fontSize: 18.sp,
+                          color: Colors.black,
+                        ),
+                        showCursor: true,
+                        autoFocus: true,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        enablePinAutofill: true,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        textInputAction: TextInputAction.done,
+                        pinTheme: PinTheme(
+                          shape: PinCodeFieldShape.box,
+                          activeColor: context.colorScheme.primary,
+                          selectedColor: context.colorScheme.primary,
+                          borderRadius: BorderRadius.circular(12),
+                          fieldHeight: 40.h,
+                          fieldWidth: 40.w,
+                          activeFillColor: context.colorScheme.onPrimary,
+                          selectedFillColor: context.colorScheme.primary,
+                          disabledColor: Colors.grey.shade700,
+                          inactiveColor: Colors.grey.shade700,
+                          inactiveFillColor: context.colorScheme.onPrimary,
+                        ),
+                        animationDuration: const Duration(milliseconds: 300),
+                        enableActiveFill: false,
+                        controller: _pinController,
+                        onCompleted: (v) {
+                          context.unfocus();
+                        },
+                        onChanged: (value) {},
+                        beforeTextPaste: (text) => true,
+                      ).paddingSymmetric(horizontal: 16.0),
                     ),
+                    // PinFieldAutoFill(
+                    //   controller: _pinController,
+                    //   decoration: UnderlineDecoration(
+                    //     textStyle:
+                    //         const TextStyle(fontSize: 20, color: Colors.black),
+                    //     colorBuilder:
+                    //         FixedColorBuilder(Colors.black.withOpacity(0.3)),
+                    //   ),
+                    //   currentCode: _currentCode,
+                    //   onCodeSubmitted: (code) {
+                    //     log('code submitted -> $code');
+                    //   },
+                    //   onCodeChanged: (code) {
+                    //     _currentCode = code!;
+                    //     if (code.length == 6) {
+                    //       FocusScope.of(context).requestFocus(FocusNode());
+                    //     }
+                    //   },
+                    // ),
                     SizedBox(
                       height: 20.h,
                     ),

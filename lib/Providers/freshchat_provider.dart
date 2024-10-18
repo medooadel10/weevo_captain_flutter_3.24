@@ -29,6 +29,7 @@ class FreshChatProvider with ChangeNotifier {
     var unreadCountStream = Freshchat.onMessageCountUpdate;
     unreadCountSubscription = unreadCountStream.listen((event) {
       log("New message generated: $event");
+      freshChatNewMessageCounter = freshChatNewMessageCounter ?? 0 + 1;
     });
   }
 

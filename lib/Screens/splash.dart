@@ -119,6 +119,7 @@ class _SplashState extends State<Splash> {
             ),
           );
         } else {
+          await Future.delayed(const Duration(seconds: 1));
           if (Preferences.instance.getAccessToken.isEmpty) {
             MagicRouter.navigateAndPopAll(const OnBoarding());
           } else {

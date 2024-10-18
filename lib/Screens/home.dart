@@ -418,31 +418,41 @@ class _HomeState extends State<Home> {
                             child: Stack(
                               alignment: Alignment.topRight,
                               children: [
-                                SvgPicture.asset(
-                                  'assets/images/chat.svg',
-                                  width: 30.0.w,
-                                  height: 30.0.h,
-                                  color: weevoPrimaryOrangeColor,
-                                ),
-                                if (freshChat.freshChatNewMessageCounter !=
-                                        null &&
-                                    freshChat.freshChatNewMessageCounter! > 0)
-                                  Container(
-                                    height: 15.h,
-                                    width: 15.w,
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: weevoPrimaryOrangeColor),
-                                    child: Center(
-                                      child: Text(
-                                        '${freshChat.freshChatNewMessageCounter}',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 9.sp),
-                                      ),
-                                    ),
+                                Badge.count(
+                                  count:
+                                      freshChat.freshChatNewMessageCounter ?? 0,
+                                  textColor: Colors.white,
+                                  backgroundColor: weevoPrimaryBlueColor,
+                                  isLabelVisible: freshChat
+                                              .freshChatNewMessageCounter !=
+                                          null &&
+                                      freshChat.freshChatNewMessageCounter! > 0,
+                                  child: SvgPicture.asset(
+                                    'assets/images/chat.svg',
+                                    width: 30.0.w,
+                                    height: 30.0.h,
+                                    color: weevoPrimaryOrangeColor,
                                   ),
+                                ),
+                                // if (freshChat.freshChatNewMessageCounter !=
+                                //         null &&
+                                //     freshChat.freshChatNewMessageCounter! > 0)
+                                //   Container(
+                                //     height: 15.h,
+                                //     width: 15.w,
+                                //     decoration: const BoxDecoration(
+                                //         shape: BoxShape.circle,
+                                //         color: weevoPrimaryOrangeColor),
+                                //     child: Center(
+                                //       child: Text(
+                                //         '${freshChat.freshChatNewMessageCounter}',
+                                //         textAlign: TextAlign.center,
+                                //         style: TextStyle(
+                                //             color: Colors.white,
+                                //             fontSize: 9.sp),
+                                //       ),
+                                //     ),
+                                //   ),
                               ],
                             ),
                           ),
@@ -470,30 +480,40 @@ class _HomeState extends State<Home> {
                           child: Stack(
                             alignment: Alignment.topRight,
                             children: [
-                              SvgPicture.asset(
-                                'assets/images/chat.svg',
-                                width: 30.0.w,
-                                height: 30.0.h,
-                                color: weevoPrimaryOrangeColor,
-                              ),
-                              if (freshChat.freshChatNewMessageCounter !=
-                                      null &&
-                                  freshChat.freshChatNewMessageCounter! > 0)
-                                Container(
-                                  height: 15.h,
-                                  width: 15.w,
-                                  decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: weevoPrimaryOrangeColor),
-                                  child: Center(
-                                    child: Text(
-                                      '${freshChat.freshChatNewMessageCounter}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 9.sp),
-                                    ),
-                                  ),
+                              Badge.count(
+                                count:
+                                    freshChat.freshChatNewMessageCounter ?? 0,
+                                textColor: Colors.white,
+                                backgroundColor: weevoPrimaryBlueColor,
+                                isLabelVisible: freshChat
+                                            .freshChatNewMessageCounter !=
+                                        null &&
+                                    freshChat.freshChatNewMessageCounter! > 0,
+                                child: SvgPicture.asset(
+                                  'assets/images/chat.svg',
+                                  width: 30.0.w,
+                                  height: 30.0.h,
+                                  color: weevoPrimaryOrangeColor,
                                 ),
+                              ),
+                              // if (freshChat.freshChatNewMessageCounter !=
+                              //         null &&
+                              //     freshChat.freshChatNewMessageCounter! > 0)
+                              //   Container(
+                              //     height: 15.h,
+                              //     width: 15.w,
+                              //     decoration: const BoxDecoration(
+                              //         shape: BoxShape.circle,
+                              //         color: Colors.white),
+                              //     child: Center(
+                              //       child: Text(
+                              //         '${freshChat.freshChatNewMessageCounter}',
+                              //         textAlign: TextAlign.center,
+                              //         style: TextStyle(
+                              //             color: Colors.white, fontSize: 9.sp),
+                              //       ),
+                              //     ),
+                              //   ),
                             ],
                           ),
                         ),

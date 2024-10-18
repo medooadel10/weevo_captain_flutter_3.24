@@ -29,7 +29,7 @@ class CustomHomeNavigation extends StatelessWidget {
         children: [
           Container(
             height: 5.h,
-            width: 48.w,
+            width: 45.w,
             decoration: BoxDecoration(
               color:
                   isSelected ? context.colorScheme.primary : Colors.transparent,
@@ -40,15 +40,17 @@ class CustomHomeNavigation extends StatelessWidget {
             ),
           ),
           verticalSpace(8),
-          SvgPicture.asset(
-            isSelected ? svgPictureSelected : svgPicture,
-            width: 22.w,
-            height: 22.h,
-            colorFilter: ColorFilter.mode(
-              isSelected
-                  ? context.colorScheme.primary
-                  : const Color(0xff9e9e9e),
-              BlendMode.srcIn,
+          Center(
+            child: SvgPicture.asset(
+              isSelected ? svgPictureSelected : svgPicture,
+              width: 22.w,
+              height: 22.h,
+              colorFilter: ColorFilter.mode(
+                isSelected
+                    ? context.colorScheme.primary
+                    : const Color(0xff9e9e9e),
+                BlendMode.srcIn,
+              ),
             ),
           ),
           verticalSpace(3),
