@@ -550,19 +550,19 @@ class AuthProvider with ChangeNotifier {
         }
       } on PlatformException catch (e) {
         if (e.code == auth_error.notAvailable) {
-          showToast('غير متاح');
+          showToast('من فضلك قم بتفعيل كلمة المرور أو بصمة الإصبع أو الوجه');
           return false;
         } else if (e.code == auth_error.notEnrolled) {
-          showToast('لم يتم التسجيل');
+          showToast('من فضلك قم بتفعيل كلمة المرور أو بصمة الإصبع أو الوجه');
           return false;
         } else {
           log('Error ${e.message ?? e.details?.toString() ?? e.code}');
-          showToast('خطأ غير معروف');
+          showToast('من فضلك قم بتفعيل كلمة المرور أو بصمة الإصبع أو الوجه');
           return false;
         }
       }
     } else {
-      showToast('غير متاح');
+      showToast('من فضلك قم بتفعيل كلمة المرور أو بصمة الإصبع أو الوجه');
     }
     return isAuthenticated;
   }
@@ -1748,11 +1748,6 @@ class AuthProvider with ChangeNotifier {
     await userReceiveNotification(value: 1);
   }
 
-  Future<void> getInitMessage() async {
-    RemoteMessage? message = await fcm.getInitialMessage();
-    goTo(message);
-  }
-
   int get notificationsNo => _notificationsNo;
 
   Future<void> getArticle() async {
@@ -1794,256 +1789,6 @@ class AuthProvider with ChangeNotifier {
   int get totalMessages => _totalMessages;
 
   List<ArticlesData>? get articles => _articles;
-
-  void goTo(RemoteMessage? m) {
-    if (m != null) {
-      if (m.data['has_offer'] == '1' && m.data['better_offer'] == '0') {
-        _notificationsNo++;
-        Navigator.pushReplacementNamed(navigator.currentContext!, Home.id);
-        if (!_dialogOpen) {
-          _dialogOpen = true;
-          showDialog(
-            context: navigator.currentContext!,
-            barrierDismissible: false,
-            builder: (context) => ShipmentDialog(
-              shipmentNotification: ShipmentNotification.fromMap(m.data),
-              betterOffer: false,
-              onDetailsCallback: () {
-                _dialogOpen = false;
-                _notificationsNo--;
-                notifyListeners();
-              },
-              onAvailableOkPressed: () {
-                _notificationsNo--;
-                _dialogOpen = false;
-                notifyListeners();
-                sendNotification(
-                    title: 'ويفو وفرلك كابتن',
-                    body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالطلب',
-                    toToken:
-                        ShipmentNotification.fromMap(m.data).merchantFcmToken,
-                    image: photo != null
-                        ? photo!.contains(ApiConstants.baseUrl)
-                            ? photo
-                            : '${ApiConstants.baseUrl}$photo'
-                        : '',
-                    type: '',
-                    screenTo: 'shipment_offers',
-                    data: ShipmentNotification.fromMap(m.data).toMap());
-              },
-              onOfferOkPressed: () {
-                _dialogOpen = false;
-                _notificationsNo--;
-                notifyListeners();
-                sendNotification(
-                    title: 'وصلك عرض شحن',
-                    body: 'الكابتن $name قدم عرض لشحن أوردرك',
-                    toToken: token,
-                    image: photo != null && photo!.isNotEmpty
-                        ? photo!.contains(ApiConstants.baseUrl)
-                            ? photo
-                            : '${ApiConstants.baseUrl}$photo'
-                        : '',
-                    type: '',
-                    screenTo: 'shipment_offers',
-                    data: ShipmentNotification.fromMap(m.data).toMap());
-              },
-              onRefuseShipment: () {
-                _dialogOpen = false;
-                _notificationsNo--;
-                notifyListeners();
-                Navigator.pop(context);
-              },
-            ),
-          );
-        }
-      } else if (m.data['has_offer'] == '1' && m.data['better_offer'] == '1') {
-        _notificationsNo++;
-        Navigator.pushReplacementNamed(navigator.currentContext!, Home.id);
-        if (!_dialogOpen) {
-          _dialogOpen = true;
-          showDialog(
-            context: navigator.currentContext!,
-            barrierDismissible: false,
-            builder: (context) => ShipmentDialog(
-              shipmentNotification: ShipmentNotification.fromMap(m.data),
-              betterOffer: true,
-              isWasully: m.data['is_wasully'] == '1' ? true : false,
-              onDetailsCallback: () {
-                _dialogOpen = false;
-                _notificationsNo--;
-                notifyListeners();
-              },
-              onAvailableOkPressed: () {
-                _notificationsNo--;
-                _dialogOpen = false;
-                notifyListeners();
-                sendNotification(
-                    title: 'ويفو وفرلك مندوب',
-                    body: 'الكابتن $name قبل طلب الشحن وتم خصم مقدمالطلب',
-                    toToken:
-                        ShipmentNotification.fromMap(m.data).merchantFcmToken,
-                    image: photo != null
-                        ? photo!.contains(ApiConstants.baseUrl)
-                            ? photo
-                            : '${ApiConstants.baseUrl}$photo'
-                        : '',
-                    type: '',
-                    screenTo: 'shipment_offers',
-                    data: ShipmentNotification.fromMap(m.data).toMap());
-              },
-              onOfferOkPressed: () async {
-                _dialogOpen = false;
-                _notificationsNo--;
-                notifyListeners();
-                sendNotification(
-                    title: 'عرض أفضل',
-                    body: 'تم تقديم عرض أفضل من الكابتن $name',
-                    toToken:
-                        ShipmentNotification.fromMap(m.data).merchantFcmToken,
-                    image: photo != null
-                        ? photo!.contains(ApiConstants.baseUrl)
-                            ? photo
-                            : '${ApiConstants.baseUrl}$photo'
-                        : '',
-                    type: '',
-                    screenTo: 'shipment_offers',
-                    data: ShipmentNotification.fromMap(m.data).toMap());
-              },
-              onRefuseShipment: () {
-                _dialogOpen = false;
-                _notificationsNo--;
-                notifyListeners();
-                Navigator.pop(context);
-              },
-            ),
-          );
-        }
-      } else if (m.data['type'] == 'rating') {
-        MagicRouter.navigateAndPopAll(RatingDialog(
-            model: ShipmentTrackingModel.fromJson(
-          m.data,
-        )));
-      } else if (m.data['type'] == 'wasully_rating') {
-        MagicRouter.navigateAndPopAll(WasullyRatingDialog(
-            model: ShipmentTrackingModel.fromJson(
-          m.data,
-        )));
-      } else {
-        _fromOutsideNotification = true;
-        switch (m.data['screen_to']) {
-          case homeScreen:
-            Navigator.pushReplacementNamed(navigator.currentContext!, Home.id);
-            break;
-          case wallet:
-            Navigator.pushReplacementNamed(
-                navigator.currentContext!, Wallet.id);
-            break;
-          case shipmentScreen:
-            if (m.data['has_children']) {
-              MagicRouter.navigateAndPop(
-                ShipmentDetailsScreen(id: m.data['shipment_id']),
-              );
-            } else {
-              Navigator.pushReplacementNamed(
-                  navigator.currentContext!, ChildShipmentDetails.id,
-                  arguments: m.data['shipment_id']);
-            }
-            break;
-          case shipmentDetailsScreen:
-            if (AcceptMerchantOffer.fromMap(m.data).childrenShipment == 0) {
-              MagicRouter.navigateTo(
-                ShipmentDetailsScreen(
-                    id: AcceptMerchantOffer.fromMap(m.data).shipmentId),
-              );
-            } else {
-              Navigator.pushNamed(
-                  navigator.currentContext!, ChildShipmentDetails.id,
-                  arguments: AcceptMerchantOffer.fromMap(m.data).shipmentId);
-            }
-            break;
-          case handleShipmentScreen:
-            Navigator.pushReplacementNamed(
-                navigator.currentContext!, HandleShipment.id,
-                arguments: ShipmentTrackingModel.fromJson(m.data));
-            break;
-          case noScreen:
-            showDialog(
-                context: navigator.currentContext!,
-                builder: (c) => ActionDialog(
-                      content:
-                          'تم الغاء الطلب من قبل التاجر\nيمكنك التقديم علي طلبات اخري\nمن صفحة الطلبات المتاحة',
-                      approveAction: 'حسناً',
-                      onApproveClick: () {
-                        Navigator.pop(c);
-                      },
-                    ));
-            break;
-          case walletScreen:
-            Navigator.pushReplacementNamed(
-                navigator.currentContext!, Wallet.id);
-            break;
-          case chatScreen:
-            ChatData chatData = ChatData.fromJson(m.data);
-            ChatData chatData0;
-            if (chatData.currentUserNationalId == getNationalId) {
-              chatData0 = ChatData(
-                currentUserNationalId: chatData.currentUserNationalId,
-                peerNationalId: chatData.peerNationalId,
-                currentUserId: chatData.currentUserId,
-                peerId: chatData.peerId,
-                peerImageUrl: chatData.peerImageUrl,
-                peerUserName: chatData.peerUserName,
-                shipmentId: chatData.shipmentId,
-                currentUserName: chatData.currentUserName,
-                currentUserImageUrl: chatData.currentUserImageUrl,
-                conversionId: chatData.conversionId,
-                type: chatData.type,
-              );
-            } else {
-              chatData0 = ChatData(
-                peerNationalId: chatData.currentUserNationalId,
-                currentUserNationalId: chatData.peerNationalId,
-                currentUserId: chatData.peerId,
-                peerId: chatData.currentUserId,
-                peerImageUrl: chatData.currentUserImageUrl,
-                peerUserName: chatData.currentUserName,
-                currentUserName: chatData.peerUserName,
-                shipmentId: chatData.shipmentId,
-                currentUserImageUrl: chatData.peerImageUrl,
-                conversionId: chatData.conversionId,
-                type: chatData.type,
-              );
-            }
-            Navigator.pushReplacementNamed(
-                navigator.currentContext!, ChatScreen.id,
-                arguments: chatData0);
-            break;
-          default:
-            isValid
-                ? Navigator.pushReplacementNamed(
-                    navigator.currentContext!,
-                    Home.id,
-                  )
-                : Navigator.pushReplacementNamed(
-                    navigator.currentContext!,
-                    OnBoarding.id,
-                  );
-        }
-      }
-    } else {
-      isValid
-          ? Navigator.pushReplacementNamed(
-              navigator.currentContext!,
-              Home.id,
-            )
-          : Navigator.pushReplacementNamed(
-              navigator.currentContext!,
-              OnBoarding.id,
-            );
-    }
-  }
-
   Future<bool> checkPhoneExisted(String? phone) async {
     _existedState = NetworkState.waiting;
     try {
@@ -2311,6 +2056,7 @@ class AuthProvider with ChangeNotifier {
           log('Dialog open -> $_dialogOpen');
           if (!_dialogOpen) {
             _dialogOpen = true;
+            log('is wasully -> ${m.data['is_wasully']}');
             showDialog(
                 context: navigator.currentContext!,
                 barrierDismissible: false,
@@ -2365,7 +2111,7 @@ class AuthProvider with ChangeNotifier {
                       MagicRouter.pop();
                       notifyListeners();
                     },
-                    isWasully: m.data['type'] == 'wasully',
+                    isWasully: m.data['is_wasully'] == '1',
                   );
                 });
           }

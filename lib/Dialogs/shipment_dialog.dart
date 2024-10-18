@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:weevo_captain_app/Dialogs/loading.dart';
 import 'package:weevo_captain_app/core/helpers/extensions.dart';
 
 import '../Models/shipment_notification.dart';
@@ -18,6 +20,8 @@ import '../Utilits/constants.dart';
 import '../core/networking/api_constants.dart';
 import '../core/router/router.dart';
 import '../features/shipment_details/ui/shipment_details_screen.dart';
+import '../features/wasully_details/logic/cubit/wasully_details_cubit.dart';
+import '../features/wasully_details/logic/cubit/wasully_details_state.dart';
 import '../features/wasully_details/ui/wasully_details_screen.dart';
 import '../features/wasully_details/ui/widgets/wasully_offer_dialog.dart';
 import 'content_dialog.dart';
@@ -52,6 +56,7 @@ class ShipmentDialog extends StatelessWidget {
     final WalletProvider walletProvider = Provider.of<WalletProvider>(context);
     final ShipmentProvider shipmentProvider =
         Provider.of<ShipmentProvider>(context);
+    log(isWasully.toString());
     return Dialog(
       insetPadding: EdgeInsets.symmetric(
         horizontal: 20.0.w,
@@ -406,14 +411,71 @@ class ShipmentDialog extends StatelessWidget {
                       if (isWasully) {
                         showDialog(
                             context: context,
-                            builder: (c) => WasullyOfferDialog(
-                                  merchantImage:
-                                      shipmentNotification.merchantImage!,
-                                  merchantName:
-                                      shipmentNotification.merchantName!,
-                                  price: shipmentNotification.shippingCost!,
-                                  wasullyId: shipmentNotification.shipmentId!,
-                                  merchantRating: '4.5',
+                            barrierDismissible: false,
+                            builder: (c) => BlocConsumer<WasullyDetailsCubit,
+                                    WasullyDetailsState>(
+                                  listener: (context, state) {
+                                    if (state
+                                            is WasullyDetailsSendOfferSuccessState ||
+                                        state
+                                            is WasullyDetailsApplyShipmentSuccessState) {
+                                      MagicRouter.pop();
+                                      showDialog(
+                                        context: navigator.currentContext!,
+                                        builder: (_) => OfferConfirmationDialog(
+                                          onOkPressed: () {
+                                            MagicRouter.pop();
+                                          },
+                                          isDone: true,
+                                          isOffer: state
+                                              is WasullyDetailsSendOfferSuccessState,
+                                        ),
+                                      );
+                                    }
+                                    if (state
+                                        is WasullyDetailsSendOfferErrorState) {
+                                      MagicRouter.pop();
+                                      showDialog(
+                                        context: navigator.currentContext!,
+                                        builder: (_) => OfferConfirmationDialog(
+                                          onOkPressed: () => MagicRouter.pop(),
+                                          isDone: false,
+                                          isOffer: true,
+                                          message: state.error,
+                                        ),
+                                      );
+                                    }
+                                    if (state
+                                        is WasullyDetailsApplyShipmentErrorState) {
+                                      MagicRouter.pop();
+                                      showDialog(
+                                        context: navigator.currentContext!,
+                                        builder: (_) => OfferConfirmationDialog(
+                                          onOkPressed: () => MagicRouter.pop(),
+                                          isDone: false,
+                                          isOffer: false,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state
+                                            is WasullyDetailsSendOfferLoadingState ||
+                                        state
+                                            is WasullyDetailsApplyShipmentLoadingState) {
+                                      return const Loading();
+                                    }
+                                    return WasullyOfferDialog(
+                                      merchantImage:
+                                          shipmentNotification.merchantImage!,
+                                      merchantName:
+                                          shipmentNotification.merchantName!,
+                                      price: shipmentNotification.shippingCost!,
+                                      wasullyId:
+                                          shipmentNotification.shipmentId!,
+                                      merchantRating: '4.5',
+                                    );
+                                  },
                                 ));
                       } else {
                         showDialog(
