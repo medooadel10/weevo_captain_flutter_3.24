@@ -8,7 +8,6 @@ import 'package:weevo_captain_app/core/helpers/toasts.dart';
 
 import '../Utilits/colors.dart';
 import '../Widgets/qr_code_scan_widget.dart';
-import '../core/helpers/spacing.dart';
 import '../core/router/router.dart';
 
 class QrCodeScanner extends StatefulWidget {
@@ -53,7 +52,7 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
               const SizedBox(height: 8),
               _buildStateSwitcher(),
               const SizedBox(height: 16),
-              if (_state == 1) _buildActionButtons(),
+              _buildActionButtons(),
             ],
           ),
         ),
@@ -133,14 +132,17 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
             fieldWidth: 50.w,
             activeFillColor: context.colorScheme.onPrimary,
             selectedFillColor: context.colorScheme.primary,
-            disabledColor: context.colorScheme.primary,
-            inactiveColor: context.colorScheme.primary,
+            disabledColor: Colors.grey.shade700,
+            inactiveColor: Colors.grey.shade700,
             inactiveFillColor: context.colorScheme.onPrimary,
           ),
           animationDuration: const Duration(milliseconds: 300),
           enableActiveFill: false,
           controller: _pinController,
-          onCompleted: (v) => context.unfocus(),
+          onCompleted: (v) {
+            context.unfocus();
+            _onConfirmPressed();
+          },
           onChanged: (value) {},
           beforeTextPaste: (text) => true,
         ).paddingSymmetric(horizontal: 16.0),
@@ -203,14 +205,6 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
       children: [
         Expanded(
           child: WeevoButton(
-            onTap: _onConfirmPressed,
-            color: weevoPrimaryOrangeColor,
-            title: 'تأكيد',
-          ),
-        ),
-        horizontalSpace(10),
-        Expanded(
-          child: WeevoButton(
             onTap: () => MagicRouter.pop(),
             color: weevoPrimaryBlueColor,
             title: 'إلغاء',
@@ -222,7 +216,7 @@ class _QrCodeScannerState extends State<QrCodeScanner> {
 
   // Handle confirmation action
   void _onConfirmPressed() {
-    if (_pinController.text.isNotEmpty) {
+    if (_pinController.text.length == 4) {
       widget.onDataCallback(_pinController.text);
       _pinController.clear();
     } else {
