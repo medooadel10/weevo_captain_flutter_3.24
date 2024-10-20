@@ -108,8 +108,9 @@ class _ShipmentTileState extends State<ShipmentTile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ShipmentImage(
-                      image:
-                          widget.shipment.image ?? product!.productInfo.image,
+                      image: widget.shipment.image ??
+                          product!.productInfo.image ??
+                          '',
                     ),
                     horizontalSpace(10),
                     Expanded(

@@ -6,6 +6,7 @@ import '../../Providers/auth_provider.dart';
 import '../../Utilits/constants.dart';
 import '../../Widgets/general_preview.dart';
 import '../../Widgets/weevo_video.dart';
+import '../../core/widgets/custom_shimmer.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -23,10 +24,21 @@ class MainScreen extends StatelessWidget {
           SizedBox(
             height: 8.h,
           ),
-          Visibility(
-            visible: authProvider.groupBannersState == NetworkState.success,
-            child: const WeevoVideos(),
-          ),
+          if (authProvider.groupBannersState != NetworkState.waiting)
+            const WeevoVideos()
+          else
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+              ),
+              child: CustomShimmer(
+                height: 120.h,
+                width: double.infinity,
+                shapeBorder: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+              ),
+            ),
           // SizedBox(
           //   height: 8.h,
           // ),

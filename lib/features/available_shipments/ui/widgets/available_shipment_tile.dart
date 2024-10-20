@@ -120,7 +120,8 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
                       children: [
                         AvailableShipmentImage(
                           image: widget.availableShipment.image ??
-                              product!.productInfo.image,
+                              product!.productInfo.image ??
+                              '',
                         ),
                         Positioned(
                           bottom: -10.h,

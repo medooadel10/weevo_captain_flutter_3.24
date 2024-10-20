@@ -1691,13 +1691,16 @@ class AuthProvider with ChangeNotifier {
       importance: fresh_chat.Importance.IMPORTANCE_MAX,
       notificationSoundEnabled: true,
     );
-    String? token = await fcm.getToken();
+    final token =
+        Platform.isAndroid ? await fcm.getToken() : await fcm.getAPNSToken();
     log('FCM TOKEN -> $token');
     fresh_chat.Freshchat.setPushRegistrationToken(token!);
     fcm.subscribeToTopic('all');
     fcm.subscribeToTopic('courier');
     await _preferences.setFcmToken(token);
-    fcm.onTokenRefresh.listen(fresh_chat.Freshchat.setPushRegistrationToken);
+    if (Platform.isAndroid) {
+      fcm.onTokenRefresh.listen(fresh_chat.Freshchat.setPushRegistrationToken);
+    }
   }
 
   void updateResetPasswordScreen(int i) {

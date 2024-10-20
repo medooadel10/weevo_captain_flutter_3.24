@@ -4,7 +4,7 @@ class ShipmentProductInfoModel {
   final int defaultPrice;
   final String description;
   final int categoryId;
-  final String image;
+  final String? image;
   final String length;
   final String width;
   final String height;

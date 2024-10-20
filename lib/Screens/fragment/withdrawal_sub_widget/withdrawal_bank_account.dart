@@ -49,7 +49,7 @@ class _WithdrawalBankAccountState extends State<WithdrawalBankAccount> {
       bankBranchNode,
       bankIBANNode,
       bankAccountNode;
-  int? _selectedBankItem, _selectedBranchItem;
+  int _selectedBankItem = 0, _selectedBranchItem = 0;
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
   String? accountOwnerName, bankBranch, bankName, bankIBAN, bankAccount;
   bool isError = false;
@@ -242,7 +242,7 @@ class _WithdrawalBankAccountState extends State<WithdrawalBankAccount> {
                             walletProvider.branchesApi(bank.id!);
                             Navigator.pop(ctx);
                           },
-                          selectedItem: _selectedBankItem!,
+                          selectedItem: _selectedBankItem,
                           models: walletProvider.banks!,
                         );
                       },
@@ -300,7 +300,7 @@ class _WithdrawalBankAccountState extends State<WithdrawalBankAccount> {
                             });
                             Navigator.pop(ctx);
                           },
-                          selectedItem: _selectedBranchItem!,
+                          selectedItem: _selectedBranchItem,
                           models: walletProvider.branches!,
                         );
                       },
