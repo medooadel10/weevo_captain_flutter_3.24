@@ -32,7 +32,9 @@ class _ShipmentsBodyState extends State<ShipmentsBody> {
     if (scrollController.position.pixels >=
         scrollController.position.maxScrollExtent * 0.9) {
       context.read<ShipmentsCubit>().getShipments(
-          isPaging: true, shipmentsCompleted: widget.shipmentsCompleted);
+            isPaging: true,
+            shipmentsCompleted: widget.shipmentsCompleted,
+          );
     }
   }
 
@@ -48,9 +50,9 @@ class _ShipmentsBodyState extends State<ShipmentsBody> {
     return SafeArea(
       child: RefreshIndicator(
         onRefresh: () async {
-          context
-              .read<ShipmentsCubit>()
-              .getShipments(shipmentsCompleted: widget.shipmentsCompleted);
+          context.read<ShipmentsCubit>().getShipments(
+                shipmentsCompleted: widget.shipmentsCompleted,
+              );
         },
         child: Container(
           color: Colors.grey[200],
