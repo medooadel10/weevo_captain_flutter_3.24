@@ -525,6 +525,7 @@ class WalletProvider with ChangeNotifier {
         banks = (json.decode(r.body) as List)
             .map((e) => BankModel.fromJson(e))
             .toList();
+        notifyListeners();
       }
     } catch (e) {
       log('error -> ${e.toString()}');

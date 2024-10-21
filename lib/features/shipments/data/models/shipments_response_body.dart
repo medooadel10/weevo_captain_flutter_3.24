@@ -4,8 +4,11 @@ class ShipmentsResponseBody {
   final List<ShipmentModel> shipments;
   final int? currentPage;
   final int? total;
+  final int? to;
+  final int? perPage;
 
-  ShipmentsResponseBody(this.shipments, this.currentPage, this.total);
+  ShipmentsResponseBody(
+      this.shipments, this.currentPage, this.total, this.to, this.perPage);
 
   factory ShipmentsResponseBody.fromJson(Map<String, dynamic> json) {
     List<ShipmentModel> shipments = [];
@@ -24,6 +27,8 @@ class ShipmentsResponseBody {
       shipments,
       json['current_page'],
       json['total'],
+      json['to'],
+      json['per_page'],
     );
   }
 }

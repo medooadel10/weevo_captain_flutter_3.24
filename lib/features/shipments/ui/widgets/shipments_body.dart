@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/helpers/extensions.dart';
 import '../../logic/cubit/shipments_cubit.dart';
 import 'shipment_filter_list_bloc_builder.dart';
+import 'shipments_header.dart';
 import 'shipments_list_bloc_builder.dart';
 
 class ShipmentsBody extends StatefulWidget {
@@ -30,7 +31,8 @@ class _ShipmentsBodyState extends State<ShipmentsBody> {
   void _addListener() {
     if (scrollController.position.pixels >=
         scrollController.position.maxScrollExtent * 0.9) {
-      context.read<ShipmentsCubit>().getShipments(isPaging: true);
+      context.read<ShipmentsCubit>().getShipments(
+          isPaging: true, shipmentsCompleted: widget.shipmentsCompleted);
     }
   }
 
@@ -50,32 +52,38 @@ class _ShipmentsBodyState extends State<ShipmentsBody> {
               .read<ShipmentsCubit>()
               .getShipments(shipmentsCompleted: widget.shipmentsCompleted);
         },
-        child: CustomScrollView(
-          controller: scrollController,
-          physics: const AlwaysScrollableScrollPhysics(),
-          slivers: [
-            SliverAppBar(
-              expandedHeight: widget.shipmentsCompleted ? 60.h : 120.h,
-              excludeHeaderSemantics: true,
-              leading: null,
-              automaticallyImplyLeading: false,
-              flexibleSpace: FlexibleSpaceBar(
-                background: ShipmentFilterListBlocBuilder(
-                  shipmentsCompleted: widget.shipmentsCompleted,
-                ).paddingSymmetric(
-                  horizontal: 10.w,
+        child: Container(
+          color: Colors.grey[200],
+          child: CustomScrollView(
+            controller: scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              SliverAppBar(
+                expandedHeight: widget.shipmentsCompleted ? 60.h : 120.h,
+                excludeHeaderSemantics: true,
+                leading: null,
+                automaticallyImplyLeading: false,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: ShipmentFilterListBlocBuilder(
+                    shipmentsCompleted: widget.shipmentsCompleted,
+                  ).paddingSymmetric(
+                    horizontal: 10.w,
+                  ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: ShipmentsListBlocBuilder(
-                shipmentsCompleted: widget.shipmentsCompleted,
-              ).paddingSymmetric(
-                horizontal: 10.w,
-                vertical: 10.h,
+              SliverAppBar(
+                pinned: true,
+                automaticallyImplyLeading: false,
+                flexibleSpace: const ShipmentsHeader(),
+                toolbarHeight: 48.h,
               ),
-            ),
-          ],
+              SliverToBoxAdapter(
+                child: ShipmentsListBlocBuilder(
+                  shipmentsCompleted: widget.shipmentsCompleted,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:weevo_captain_app/features/shipments/data/models/shipments_response_body.dart';
 
 import '../../../../core/data/models/shipment_status/base_shipment_status.dart';
 import '../../data/models/shipment_model.dart';
@@ -10,22 +11,20 @@ class ShipmentsCubit extends Cubit<ShipmentsStates> {
   ShipmentsCubit(this._shipmentsRepo) : super(ShipmentsInitialState());
 
   int currentFilterIndex = 0;
-  int lastRequestedFilterIndex = -1;
 
   void filterAndGetShipments(int index,
       {bool isForcedGetData = false, bool shipmentsCompleted = false}) async {
     if (!isForcedGetData &&
         (currentFilterIndex == index || state is ShipmentsLoadingState)) return;
     currentFilterIndex = index;
-    lastRequestedFilterIndex = index;
     await getShipments(shipmentsCompleted: shipmentsCompleted);
     emit(ShipmentsChangeFilterState(index));
   }
 
   int currentPage = 1;
   bool hasMoreData = true;
-  final int pageSize = 15;
   List<ShipmentModel>? shipments;
+  ShipmentsResponseBody? shipmentsResponseBody;
   Future<void> getShipments(
       {bool isPaging = false, bool shipmentsCompleted = false}) async {
     if (state is ShipmentsLoadingState ||
@@ -49,10 +48,11 @@ class ShipmentsCubit extends Cubit<ShipmentsStates> {
       currentPage,
     );
     if (result.success) {
-      hasMoreData = result.data!.shipments.length == pageSize;
+      shipmentsResponseBody = result.data;
+      hasMoreData =
+          result.data!.shipments.length == shipmentsResponseBody?.perPage;
       shipments ??= [];
       shipments!.addAll(result.data!.shipments);
-      shipments!.sort((a, b) => a.createdAt.compareTo(b.createdAt));
       if ((isPaging && hasMoreData) || currentPage == 1) currentPage++;
       emit(ShipmentsSuccessState(result.data!.shipments));
     } else {

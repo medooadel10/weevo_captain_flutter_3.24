@@ -34,9 +34,19 @@ class ShipmentsListBlocBuilder extends StatelessWidget {
         if (state is ShipmentsLoadingState ||
             state is ShipmentsErrorState ||
             cubit.shipments == null) {
-          return const ShipmentsLoading();
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.0.w,
+              vertical: 10.0.h,
+            ),
+            child: const ShipmentsLoading(),
+          );
         } else if (cubit.shipments!.isEmpty) {
-          return Center(
+          return Container(
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(
+              vertical: 50.h,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -60,6 +70,10 @@ class ShipmentsListBlocBuilder extends StatelessWidget {
         }
         return SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.symmetric(
+            horizontal: 10.0.w,
+            vertical: 10.0.h,
+          ),
           child: Column(
             children: [
               ListView.separated(
