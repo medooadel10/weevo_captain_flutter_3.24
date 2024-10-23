@@ -53,7 +53,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>This app needs camera access to scan QR codes</string>
+	<string>Allow Weevo Captain to access your camera to change your account picture</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Weevo Captain need this permission to be able to open your wallet</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -65,7 +65,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow Weevo Captain to access your microphone to can record a voice note in chat</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app needs photos access to get QR code from photo library</string>
+	<string>Allow Weevo Captain to access your photos to change your account picture</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../Dialogs/action_dialog.dart';
@@ -20,6 +23,17 @@ class BeforeRegistration extends StatefulWidget {
 }
 
 class _BeforeRegistrationState extends State<BeforeRegistration> {
+  PackageInfo? packageInfo;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  init() async {
+    packageInfo = await PackageInfo.fromPlatform();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -137,8 +151,10 @@ class _BeforeRegistrationState extends State<BeforeRegistration> {
                       ),
                       TextButton(
                         onPressed: () async {
-                          await launchUrlString(
-                              'https://play.google.com/store/apps/details?id=org.emarketingo.weevo');
+                          final String url = Platform.isAndroid
+                              ? 'https://play.google.com/store/apps/details?id=org.emarketingo.weevo'
+                              : 'https://apps.apple.com/ae/app/%D8%AA%D8%B7%D8%A8%D9%8A%D9%82-%D9%88%D9%8A%DA%A4%D9%88-weevo-app/id6535652912';
+                          await launchUrlString(url);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -101,15 +102,15 @@ class _SplashState extends State<Splash> {
               approveAction: 'تحديث',
               onApproveClick: () async {
                 Navigator.pop(context);
+                final String url = Platform.isAndroid
+                    ? 'https://play.google.com/store/apps/details?id=${packageInfo?.packageName}'
+                    : 'https://apps.apple.com/eg/app/%D9%88%D9%8A%DA%A4%D9%88-%D9%83%D8%A7%D8%A8%D8%AA%D9%86-weevo-captain/id6670524179';
                 try {
-                  launchUrlString(
-                      "https://play.google.com/store/apps/details?id=${packageInfo?.packageName}");
+                  launchUrlString(url);
                 } on PlatformException {
-                  launchUrlString(
-                      "https://play.google.com/store/apps/details?id=${packageInfo?.packageName}");
+                  launchUrlString(url);
                 } finally {
-                  launchUrlString(
-                      "https://play.google.com/store/apps/details?id=${packageInfo?.packageName}");
+                  launchUrlString(url);
                 }
               },
               onCancelClick: () {

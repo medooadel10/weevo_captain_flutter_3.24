@@ -1942,42 +1942,40 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> deleteAccount() async {
+    showDialog(
+        context: navigator.currentContext!, builder: (_) => const Loading());
     try {
-      showDialog(
-          context: navigator.currentContext!, builder: (_) => const Loading());
-      http.Response r = await HttpHelper.instance.httpDelete(
-        'deleted-account/${_preferences.getUserId}',
-        true,
+      final r = await DioFactory.deleteData(
+        url: '${ApiConstants.baseUrl}/api/v1/captain/deleted-account',
+        token: _preferences.getAccessToken,
+        data: {},
       );
-      log('deleteAccount -> ${r.body}');
-      log('deleteAccount -> ${r.statusCode}');
-      if (r.statusCode >= 200 && r.statusCode < 300) {
-        MagicRouter.pop();
-        showDialog(
-            context: navigator.currentContext!,
-            builder: (_) => ActionDialog(
-                  content: r.body,
-                  approveAction: 'حسناً',
-                  onApproveClick: () async {
-                    await _preferences.clearUser();
-                    MagicRouter.pop();
-                    MagicRouter.navigateAndPopAll(const BeforeRegistration());
-                  },
-                ));
-      } else {
-        MagicRouter.pop();
-        showDialog(
-            context: navigator.currentContext!,
-            builder: (_) => ActionDialog(
-                  content: r.body,
-                  approveAction: 'حسناً',
-                  onApproveClick: () async {
-                    MagicRouter.pop();
-                  },
-                ));
-      }
-    } catch (e) {
-      log('error -> ${e.toString()}');
+      await _preferences.clearUser();
+      MagicRouter.pop();
+      showDialog(
+        context: navigator.currentContext!,
+        barrierDismissible: false,
+        builder: (_) => ActionDialog(
+          content: 'تم حذف حسابك بنجاح',
+          approveAction: 'حسناً',
+          onApproveClick: () async {
+            MagicRouter.navigateAndPopAll(const BeforeRegistration());
+          },
+        ),
+      );
+    } on DioException catch (e) {
+      MagicRouter.pop();
+      showDialog(
+          context: navigator.currentContext!,
+          builder: (_) => ActionDialog(
+                content: e.response?.data['message'] ??
+                    e.message ??
+                    'حدث خطأ حاول مرة اخري',
+                approveAction: 'حسناً',
+                onApproveClick: () async {
+                  MagicRouter.pop();
+                },
+              ));
     }
   }
 

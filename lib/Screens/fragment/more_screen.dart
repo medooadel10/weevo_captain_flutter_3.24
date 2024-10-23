@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freshchat_sdk/freshchat_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:weevo_captain_app/Dialogs/delete_account_dialog.dart';
 import 'package:weevo_captain_app/core/router/router.dart';
 import 'package:weevo_captain_app/core/widgets/custom_image.dart';
 
@@ -439,7 +440,12 @@ class _MoreScreenState extends State<MoreScreen> {
                               arguments: 'https://weevo.net/privacy-policy/');
                           break;
                         case 13:
-                          auth.deleteAccount();
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return DeleteAccountDialog();
+                            },
+                          );
                           break;
                         case 14:
                           showDialog(
