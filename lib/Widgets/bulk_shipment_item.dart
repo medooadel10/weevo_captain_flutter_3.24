@@ -1418,7 +1418,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        '${authProvider.getStateNameById(int.parse(widget.bulkShipment.children![i].receivingState!))} - ${authProvider.getCityNameById(int.parse(widget.bulkShipment.children![i].receivingState!), int.parse(widget.bulkShipment.children![i].receivingCity!))}',
+                                        '${authProvider.getStateNameById(int.tryParse(widget.bulkShipment.children![i].receivingState ?? ''))} - ${authProvider.getCityNameById(int.tryParse(widget.bulkShipment.children![i].receivingState ?? ''), int.tryParse(widget.bulkShipment.children![i].receivingCity ?? '')) ?? 'غير محدد'}',
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
                                         style: TextStyle(
@@ -1466,7 +1466,7 @@ class _BulkShipmentItemState extends State<BulkShipmentItem> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        '${authProvider.getStateNameById(int.parse(widget.bulkShipment.children![i].deliveringState!))} - ${authProvider.getCityNameById(int.parse(widget.bulkShipment.children![i].deliveringState!), int.parse(widget.bulkShipment.children![i].deliveringCity!))}',
+                                        '${authProvider.getStateNameById(int.tryParse(widget.bulkShipment.children![i].deliveringState ?? ''))} - ${authProvider.getCityNameById(int.tryParse(widget.bulkShipment.children![i].deliveringState?? ''), int.parse(widget.bulkShipment.children![i].deliveringCity ?? '')) ?? 'غير محدد'}',
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
                                         style: TextStyle(

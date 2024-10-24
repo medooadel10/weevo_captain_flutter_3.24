@@ -144,7 +144,7 @@ class _ShipmentOfferItemState extends State<ShipmentOfferItem> {
                         ),
                         Expanded(
                           child: Text(
-                            '${authProvider.getStateNameById(int.parse(widget.shipmentOfferData.shipment!.deliveringState!))} - ${authProvider.getCityNameById(int.parse(widget.shipmentOfferData.shipment!.deliveringState!), int.parse(widget.shipmentOfferData.shipment!.deliveringCity!))}',
+                            '${authProvider.getStateNameById(int.tryParse(widget.shipmentOfferData.shipment!.deliveringState ?? 'غير محدد'))} - ${authProvider.getCityNameById(int.tryParse(widget.shipmentOfferData.shipment!.deliveringState ?? ''), int.tryParse(widget.shipmentOfferData.shipment!.deliveringCity ?? '')) ?? 'غير محدد'}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

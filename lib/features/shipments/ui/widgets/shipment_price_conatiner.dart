@@ -43,7 +43,7 @@ class ShipmentPriceContainer extends StatelessWidget {
                       horizontalSpace(5),
                       Expanded(
                         child: Text(
-                          '${shipment.slug != null ? shipment.amount.toStringAsFixed0() : product?.price} جنية',
+                          '${shipment.slug != null ? shipment.amount?.toStringAsFixed0() ?? 'غير محدد' : product?.price ?? 'غير محدد'} جنية',
                           style: TextStyle(
                             fontSize: 12.0.sp,
                             fontWeight: FontWeight.w600,
@@ -76,7 +76,7 @@ class ShipmentPriceContainer extends StatelessWidget {
                       child: Text(
                         shipment.flags != null && shipment.flags == 'fixAmount'
                             ? 'مدفوعة'
-                            : '${shipment.slug != null ? shipment.price?.toStringAsFixed0() : shipment.agreedShippingCost != null ? shipment.agreedShippingCost?.toStringAsFixed0() : shipment.expectedShippingCost?.toStringAsFixed0()} جنية',
+                            : '${shipment.slug != null ? shipment.price?.toStringAsFixed0() : shipment.agreedShippingCost != null ? shipment.agreedShippingCost?.toStringAsFixed0() : shipment.expectedShippingCost?.toStringAsFixed0() ?? 'غير محدد'} جنية',
                         style: TextStyle(
                           fontSize: 12.0.sp,
                           fontWeight: FontWeight.w600,

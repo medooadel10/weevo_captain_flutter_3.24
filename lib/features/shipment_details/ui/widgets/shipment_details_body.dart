@@ -61,12 +61,7 @@ class ShipmentDetailsBody extends StatelessWidget {
                               SliverToBoxAdapter(
                                 child: Column(
                                   children: [
-                                    ShipmentDetailsHeader(
-                                      image: shipmentDetails
-                                          .products[cubit.currentProductIndex]
-                                          .productInfo
-                                          .image,
-                                    ),
+                                    ShipmentDetailsHeader(),
                                     verticalSpace(10),
                                     ShipmentDetailsInfo(
                                       shipmentDetails: shipmentDetails,

@@ -130,7 +130,7 @@ class ChildShipmentItem extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            '${authProvider.getStateNameById(int.parse(shipment.receivingState!))} - ${authProvider.getCityNameById(int.parse(shipment.receivingState!), int.parse(shipment.receivingCity!))}',
+                            '${authProvider.getStateNameById(int.tryParse(shipment.receivingState ?? ''))} - ${authProvider.getCityNameById(int.tryParse(shipment.receivingState ?? ''), int.tryParse(shipment.receivingCity ?? '')) ?? 'غير محدد'}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -177,7 +177,7 @@ class ChildShipmentItem extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            '${authProvider.getStateNameById(int.parse(shipment.deliveringState!))} - ${authProvider.getCityNameById(int.parse(shipment.deliveringState!), int.parse(shipment.deliveringCity!))}',
+                            '${authProvider.getStateNameById(int.tryParse(shipment.deliveringState ?? ''))} - ${authProvider.getCityNameById(int.tryParse(shipment.deliveringState ?? ''), int.tryParse(shipment.deliveringCity ?? '')) ?? 'غير محدد'}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

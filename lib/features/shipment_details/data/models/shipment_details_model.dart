@@ -10,36 +10,36 @@ part 'shipment_details_model.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ShipmentDetailsModel {
   final int id;
-  final int parentId;
-  final String receivingState;
-  final String receivingCity;
-  final String receivingStreet;
+  final int? parentId;
+  final String? receivingState;
+  final String? receivingCity;
+  final String? receivingStreet;
   final String? receivingLandmark;
   final String? receivingBuildingNumber;
   final String? receivingFloor;
   final String? receivingApartment;
-  final String receivingLat;
-  final String receivingLng;
-  final String dateToReceiveShipment;
-  final String deliveringState;
-  final String deliveringCity;
-  final String deliveringStreet;
+  final String? receivingLat;
+  final String? receivingLng;
+  final String? dateToReceiveShipment;
+  final String? deliveringState;
+  final String? deliveringCity;
+  final String? deliveringStreet;
   final String? deliveringLandmark;
   final String? deliveringBuildingNumber;
   final String? deliveringFloor;
   final String? deliveringApartment;
-  final String deliveringLat;
-  final String deliveringLng;
-  final String dateToDeliverShipment;
-  final String clientName;
-  final String clientPhone;
+  final String? deliveringLat;
+  final String? deliveringLng;
+  final String? dateToDeliverShipment;
+  final String? clientName;
+  final String? clientPhone;
   final String? notes;
-  final String paymentMethod;
-  final String amount;
+  final String? paymentMethod;
+  final String? amount;
   final String? expectedShippingCost;
   final String? agreedShippingCost;
   final String? agreedShippingCostAfterDiscount;
-  final int merchantId;
+  final int? merchantId;
   final int? courierId;
   final String status;
   final String? handoverCodeCourierToMerchant;
@@ -48,16 +48,16 @@ class ShipmentDetailsModel {
   final String? handoverQrcodeMerchantToCourier;
   final String? handoverCodeCourierToCustomer;
   final String? handoverQrcodeCourierToCustomer;
-  final int isOfferBased;
-  final int closed;
+  final int? isOfferBased;
+  final int? closed;
   final String flags;
-  final StateModel receivingStateModel;
-  final CityModel receivingCityModel;
-  final StateModel deliveringStateModel;
-  final CityModel deliveringCityModel;
-  final String updatedAt;
-  final String createdAt;
-  final List<ProductModel> products;
+  final StateModel? receivingStateModel;
+  final CityModel? receivingCityModel;
+  final StateModel? deliveringStateModel;
+  final CityModel? deliveringCityModel;
+  final String? updatedAt;
+  final String? createdAt;
+  final List<ProductModel>? products;
   final List<ShipmentDetailsModel>? children;
   final MerchantModel? merchant;
   final dynamic distanceFromLocationToPickup;
@@ -165,13 +165,13 @@ class ShipmentDetailsModel {
         'is_offer_based': isOfferBased,
         'closed': closed,
         'flags': flags,
-        'receiving_state_model': receivingStateModel.toJson(),
-        'receiving_city_model': receivingCityModel.toJson(),
-        'delivering_state_model': deliveringStateModel.toJson(),
-        'delivering_city_model': deliveringCityModel.toJson(),
+        'receiving_state_model': receivingStateModel?.toJson(),
+        'receiving_city_model': receivingCityModel?.toJson(),
+        'delivering_state_model': deliveringStateModel?.toJson(),
+        'delivering_city_model': deliveringCityModel?.toJson(),
         'updated_at': updatedAt,
         'created_at': createdAt,
-        'products': products.map((e) => e.toJson()).toList(),
+        'products': products?.map((e) => e.toJson()).toList(),
         'children': children?.map((e) => e.toJson()).toList(),
         'courier': merchant?.toJson(),
       };

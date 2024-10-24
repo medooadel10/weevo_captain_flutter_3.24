@@ -183,12 +183,12 @@ class TrackingDialog extends StatelessWidget {
                             children: [
                               Text(
                                 model.shipmentDetailsModel?.receivingStateModel
-                                        .name ??
+                                        ?.name ??
                                     authProvider
-                                        .getStateNameById(
-                                            int.parse(model.receivingState!))
+                                        .getStateNameById(int.tryParse(
+                                            model.receivingState ?? ''))
                                         ?.toString() ??
-                                    '',
+                                    'غير محدد',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18.0.sp,
@@ -197,11 +197,13 @@ class TrackingDialog extends StatelessWidget {
                               ),
                               Text(
                                 model.shipmentDetailsModel?.receivingCityModel
-                                        .name ??
+                                        ?.name ??
                                     authProvider.getCityNameById(
-                                        int.parse(model.receivingState!),
-                                        int.parse(model.receivingCity!)) ??
-                                    '',
+                                        int.tryParse(
+                                            model.receivingState ?? ''),
+                                        int.tryParse(
+                                            model.receivingCity ?? '')) ??
+                                    'غير محددة',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
@@ -270,11 +272,11 @@ class TrackingDialog extends StatelessWidget {
                             children: [
                               Text(
                                 model.shipmentDetailsModel?.deliveringStateModel
-                                        .name ??
+                                        ?.name ??
                                     authProvider.getStateNameById(
-                                      int.parse(model.deliveringState!),
+                                      int.tryParse(model.deliveringState ?? ''),
                                     ) ??
-                                    '',
+                                    'غير محدد',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18.0.sp,
@@ -283,10 +285,12 @@ class TrackingDialog extends StatelessWidget {
                               ),
                               Text(
                                 model.shipmentDetailsModel?.deliveringCityModel
-                                        .name ??
+                                        ?.name ??
                                     authProvider.getCityNameById(
-                                        int.parse(model.deliveringState!),
-                                        int.parse(model.deliveringCity!)) ??
+                                        int.tryParse(
+                                            model.deliveringState ?? ''),
+                                        int.tryParse(
+                                            model.deliveringCity ?? '')) ??
                                     '',
                                 style: TextStyle(
                                   color: Colors.black,

@@ -31,7 +31,7 @@ class ShipmentLocations extends StatelessWidget {
             horizontalSpace(5),
             Expanded(
               child: Text(
-                '${shipment.receivingStateModel?.name} - ${shipment.receivingCityModel?.name}',
+                '${shipment.receivingStateModel != null ? shipment.receivingStateModel?.name : 'غير محدد'} - ${shipment.receivingCityModel != null ? shipment.receivingCityModel?.name : 'غير محدد'}',
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
@@ -64,7 +64,7 @@ class ShipmentLocations extends StatelessWidget {
             horizontalSpace(5),
             Expanded(
               child: Text(
-                '${shipment.deliveringStateModel.name} - ${shipment.deliveringCityModel.name}',
+                '${shipment.deliveringStateModel != null ? shipment.deliveringStateModel?.name : 'غير محدد'} - ${shipment.deliveringCityModel != null ? shipment.deliveringCityModel?.name : 'غير محدد'}',
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.bold,

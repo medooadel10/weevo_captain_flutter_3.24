@@ -9,15 +9,15 @@ class ShipmentModel {
   final String? receivingCity;
   final String? receivingState;
   final String? receivingStreet;
-  final StateModel deliveringStateModel;
-  final CityModel deliveringCityModel;
+  final StateModel? deliveringStateModel;
+  final CityModel? deliveringCityModel;
   final String? deliveringCity;
   final String? deliveringState;
   final String? deliveringStreet;
   final String? paymentMethod;
-  final String amount; // Product Price
+  final String? amount; // Product Price
   final String? price; // Shipment price // nullable for normal shipment
-  final String createdAt;
+  final String? createdAt;
   final List<ShipmentProductModel>? products; // nullable for wasully shipment
   final String? image; // nullable for normal shipment
   final String? slug; // nullable for normal shipment
@@ -27,7 +27,7 @@ class ShipmentModel {
   final String? agreedShippingCost;
   final List<ShipmentModel>?
       children; // nullable for normal shipment && wasully
-  final String status;
+  final String? status;
   final int? isOfferBased;
   final String? agreedShippingCostAfterDiscount;
   final String? flags;

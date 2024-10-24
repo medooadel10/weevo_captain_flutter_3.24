@@ -57,7 +57,7 @@ class ShipmentDetailsLocations extends StatelessWidget {
                     ),
                     verticalSpace(4),
                     Text(
-                      'من ${shipmentModel.receivingStateModel.name} - ${shipmentModel.receivingCityModel.name}',
+                      'من ${shipmentModel.receivingStateModel?.name ?? 'غير محدد'} - ${shipmentModel.receivingCityModel?.name ?? 'غير محدد'}',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12.sp,
@@ -66,7 +66,7 @@ class ShipmentDetailsLocations extends StatelessWidget {
                     ),
                     verticalSpace(4),
                     Text(
-                      shipmentModel.receivingStreet,
+                      shipmentModel.receivingStreet ?? 'غير محدد',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12.sp,
@@ -89,7 +89,8 @@ class ShipmentDetailsLocations extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      cubit.shipmentDetails!.dateToReceiveShipment.dateLabel,
+                      cubit.shipmentDetails!.dateToReceiveShipment?.dateLabel ??
+                          'غير محدد',
                       style: TextStyle(
                         color: weevoPrimaryOrangeColor,
                         fontSize: 12.sp,
@@ -98,11 +99,14 @@ class ShipmentDetailsLocations extends StatelessWidget {
                     ),
                     horizontalSpace(4),
                     Text(
-                      DateFormat('hh:mm a', 'ar-EG').format(
-                        DateTime.parse(
-                          cubit.shipmentDetails!.dateToReceiveShipment,
-                        ),
-                      ),
+                      cubit.shipmentDetails!.dateToReceiveShipment != null
+                          ? DateFormat('hh:mm a', 'ar-EG').format(
+                              DateTime.parse(
+                                cubit.shipmentDetails!.dateToReceiveShipment ??
+                                    '',
+                              ),
+                            )
+                          : 'غير محدد',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12.sp,
@@ -145,7 +149,7 @@ class ShipmentDetailsLocations extends StatelessWidget {
                       verticalSpace(4),
                     ],
                     Text(
-                      'إلي ${shipmentModel.deliveringStateModel.name} - ${shipmentModel.deliveringCityModel.name}',
+                      'إلي ${shipmentModel.deliveringStateModel?.name} - ${shipmentModel.deliveringCityModel?.name}',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12.sp,
@@ -154,7 +158,7 @@ class ShipmentDetailsLocations extends StatelessWidget {
                     ),
                     verticalSpace(4),
                     Text(
-                      shipmentModel.deliveringStreet,
+                      shipmentModel.deliveringStreet ?? 'غير محدد',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12.sp,
@@ -177,7 +181,8 @@ class ShipmentDetailsLocations extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      cubit.shipmentDetails!.dateToDeliverShipment.dateLabel,
+                      cubit.shipmentDetails!.dateToDeliverShipment?.dateLabel ??
+                          'غير محدد',
                       style: TextStyle(
                         color: weevoPrimaryBlueColor,
                         fontSize: 12.sp,
@@ -186,11 +191,14 @@ class ShipmentDetailsLocations extends StatelessWidget {
                     ),
                     horizontalSpace(4),
                     Text(
-                      DateFormat('hh:mm a', 'ar-EG').format(
-                        DateTime.parse(
-                          cubit.shipmentDetails!.dateToDeliverShipment,
-                        ),
-                      ),
+                      cubit.shipmentDetails!.dateToDeliverShipment != null
+                          ? DateFormat('hh:mm a', 'ar-EG').format(
+                              DateTime.parse(
+                                cubit.shipmentDetails!.dateToDeliverShipment ??
+                                    '',
+                              ),
+                            )
+                          : 'غير محدد',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12.sp,

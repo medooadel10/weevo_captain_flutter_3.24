@@ -23,7 +23,7 @@ class ShipmentProductDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                shipment.title ?? product!.productInfo.name,
+                shipment.title ?? product?.productInfo.name ?? 'غير محدد',
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
@@ -35,7 +35,7 @@ class ShipmentProductDetails extends StatelessWidget {
               Text(
                 shipment.slug != null
                     ? 'وصلي'
-                    : product!.productInfo.description,
+                    : product?.productInfo.description ?? 'غير محدد',
                 style: TextStyle(
                   fontSize: 12.0.sp,
                 ),

@@ -245,11 +245,13 @@ class ShipmentDialog extends StatelessWidget {
                           Text(
                             shipmentNotification.receivingState!.isInt()
                                 ? authProvider.getCityNameById(
-                                        int.parse(shipmentNotification
-                                            .receivingState!),
-                                        int.parse(shipmentNotification
-                                            .receivingCity!)) ??
-                                    ''
+                                        int.tryParse(shipmentNotification
+                                                .receivingState ??
+                                            ''),
+                                        int.tryParse(shipmentNotification
+                                                .receivingCity ??
+                                            '')) ??
+                                    'غير محدد'
                                 : shipmentNotification.receivingCity!,
                             style: const TextStyle(
                               fontWeight: FontWeight.w600,
@@ -280,11 +282,13 @@ class ShipmentDialog extends StatelessWidget {
                           Text(
                             shipmentNotification.deliveryState!.isInt()
                                 ? authProvider.getCityNameById(
-                                        int.parse(shipmentNotification
-                                            .deliveryState!),
-                                        int.parse(shipmentNotification
-                                            .deliveryCity!)) ??
-                                    ''
+                                        int.tryParse(shipmentNotification
+                                                .deliveryState ??
+                                            ''),
+                                        int.tryParse(
+                                            shipmentNotification.deliveryCity ??
+                                                '')) ??
+                                    'غير محدد'
                                 : shipmentNotification.deliveryCity!,
                             style: const TextStyle(
                               fontWeight: FontWeight.w600,

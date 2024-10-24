@@ -58,7 +58,8 @@ class ShipmentShippingBtn extends StatelessWidget {
                                 WeevoCaptain.facebookAppEvents
                                     .logInitiatedCheckout(
                                         totalPrice: num.parse(
-                                                cubit.shipmentDetails!.amount)
+                                                cubit.shipmentDetails!.amount ??
+                                                    '0')
                                             .toDouble(),
                                         currency: 'EGP');
                                 DocumentSnapshot userToken =
@@ -128,9 +129,9 @@ class ShipmentShippingBtn extends StatelessWidget {
                                 onChargeWalletCallback: () {
                                   Navigator.pop(c);
                                   walletProvider.setMainIndex(1);
-                                  walletProvider.setDepositAmount(
-                                      num.parse(cubit.shipmentDetails!.amount)
-                                          .toInt());
+                                  walletProvider.setDepositAmount(num.parse(
+                                          cubit.shipmentDetails!.amount ?? '0')
+                                      .toInt());
                                   walletProvider.setDepositIndex(1);
                                   walletProvider.fromOfferPage = true;
                                   Navigator.pushReplacementNamed(c, Wallet.id);
@@ -479,9 +480,9 @@ class ShipmentShippingBtn extends StatelessWidget {
                                 onChargeWalletCallback: () {
                                   Navigator.pop(c);
                                   walletProvider.setMainIndex(1);
-                                  walletProvider.setDepositAmount(
-                                      num.parse(cubit.shipmentDetails!.amount)
-                                          .toInt());
+                                  walletProvider.setDepositAmount(num.parse(
+                                          cubit.shipmentDetails!.amount ?? '0')
+                                      .toInt());
                                   walletProvider.setDepositIndex(1);
                                   walletProvider.fromOfferPage = true;
                                   Navigator.pushReplacementNamed(c, Wallet.id);

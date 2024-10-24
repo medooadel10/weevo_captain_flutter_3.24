@@ -74,10 +74,6 @@ class _ShipmentTileState extends State<ShipmentTile> {
             MagicRouter.navigateTo(
                 WasullyDetailsScreen(id: widget.shipment.id));
           } else {
-            // MagicRouter.navigateTo(ShipmentDetailsDisplay(
-            //   shipmentId: widget.shipment.id,
-            // ));
-
             MagicRouter.navigateTo(ShipmentDetailsScreen(
               id: widget.shipment.id,
             )).then((_) {
@@ -109,7 +105,7 @@ class _ShipmentTileState extends State<ShipmentTile> {
                   children: [
                     ShipmentImage(
                       image: widget.shipment.image ??
-                          product!.productInfo.image ??
+                          product?.productInfo.image ??
                           '',
                     ),
                     horizontalSpace(10),
@@ -203,10 +199,11 @@ class _ShipmentTileState extends State<ShipmentTile> {
                                             const EdgeInsets.only(right: 5.5),
                                         child: CustomImage(
                                           image: shipment.children![i]
-                                              .products![0].productInfo.image,
+                                              .products?[0].productInfo.image,
                                         ),
                                       ),
-                                      shipment.children!.length > 1
+                                      shipment.children!.isNotEmpty &&
+                                              shipment.children!.length > 1
                                           ? Container(
                                               padding:
                                                   const EdgeInsets.all(6.0),
@@ -255,8 +252,9 @@ class _ShipmentTileState extends State<ShipmentTile> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              shipment.children![i].products![0]
-                                                  .productInfo.name,
+                                              shipment.children![i].products?[0]
+                                                      .productInfo.name ??
+                                                  'غير محدد',
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               textDirection: TextDirection.rtl,
@@ -307,7 +305,7 @@ class _ShipmentTileState extends State<ShipmentTile> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          '${addShipmentProvider.getStateNameById(int.parse(shipment.children![i].receivingState ?? '0'))} - ${addShipmentProvider.getCityNameById(int.parse(shipment.children![i].receivingState ?? '0'), int.parse(shipment.children![i].receivingCity ?? '0'))}',
+                                          '${addShipmentProvider.getStateNameById(int.tryParse(shipment.children![i].receivingState ?? ''))} - ${addShipmentProvider.getCityNameById(int.tryParse(shipment.children![i].receivingState ?? ''), int.parse(shipment.children![i].receivingCity ?? '')) ?? 'غير محدد'}',
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                           style: TextStyle(
@@ -397,7 +395,7 @@ class _ShipmentTileState extends State<ShipmentTile> {
                                     horizontalSpace(5),
                                     Expanded(
                                       child: Text(
-                                        '${double.parse(shipment.children![i].amount).toInt()} جنيه',
+                                        '${shipment.children![i].amount != null ? double.parse(shipment.children![i].amount!).toInt() : 'غير محدد'} جنيه',
                                         style: TextStyle(
                                           fontSize: 12.0.sp,
                                           fontWeight: FontWeight.w600,

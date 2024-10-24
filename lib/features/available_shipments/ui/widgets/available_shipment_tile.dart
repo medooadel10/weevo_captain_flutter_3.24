@@ -277,8 +277,9 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              shipment.children![i].products![0]
-                                                  .productInfo.name,
+                                              shipment.children![i].products?[0]
+                                                      .productInfo.name ??
+                                                  'غير محدد',
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               textDirection: TextDirection.rtl,
@@ -288,8 +289,12 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
                                               ),
                                             ),
                                             Text(
-                                              shipment.children![i].products![0]
-                                                  .productInfo.description,
+                                              shipment
+                                                      .children![i]
+                                                      .products?[0]
+                                                      .productInfo
+                                                      .description ??
+                                                  'غير محدد',
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               textDirection: TextDirection.rtl,
@@ -329,7 +334,7 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          '${authProvider.getStateNameById(int.parse(shipment.children![i].receivingState ?? '0'))} - ${authProvider.getCityNameById(int.parse(shipment.children![i].receivingState ?? '0'), int.parse(shipment.children![i].receivingCity ?? '0'))}',
+                                          '${authProvider.getStateNameById(int.tryParse(shipment.children![i].receivingState ?? ''))} - ${authProvider.getCityNameById(int.tryParse(shipment.children![i].receivingState ?? ''), int.tryParse(shipment.children![i].receivingCity ?? '')) ?? 'غير محدد'}',
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                           style: TextStyle(
@@ -377,7 +382,7 @@ class _AvailableShipmentTileState extends State<AvailableShipmentTile> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          '${authProvider.getStateNameById(int.parse(shipment.children![i].deliveringState ?? '0'))} - ${authProvider.getCityNameById(int.parse(shipment.children![i].deliveringState ?? '0'), int.parse(shipment.children![i].deliveringCity ?? '0'))}',
+                                          '${authProvider.getStateNameById(int.tryParse(shipment.children![i].deliveringState ?? ''))} - ${authProvider.getCityNameById(int.parse(shipment.children![i].deliveringState ?? ''), int.parse(shipment.children![i].deliveringCity ?? '')) ?? 'غير محدد'}',
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                           style: TextStyle(

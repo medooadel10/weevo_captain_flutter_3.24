@@ -567,10 +567,10 @@ class AuthProvider with ChangeNotifier {
     return isAuthenticated;
   }
 
-  String? getStateNameById(int id) =>
+  String? getStateNameById(int? id) =>
       states.firstWhereOrNull((i) => i.id == id)?.name;
 
-  String? getCityNameById(int stateId, int cityId) => states
+  String? getCityNameById(int? stateId, int? cityId) => states
       .firstWhereOrNull((i) => i.id == stateId)
       ?.cities
       ?.firstWhereOrNull((c) => c.id == cityId)
